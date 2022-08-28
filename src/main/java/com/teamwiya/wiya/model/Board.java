@@ -1,14 +1,33 @@
 package com.teamwiya.wiya.model;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
+import javax.persistence.*;
 
+@Getter
+@NoArgsConstructor
 @Entity
-public class Board {
+public class Board extends TimeStamped{
 
-    @G
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Id
     private long id;
+
+    @Column(nullable = false)
+    private String title;
+
+    /*
+    @ManyToOne
+    @JoinColumn(name = "Member_ID")
+    private Member member;
+    */
+
+
+
+
+
+
+
 
 }
