@@ -1,14 +1,12 @@
 package com.teamwiya.wiya.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
 
-@Getter
+//@Getter@
+@Data
 @NoArgsConstructor
 @Entity
 @Builder
