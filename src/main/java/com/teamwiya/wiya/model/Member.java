@@ -12,7 +12,7 @@ import javax.persistence.*;
 public class Member {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name ="memId")
     private Long id; //pk -> memId
 
@@ -30,18 +30,5 @@ public class Member {
 
     @Enumerated(EnumType.STRING)
     private MemberRole role;
-
-    /*
-    public static Member createMember(MemberFormDTO memberFormDTO, PasswordEncoder passwordEncoder) {
-        Member member = Member.builder()
-                .memName(memberFormDTO.getMemName())
-                .memMail(memberFormDTO.getMemMail())
-                .memNickname(memberFormDTO.getMemNickname())
-                .memPwd(passwordEncoder.encode(memberFormDTO.getMemPwd()))
-                .role(MemberRole.USER)
-                .build();
-        return member;
-    }
-*/
 
 }
