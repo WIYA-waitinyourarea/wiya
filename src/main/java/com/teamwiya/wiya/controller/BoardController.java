@@ -25,11 +25,8 @@ public class BoardController {
         boardService.write(board);
         //System.out.println("내용 : " + board.getContent());
 
-
-
         model.addAttribute("message","글 작성이 완료되었습니다.");
         model.addAttribute("searchUrl","/board/list");
-
 
         return "message";
     }
@@ -38,7 +35,7 @@ public class BoardController {
     public String boardList(Model model){
 
         model.addAttribute("list",boardService.boardList());
-        return "boardList";
+        return "blog_standard_left_sidebar";
     }
 
     @GetMapping("/board/view")
