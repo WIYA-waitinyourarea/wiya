@@ -8,6 +8,13 @@
 
 <h1 th:text="${board.id}">#글번호입니다.</h1>
 <p th:text="${board.content}">내용이들어갈 부분이다.</p>
-
+<a th:href="@{/board/delete(id=${board.id})}">글삭제</a>
+<a th:href="@{/board/modify/{id}(id=${board.id})}">글수정</a>
 </body>
 </html>
+
+<!--어트리뷰트를 패스베리어블로 설정하는데 남는 값은 파라미터로 넘어감
+>> RedirectAttribute
+/board/delete/{id}(id=${board/id} name=${board.name})
+>> /board/delete/?id=3
+-->

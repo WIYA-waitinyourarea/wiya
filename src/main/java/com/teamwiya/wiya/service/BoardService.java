@@ -30,4 +30,8 @@ public class BoardService {
         return boardRepository.findById(id).get();
     }
 
+    public void boardDelete(Long id){
+        boardRepository.deleteById(id);
+    }
+
 }

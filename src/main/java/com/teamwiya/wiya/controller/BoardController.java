@@ -5,8 +5,7 @@ import com.teamwiya.wiya.service.BoardService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
 @Controller
@@ -21,12 +20,18 @@ public class BoardController {
 
 
     @PostMapping("/board/writepro")
-    public String boardWritePro(Board board){
+    public String boardWritePro(Board board, Model model){
 
         boardService.write(board);
         //System.out.println("내용 : " + board.getContent());
 
-        return "";
+
+
+        model.addAttribute("message","글 작성이 완료되었습니다.");
+        model.addAttribute("searchUrl","/board/list");
+
+
+        return "message";
     }
 
     @GetMapping("/board/list")
@@ -37,13 +42,35 @@ public class BoardController {
     }
 
     @GetMapping("/board/view")
-    public String boardView(Model model,Long id){
+    public String boardView(Model model, @RequestParam Long id){
 
         model.addAttribute("board",boardService.boardView(id));
 
         return "boardView";
     }
 
+    @GetMapping("/board/delete")
+    public String boaedDelete(@RequestParam Long id){
 
+        boardService.boardDelete(id);
+
+        return "redirect:/board/list";
+    }
+
+    @GetMapping("/board/modify/{id}")
+    public String boardModify(@PathVariable Long id, Model model){
+        model.addAttribute("board",boardService.boardView(id));
+        return "boardModify";
+    }
+
+    @PostMapping("/board/update/{id}")
+    public String boardUpdate(@PathVariable Long id,Board board){
+        Board boardTemp = boardService.boardView(id);       //기존에 있던 내용 가져오기
+        boardTemp.setContent(board.getContent());
+
+        boardService.write(boardTemp);
+
+        return "redirect:/board/list";
+    }
 
 }
