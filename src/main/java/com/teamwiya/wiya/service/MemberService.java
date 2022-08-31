@@ -3,6 +3,7 @@ package com.teamwiya.wiya.service;
 import com.teamwiya.wiya.model.Member;
 import com.teamwiya.wiya.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -11,11 +12,19 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class MemberService {
 
-    private final MemberRepository memberRepository;
+    @Autowired
+    private MemberRepository memberRepository;
 
-    public Member saveMember(Member member) {
+    public void register(Member member) {
+        memberRepository.save(member);
+    }
+
+/*
+
+    public Member join(Member member) {
         validateDuplicateMember(member);
-        return memberRepository.save(member);
+        memberRepository.save(member);
+        return member;
     }
 
     private void validateDuplicateMember(Member member) {
@@ -24,4 +33,7 @@ public class MemberService {
             throw new IllegalStateException("이미 가입된 회원입니다");
         }
     }
+*/
+
+
 }

@@ -34,24 +34,31 @@
     Stylesheets
     =============================================
     
+
     -->
     <!-- Default stylesheets-->
-    <link href="/assets/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="assets/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" th:href="@{/assets/lib/bootstrap/dist/css/bootstrap.min.css}">
     <!-- Template specific stylesheets-->
     <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:400,700" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Volkhov:400i" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet">
-    <link href="/assets/lib/animate.css/animate.css" rel="stylesheet">
-    <link href="/assets/lib/components-font-awesome/css/font-awesome.min.css" rel="stylesheet">
-    <link href="/assets/lib/et-line-font/et-line-font.css" rel="stylesheet">
-    <link href="/assets/lib/flexslider/flexslider.css" rel="stylesheet">
-    <link href="/assets/lib/owl.carousel/dist/assets/owl.carousel.min.css" rel="stylesheet">
-    <link href="/assets/lib/owl.carousel/dist/assets/owl.theme.default.min.css" rel="stylesheet">
-    <link href="/assets/lib/magnific-popup/dist/magnific-popup.css" rel="stylesheet">
-    <link href="/assets/lib/simple-text-rotator/simpletextrotator.css" rel="stylesheet">
+    <link href="assets/lib/animate.css/animate.css" rel="stylesheet" th:href="@{/assets/lib/animate.css/animate.css}">
+    <link href="assets/lib/components-font-awesome/css/font-awesome.min.css" rel="stylesheet" th:href="@{/assets/lib/components-font-awesome/css/font-awesome.min.css}">
+    <link href="assets/lib/et-line-font/et-line-font.css" rel="stylesheet" th:href="@{/assets/lib/et-line-font/et-line-font.css}">
+    <link href="assets/lib/flexslider/flexslider.css" rel="stylesheet" th:href="@{/assets/lib/flexslider/flexslider.css}">
+    <link href="assets/lib/owl.carousel/dist/assets/owl.carousel.min.css" rel="stylesheet" th:href="@{/assets/lib/owl.carousel/dist/assets/owl.carousel.min.css}">
+    <link href="assets/lib/owl.carousel/dist/assets/owl.theme.default.min.css" rel="stylesheet" th:href="@{/assets/lib/owl.carousel/dist/assets/owl.theme.default.min.css}">
+    <link href="assets/lib/magnific-popup/dist/magnific-popup.css" rel="stylesheet" th:href="@{/assets/lib/magnific-popup/dist/magnific-popup.css}">
+    <link href="assets/lib/simple-text-rotator/simpletextrotator.css" rel="stylesheet" th:href="@{/assets/lib/simple-text-rotator/simpletextrotator.css}">
     <!-- Main stylesheet and color file-->
-    <link href="/assets/css/style.css" rel="stylesheet">
-    <link id="color-scheme" href="/assets/css/colors/default.css" rel="stylesheet">
+
+    <link href="assets/css/style.css" rel="stylesheet" th:href="@{/assets/css/style.css}">
+
+    <!--    <link href="assets/css/style.css" rel="stylesheet">-->
+    <link id="color-scheme" href="assets/css/colors/default.css" rel="stylesheet" th:href="@{/assets/css/colors/default.css}">
+
+
+
   </head>
   <body data-spy="scroll" data-target=".onpage-navigation" data-offset="60">
     <main>
@@ -376,7 +383,7 @@
                     <input class="form-control" id="memMail" type="text" name="memMail" placeholder="이메일"/>
                   </div>
                   <div class="form-group">
-                    <input class="form-control" id="memPwd" type="password" name="memPwd" placeholder="비밀번호"/>
+                    <input class="form-control" id="memPassword" type="password" name="memPassword" placeholder="비밀번호"/>
                   </div>
                   <div class="form-group">
                     <button class="btn btn-round btn-b">Login</button>
@@ -387,7 +394,7 @@
               <div class="col-sm-5">
                 <h4 class="font-alt">회원가입</h4>
                 <hr class="divider-w mb-10">
-                <form class="form">
+                <form class="form" action="/register">
                   <div class="form-group">
                     <input class="form-control" id="E-mail" type="text" name="email" placeholder="이메일"/>
                   </div>
@@ -404,7 +411,7 @@
                     <input class="form-control" id="re-memPwd" type="password" name="re-memPwd" placeholder="비밀번호확인"/>
                   </div>
                   <div class="form-group">
-                    <button class="btn btn-block btn-round btn-b">Register</button>
+                    <button class="btn btn-block btn-round btn-b">가입하기</button>
                   </div>
                 </form>
               </div>
@@ -487,22 +494,22 @@
       </div>
       <div class="scroll-up"><a href="#totop"><i class="fa fa-angle-double-up"></i></a></div>
     </main>
-    <!--  
-    JavaScripts
-    =============================================
-    -->
-    <script src="/assets/lib/jquery/dist/jquery.js"></script>
-    <script src="/assets/lib/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="/assets/lib/wow/dist/wow.js"></script>
-    <script src="/assets/lib/jquery.mb.ytplayer/dist/jquery.mb.YTPlayer.js"></script>
-    <script src="/assets/lib/isotope/dist/isotope.pkgd.js"></script>
-    <script src="/assets/lib/imagesloaded/imagesloaded.pkgd.js"></script>
-    <script src="/assets/lib/flexslider/jquery.flexslider.js"></script>
-    <script src="/assets/lib/owl.carousel/dist/owl.carousel.min.js"></script>
-    <script src="/assets/lib/smoothscroll.js"></script>
-    <script src="/assets/lib/magnific-popup/dist/jquery.magnific-popup.js"></script>
-    <script src="/assets/lib/simple-text-rotator/jquery.simple-text-rotator.min.js"></script>
-    <script src="/assets/js/plugins.js"></script>
-    <script src="/assets/js/main.js"></script>
+    <!--
+        JavaScripts
+        =============================================
+        -->
+    <script src="assets/lib/jquery/dist/jquery.js" th:src="@{/assets/lib/jquery/dist/jquery.js}"> </script>
+    <script src="assets/lib/bootstrap/dist/js/bootstrap.min.js" th:src="@{/assets/lib/bootstrap/dist/js/bootstrap.min.js}"> </script>
+    <script src="assets/lib/wow/dist/wow.js" th:src="@{/assets/lib/wow/dist/wow.js}"> </script>
+    <script src="assets/lib/jquery.mb.ytplayer/dist/jquery.mb.YTPlayer.js" th:src="@{/assets/lib/jquery.mb.ytplayer/dist/jquery.mb.YTPlayer.js}"> </script>
+    <script src="assets/lib/isotope/dist/isotope.pkgd.js" th:src="@{/assets/lib/isotope/dist/isotope.pkgd.js}"> </script>
+    <script src="assets/lib/imagesloaded/imagesloaded.pkgd.js" th:src="@{/assets/lib/imagesloaded/imagesloaded.pkgd.js}"> </script>
+    <script src="assets/lib/flexslider/jquery.flexslider.js" th:src="@{/assets/lib/flexslider/jquery.flexslider.js}"> </script>
+    <script src="assets/lib/owl.carousel/dist/owl.carousel.min.js" th:src="@{/assets/lib/owl.carousel/dist/owl.carousel.min.js}"> </script>
+    <script src="assets/lib/smoothscroll.js" th:src="@{/assets/lib/smoothscroll.js}"> </script>
+    <script src="assets/lib/magnific-popup/dist/jquery.magnific-popup.js" th:src="@{/assets/lib/magnific-popup/dist/jquery.magnific-popup.js}"> </script>
+    <script src="assets/lib/simple-text-rotator/jquery.simple-text-rotator.min.js" th:src="@{/assets/lib/simple-text-rotator/jquery.simple-text-rotator.min.js}"> </script>
+    <script src="assets/js/plugins.js" th:src="@{/assets/js/plugins.js}"> </script>
+    <script src="assets/js/main.js" th:src="@{/assets/js/main.js}"> </script>
   </body>
 </html>

@@ -8,6 +8,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @Entity
 @Getter
+@Setter
 @Builder
 public class Member {
 
