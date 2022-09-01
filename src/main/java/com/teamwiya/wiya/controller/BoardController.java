@@ -15,7 +15,7 @@ public class BoardController {
 
     @GetMapping("/board/write")//localhost:8090/board/write
     public String boardWriteForm(){
-        return "boardWrite";
+        return "forms";
     }
 
 
@@ -43,7 +43,7 @@ public class BoardController {
 
         model.addAttribute("board",boardService.boardView(id));
 
-        return "boardView";
+        return "blog_single_left_sidebar";
     }
 
     @GetMapping("/board/delete")
@@ -57,7 +57,7 @@ public class BoardController {
     @GetMapping("/board/modify/{id}")
     public String boardModify(@PathVariable Long id, Model model){
         model.addAttribute("board",boardService.boardView(id));
-        return "boardModify";
+        return "formModify";
     }
 
     @PostMapping("/board/update/{id}")

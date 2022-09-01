@@ -4,6 +4,7 @@ import com.teamwiya.wiya.model.Board;
 import com.teamwiya.wiya.repository.BoardRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -22,7 +23,7 @@ public class BoardService {
 
     //게시글 리스트 처리
     public List<Board> boardList(){
-        return boardRepository.findAll();
+        return boardRepository.findAll(Sort.by(Sort.Direction.DESC,"modifiedAt"));
     }
 
     //특정 게시글 불러오기
