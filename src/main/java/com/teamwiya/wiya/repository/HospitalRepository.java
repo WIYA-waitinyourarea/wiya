@@ -3,7 +3,15 @@ package com.teamwiya.wiya.repository;
 import com.teamwiya.wiya.model.Hospital;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.List;
+
 //스프링에서 자동으로 프록시 -> 빈객체 생성해줌
 public interface HospitalRepository extends JpaRepository<Hospital, Long> {
+
+    /*병원명 검색*/
+    List<Hospital> findByHosNameContaining(String keyword) ;
+
+    /*동네 검색*/
+    List<Hospital> findByHosAddressContaining(String keyword);
 
 }

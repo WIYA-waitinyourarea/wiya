@@ -9,7 +9,7 @@ import javax.persistence.*;
 
 @Entity
 @Getter @Setter
-public class HosImg {
+public class HosImg extends TimeStamped{
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long himId;
