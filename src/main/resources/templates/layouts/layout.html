@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<!-- header 시작 -->
+<head th:replace="fragments/header :: headerFragment"></head>
+<!-- head 끝 -->
+
+<body data-spy="scroll" data-target=".onpage-navigation" data-offset="60">
+    <main>
+        <div class="page-loader"><div class="loader">Loading...</div></div>
+
+        <!-- nav 시작 -->
+        <header th:replace="fragments/nav :: navFragment"></header>
+        <!-- nav 끝 -->
+
+        <div class="main">
+
+            <!-- content(본페이지) 시작 -->
+            <div layout:fragment="content"></div>
+            <!-- content 끝 -->
+
+            <!-- footer 시작 -->
+            <footer th:replace="fragments/footer :: footerFragment"></footer>
+            <!-- footer 끝 -->
+
+        </div>
+
+        <div class="scroll-up"><a href="#totop"><i class="fa fa-angle-double-up"></i></a></div>
+
+    </main>
+
+    <!-- js 시작 -->
+    <th:block th:replace="fragments/js :: jsFragment"></th:block>
+    <th:block layout:fragment="js"></th:block> <!--이건 각 페이지의 개별 js를 위한 자리-->
+    <!-- js 끝-->
+
+</body>
+
+</html>
