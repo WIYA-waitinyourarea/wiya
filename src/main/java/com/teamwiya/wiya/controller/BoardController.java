@@ -19,7 +19,7 @@ public class BoardController {
     }
 
 
-    @PostMapping("/board/writepro")
+    @PostMapping("/board/write")
     public String boardWritePro(Board board, Model model){
 
         boardService.write(board);
@@ -35,7 +35,7 @@ public class BoardController {
     public String boardList(Model model){
 
         model.addAttribute("list",boardService.boardList());
-        return "blog_standard_left_sidebar";
+        return "boardList";
     }
 
     @GetMapping("/board/view")
@@ -43,7 +43,7 @@ public class BoardController {
 
         model.addAttribute("board",boardService.boardView(id));
 
-        return "blog_single_left_sidebar";
+        return "boardDetailView";
     }
 
     @GetMapping("/board/delete")
@@ -60,7 +60,7 @@ public class BoardController {
         return "formModify";
     }
 
-    @PostMapping("/board/update/{id}")
+    @PostMapping("/board/modify/{id}")
     public String boardUpdate(@PathVariable Long id,Board board){
         Board boardTemp = boardService.boardView(id);       //기존에 있던 내용 가져오기
         boardTemp.setContent(board.getContent());

@@ -247,7 +247,7 @@
                 <ul class="dropdown-menu" role="menu">
                   <li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown">Standard</a>
                     <ul class="dropdown-menu">
-                      <li><a href="blog_standard_left_sidebar.html">Left Sidebar</a></li>
+                      <li><a href="boardList.html">Left Sidebar</a></li>
                       <li><a href="blog_standard_right_sidebar.html">Right Sidebar</a></li>
                     </ul>
                   </li>
@@ -267,7 +267,7 @@
                   </li>
                   <li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown">Single</a>
                     <ul class="dropdown-menu">
-                      <li><a href="blog_single_left_sidebar.html">Left Sidebar</a></li>
+                      <li><a href="boardDetailView.html">Left Sidebar</a></li>
                       <li><a href="blog_single_right_sidebar.html">Right Sidebar</a></li>
                     </ul>
                   </li>
@@ -374,7 +374,7 @@
               <div class="col-sm-8 col-sm-offset-2">
                 <h4 class="font-alt mb-0">궁금증 질문하기</h4>
                 <hr class="divider-w mt-10 mb-20">
-                <form class="form" role="form" th:action="@{/board/update/{id}(id=${board.id})}" method="post">
+                <form class="form" role="form" th:action="@{/board/modify/{id}(id=${board.id})}" method="post">
                   <!--<div class="form-group">
                     <input class="form-control input-lg" type="text" placeholder="Large input"/>
                   </div>
