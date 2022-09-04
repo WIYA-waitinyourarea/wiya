@@ -99,7 +99,7 @@ To define which plugins are build into the distribution just edit `/_config.json
 
 ## Contributing
 
-Please read [CONTRIBUTING.md](../CONTRIBUTING.md).
+Please read [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## License
 
