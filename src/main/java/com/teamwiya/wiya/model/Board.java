@@ -21,11 +21,11 @@ public class Board extends TimeStamped{
     @Column(nullable = false)
     private String content;
 
-    /*
+
     @ManyToOne
     @JoinColumn(name = "Member_ID")
     private Member member;
-    */
+
 
     @OneToMany(mappedBy = "board", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
     @OrderBy("id asc") // 댓글 정렬

@@ -21,10 +21,8 @@ public class Comment extends TimeStamped{
     @JoinColumn(name = "Board_ID")
     private Board board;
 
-    /*
     @ManyToOne
-    @JoinColumn(name = "Board_ID")
+    @JoinColumn(name = "Member_ID")
     private Member member;
-    */
 
 }
