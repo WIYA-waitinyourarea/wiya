@@ -1,16 +1,17 @@
 package com.teamwiya.wiya.model;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Entity
 @Getter
-@ToString
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class Hospital extends TimeStamped{
 
     //1. PK / 2. 자동으로 값 생성(아이덴티티 전략 -> 디비가 생성)
@@ -25,9 +26,10 @@ public class Hospital extends TimeStamped{
     private HosStatus hosStatus;
 
     @Enumerated
-    private HosBooking hosBooking;
+    private HosBooking hosBooking; // 예약 가능 상태를 나타내는 값
 
-    private String hosAddress;
+    @Embedded
+    private Address hosAddress;
 
      private double hosLatitude;
 
@@ -38,4 +40,31 @@ public class Hospital extends TimeStamped{
      @OneToMany(mappedBy = "hospital", cascade = CascadeType.ALL)
      private List<HosImg> hosImgs = new ArrayList<>();
 
+    /*public Hospital(Long hosId, String hosName, String hosPhone, HosStatus hosStatus, HosBooking hosBooking, Address hosAddress, double hosLatitude, double hosLongitude, String hosOpenhour, List<HosImg> hosImgs) {
+        this.hosId = hosId;
+        this.hosName = hosName;
+        this.hosPhone = hosPhone;
+        this.hosStatus = hosStatus;
+        this.hosBooking = hosBooking;
+        this.hosAddress = hosAddress;
+        this.hosLatitude = hosLatitude;
+        this.hosLongitude = hosLongitude;
+        this.hosOpenhour = hosOpenhour;
+        this.hosImgs = hosImgs;
+    }*/
+
+    //이게 왜 퍼블릭으로밖에 안되는거지? @Builder에 대한 문제다
+
+
+    /*== 빌더패턴을 통한 생성 메소드 ==*/
+    public static Hospital createHospital(String hosName, String hosPhone, Address hosAddress, String hosOpenhour) {
+        return Hospital.builder()
+                .hosName(hosName)
+                .hosPhone(hosPhone)
+                .hosStatus(HosStatus.OPEN)
+                .hosBooking(HosBooking.POSSIBLE)
+                .hosAddress(hosAddress)
+                .hosOpenhour(hosOpenhour)
+                .build();
+     }
 }

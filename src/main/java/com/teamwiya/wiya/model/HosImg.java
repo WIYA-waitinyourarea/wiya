@@ -1,31 +1,55 @@
 package com.teamwiya.wiya.model;
 
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
+import java.io.File;
+import java.io.IOException;
+import java.util.UUID;
 
 
+@Slf4j
 @Entity
-@Getter @Setter
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class HosImg extends TimeStamped{
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long himId;
     @ManyToOne @JoinColumn(name = "hosId")
     private Hospital hospital;
-    @Column(name = "himPath")
     private String himPath;
-    @Column(name = "himMain")
     private boolean himMain;
 
-    public HosImg() {
+
+    /*== 생성 메소드 ==*/
+    /*private final static String fileDir = "resources/static/";*/
+
+    public static HosImg createHosImg(Hospital hospital, MultipartFile file){
+        String path = file.getOriginalFilename();
+        String savedPath = System.getProperty("user.dir") + "/out/production/resources/static/images/upload";
+        File existChk = new File(savedPath);
+        if(!existChk.exists()) existChk.mkdirs();
+        String savedFile = UUID.randomUUID().toString().replaceAll("-", "") // 서버에 저장할 파일 명으로 쓸 UUID (중복방지)
+                + path.substring(path.lastIndexOf(".")); // 확장자 명 추출
+        log.info("filePath={}", savedPath);
+        log.info("fileFile={}", savedFile);
+        try {
+            file.transferTo(new File(savedPath, savedFile));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return HosImg.builder()
+                .hospital(hospital)
+                .himPath("/images/upload/" + savedFile)
+                //.himPath(savedPath+"/"+savedFile)
+                .build();
     }
 
-    public HosImg(Hospital hospital, String himPath, boolean himMain) {
-        this.hospital = hospital;
-        this.himPath = himPath;
-        this.himMain = himMain;
-    }
 }

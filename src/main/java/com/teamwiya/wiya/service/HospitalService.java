@@ -1,28 +1,50 @@
 package com.teamwiya.wiya.service;
 
+import com.teamwiya.wiya.dto.HospitalNewForm;
+import com.teamwiya.wiya.model.Address;
+import com.teamwiya.wiya.model.HosImg;
 import com.teamwiya.wiya.model.Hospital;
+import com.teamwiya.wiya.repository.HosImgRepository;
 import com.teamwiya.wiya.repository.HospitalRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
-import java.util.Optional;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 @Transactional
 public class HospitalService {
+    @Value("${file.dir}")
+    private static String fileDir;
 
     private final HospitalRepository hospitalRepository;
+    private final HosImgRepository hosImgRepository;
 
     /**
      * 병원 등록하는 로직
-     * @param hospital
+     * @param hospitalNewForm
      * @return 병원 등록한 후 해당 아이디 반환
      */
-    public Long registerHos(Hospital hospital) {
+    public Long registerHos(HospitalNewForm hospitalNewForm) {
+        log.info("file.dir={}", fileDir);
         // 병원 등록하기 전 검증해야될 내용은 없을까?
+        // 병원 엔티티를 만드는 내용
+        Address address = new Address();
+        Hospital hospital = Hospital.createHospital(
+                hospitalNewForm.getHosName(),
+                hospitalNewForm.getHosPhone(),
+                address,
+                hospitalNewForm.getHosOpenHour()
+        ); // 이 시점에 엔티티 생성
+        // 병원을 저장하는 내용
         hospitalRepository.save(hospital);
         return hospital.getHosId();
     }
@@ -37,8 +59,8 @@ public class HospitalService {
      * @return Hospital
      */
     @Transactional(readOnly = true)
-    public Optional<Hospital> findHospital(Long hospitalId) {
-        return hospitalRepository.findById(hospitalId);
+    public Hospital findHospital(Long hospitalId) {
+        return hospitalRepository.findOne(hospitalId);
     }
 
     /**
@@ -52,4 +74,10 @@ public class HospitalService {
         return hospitalRepository.findByHosNameContaining(keyword);
     }
 
+    public void registerHosImgs(Hospital hospital, List<MultipartFile> files) {
+        for (MultipartFile file : files) {
+            HosImg hosImg = HosImg.createHosImg(hospital, file);
+            hosImgRepository.save(hosImg);
+        }
+    }
 }

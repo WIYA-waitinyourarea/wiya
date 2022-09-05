@@ -1,10 +1,12 @@
 package com.teamwiya.wiya.controller;
 
+import com.teamwiya.wiya.dto.HospitalNewForm;
 import com.teamwiya.wiya.model.Hospital;
 import com.teamwiya.wiya.repository.HospitalRepository;
 import com.teamwiya.wiya.service.HospitalService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,6 +14,11 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.File;
+import java.io.IOException;
+import java.util.List;
 import java.util.Optional;
 
 @Slf4j
@@ -35,32 +42,36 @@ public class HospitalController {
 
     /**
      *
-     * @param hospital 뉴폼에서 넘긴 요청 파라미터들로 Hospital 객체를 만듦 > 모델에 저장
+     * @param hospitalNewForm 으로 넘긴 요청 파라미터들로 Hospital 객체를 만듦 > 모델에 저장
      * //@param model 뷰페이지 렌더링할떄 넘길 병원 정보를 받기 위한 모델 객체 >> 모델 어트리뷰트로 자동 애드
      * @return 저장한 병원의 상세페이지에 대한 논리이름을 반환
      */
     @PostMapping(value = "/add")
     public String add(
             Model model,
-            @ModelAttribute("hospital") Hospital hospital,
-            @RequestParam String hosName,
-            RedirectAttributes redirectAttributes
-    ){
-
-        log.info("hosName = " + hosName);
-        Long hospitalId = hospitalService.registerHos(hospital);
-        //model.addAttribute("hospital", savedHospital);
+            @ModelAttribute HospitalNewForm hospitalNewForm,
+            @RequestParam List<MultipartFile> hosImgs,
+            RedirectAttributes redirectAttributes,
+            HttpServletRequest request
+    ) throws IOException {
+        String absPath = request.getServletContext().getRealPath("/resources/img/upload");
+        log.info("absPath={}",absPath);
+        Long hospitalId = hospitalService.registerHos(hospitalNewForm);
+        Hospital hospital = hospitalRepository.findOne(hospitalId);
+        //if (!hosImgs.isEmpty()) hospitalService.registerHosImgs(hospital, hosImgs, absPath);
+        if (!hosImgs.isEmpty()) hospitalService.registerHosImgs(hospital, hosImgs);
+        model.addAttribute("hospital", hospital);
         redirectAttributes.addAttribute("hospitalId", hospitalId);
         return "redirect:/hospital/detail/{hospitalId}";
     }
 
+
     @GetMapping("/detail/{hospitalId}")
     public String detail(@PathVariable Long hospitalId,
                          Model model) {
-        Optional<Hospital> hospital = hospitalService.findHospital(hospitalId);
-
+        Hospital hospital = hospitalService.findHospital(hospitalId);
         //여기서 널이면 예외를 발생시켜야할까??????
-        model.addAttribute("hospital", hospital.orElse(null));
+        model.addAttribute("hospital", hospital);
         return "hospital/detail";
     }
 

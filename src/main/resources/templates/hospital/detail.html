@@ -11,13 +11,18 @@
     <section class="module">
         <div class="container">
             <div class="row">
-        <!--        <div class="col-sm-6 mb-sm-40"><a class="gallery" href="/assets/images/shop/product-7.jpg"><img src="assets/images/shop/product-7.jpg" alt="Single Product Image"/></a>
-                    <ul class="product-gallery">
+                <div class="col-sm-6 mb-sm-40">
+                    <a class="gallery" href="/assets/images/shop/product-7.jpg">
+                        <th:block th:each="hosImg:${hospital.hosImgs}" >
+                            <img th:src="${hosImg.himPath}"/>
+                        </th:block>
+                    </a>
+<!--                    <ul class="product-gallery">
                         <li><a class="gallery" href="/assets/images/shop/product-8.jpg"></a><img src="assets/images/shop/product-8.jpg" alt="Single Product"/></li>
                         <li><a class="gallery" href="/assets/images/shop/product-9.jpg"></a><img src="assets/images/shop/product-9.jpg" alt="Single Product"/></li>
                         <li><a class="gallery" href="/assets/images/shop/product-10.jpg"></a><img src="assets/images/shop/product-10.jpg" alt="Single Product"/></li>
-                    </ul>
-                </div>-->
+                    </ul>-->
+                </div>
                 <div class="col-sm-6">
                     <div class="row">
                         <div class="col-sm-12">
@@ -51,7 +56,7 @@
                         <div class="col-sm-4 mb-sm-20">
                             <input class="form-control input-lg" type="number" name="" value="1" max="40" min="1" required="required"/>
                         </div>
-                        <div class="col-sm-8"><a class="btn btn-lg btn-block btn-round btn-b" href="#">Add To Cart</a></div>
+                        <div class="col-sm-8"><a class="btn btn-lg btn-block btn-round btn-b" href="#">줄서기</a></div>
                     </div>
                     <div class="row mb-20">
                         <div class="col-sm-12">
@@ -174,7 +179,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-sm-6 col-sm-offset-3">
-                    <h2 class="module-title font-alt">Related Products</h2>
+                    <h2 class="module-title font-alt">근처 병원</h2>
                 </div>
             </div>
             <div class="row multi-columns-row">
@@ -214,7 +219,7 @@
         </div>
     </section>
     <hr class="divider-w">
-    <section class="module">
+<!--    <section class="module">
         <div class="container">
             <div class="row">
                 <div class="col-sm-6 col-sm-offset-3">
@@ -269,7 +274,7 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section>-->
 </th:block>
 
 
