@@ -497,7 +497,7 @@
                 <!--@@@댓글은 여기서 코딩하면된다.-->
                 <div class="comment-form" >
                   <h4 class="comment-form-title font-alt">Add your comment</h4>
-                  <form method="post">
+                  <form>
                     <div class="form-group">
                       <label class="sr-only" for="name">Name</label>
                       <input class="form-control" id="name" type="text" name="name" placeholder="Name"/>
@@ -509,8 +509,10 @@
                     <div class="form-group">
                       <textarea class="form-control" id="comment" name="comment" rows="4" placeholder="Comment" ></textarea>
                     </div>
-                    <button class="btn btn-round btn-d" type="submit" onclick="enrollComment()">Post comment</button>
+
                   </form>
+                  <button class="btn btn-round btn-d" onclick="enrollComment()">Post comment</button>
+
                 </div>
               </div>
             </div>
@@ -598,10 +600,14 @@
     =============================================
     -->
 
-    <script>
+    <script th:inline="javascript">
+      /*<![CDATA[*/
       function enrollComment(){
-        let cmt = $('boardCmt').val();
+        let cmt = $('#comment').val();
+        let bid = /*[[${board.id}]]*/;
 
+        console.log("check")
+        console.log(bid)
         if(cmt==''){
           alert("댓글을 입력해 주세요")
           return
@@ -609,27 +615,38 @@
 
         $.ajax({
           type:"POST",
-          url :'/comment/enroll',/*응답으로 comment 를 받아와야함*/
-          success: function(response){
-            let comments =response;
-            let tempHtml = addComment(comments);
-            $('#entireComment').append(tempHtml)
+          url : '/comment/enroll',/*응답으로 comment 를 받아와야함*/
+          dataType:"JSON",
+          contentType: "application/json",
+          data : JSON.stringify({
+            "content" : cmt,
+            "boardId" : bid
+          }),
 
+          success: function(response){
+                alert("데이터 저장 성공");
+                let tempHtml = addComment(response)
+                $('#entireComment').append(tempHtml)
+
+          },error: function (){
+                alert('데이터 저장 실패');
           }
         })
 
       }
-
+      /*]]>*/
 
       function addComment(comments){
+        let yearmonthday = comments.modifiedAt.substring(0,10);
+        let time = comments.modifiedAt.substring(11,16);
         return `<div class="comment clearfix">
                     <div class="comment-avatar"><img src="https://s3.amazonaws.com/uifaces/faces/twitter/ryanbattles/128.jpg" alt="avatar"/></div>
                     <div class="comment-content clearfix">
-                      <div class="comment-author font-alt"><a href="#">새로운글 </a></div>
+                      <div class="comment-author font-alt" ><a href="#">작성자 </a></div>
                       <div class="comment-body">
-                        <p>새로운글 본문</p>
+                        <p>${comments.content}</p>
                       </div>
-                      <div class="comment-meta font-alt">Today, 14:55 - <a href="#">Reply</a>
+                      <div class="comment-meta font-alt">${yearmonthday} ${time}<a href="#"></a>
                       </div>
                     </div>`
 

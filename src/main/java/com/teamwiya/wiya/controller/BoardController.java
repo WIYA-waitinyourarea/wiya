@@ -1,6 +1,9 @@
 package com.teamwiya.wiya.controller;
 
 import com.teamwiya.wiya.model.Board;
+import com.teamwiya.wiya.model.Comment;
+import com.teamwiya.wiya.model.CommentRequestDTO;
+import com.teamwiya.wiya.repository.CommentRepository;
 import com.teamwiya.wiya.service.BoardService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -12,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 public class BoardController {
 
     private final BoardService boardService;
+    private final CommentRepository commentRepository;
 
     @GetMapping("/board/write")//localhost:8090/board/write
     public String boardWriteForm(){
@@ -69,8 +73,5 @@ public class BoardController {
 
         return "redirect:/board/list";
     }
-
-
-
 
 }
