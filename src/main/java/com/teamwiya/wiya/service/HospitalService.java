@@ -37,7 +37,7 @@ public class HospitalService {
         log.info("file.dir={}", fileDir);
         // 병원 등록하기 전 검증해야될 내용은 없을까?
         // 병원 엔티티를 만드는 내용
-        Address address = new Address();
+        Address address = Address.createAddress(hospitalNewForm); //임베디드 타입
         Hospital hospital = Hospital.createHospital(
                 hospitalNewForm.getHosName(),
                 hospitalNewForm.getHosPhone(),

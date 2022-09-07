@@ -29,8 +29,12 @@ public class HosImg extends TimeStamped{
 
 
     /*== 생성 메소드 ==*/
-    /*private final static String fileDir = "resources/static/";*/
-
+    /**
+     * 메소드가 너무 길다 일단 좀 나눌 필요가 있다. 이기능들이 다 여기있는게 옳은건지 좀 고민해보기
+     * @param hospital
+     * @param file
+     * @return
+     */
     public static HosImg createHosImg(Hospital hospital, MultipartFile file){
         String path = file.getOriginalFilename();
         String savedPath = System.getProperty("user.dir") + "/out/production/resources/static/images/upload";
@@ -41,12 +45,11 @@ public class HosImg extends TimeStamped{
         log.info("filePath={}", savedPath);
         log.info("fileFile={}", savedFile);
         try {
-            file.transferTo(new File(savedPath, savedFile));
+            file.transferTo(new File(savedPath, savedFile)); 
         } catch (IOException e) {
             e.printStackTrace();
         }
         return HosImg.builder()
-                .hospital(hospital)
                 .himPath("/images/upload/" + savedFile)
                 //.himPath(savedPath+"/"+savedFile)
                 .build();

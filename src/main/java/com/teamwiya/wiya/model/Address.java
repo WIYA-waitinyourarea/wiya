@@ -1,11 +1,18 @@
 package com.teamwiya.wiya.model;
 
-import lombok.Getter;
+import com.teamwiya.wiya.dto.HospitalNewForm;
+import com.teamwiya.wiya.util.AddressToCoordinate;
+import lombok.*;
+import org.json.simple.JSONObject;
 
 import javax.persistence.Embeddable;
 
 @Embeddable
 @Getter
+@Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Address {
 
     private String sido; //서울
@@ -17,16 +24,19 @@ public class Address {
     private double x;
     private double y;
 
-    public Address() {}
-
-    public Address(String sido, String siqungu, String bname, String jibunAddress, String roadAddress, String sangse, double x, double y) {
-        this.sido = sido;
-        this.siqungu = siqungu;
-        this.bname = bname;
-        this.jibunAddress = jibunAddress;
-        this.roadAddress = roadAddress;
-        this.sangse = sangse;
-        this.x = x;
-        this.y = y;
+    public static Address createAddress (HospitalNewForm hospitalNewForm) {
+        AddressToCoordinate addressToCoordinate = new AddressToCoordinate();
+        JSONObject jsonObject = addressToCoordinate.coordinate(hospitalNewForm.getJibunAddress());
+        JSONObject roadJoso = addressToCoordinate.newAddressJson(jsonObject);
+        return Address.builder()
+                .sido((String) roadJoso.get("region_1depth_name"))
+                .siqungu((String) roadJoso.get("region_2depth_name"))
+                .bname((String) roadJoso.get("region_3depth_name"))
+                .jibunAddress(hospitalNewForm.getJibunAddress())
+                .roadAddress((String) roadJoso.get("address_name"))
+                .sangse(hospitalNewForm.getSangse())
+                .x(Double.parseDouble((String) jsonObject.get("x")))
+                .y(Double.parseDouble((String) jsonObject.get("y")))
+                .build();
     }
 }

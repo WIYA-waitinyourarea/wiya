@@ -51,12 +51,9 @@ public class HospitalController {
             Model model,
             @ModelAttribute HospitalNewForm hospitalNewForm,
             @RequestParam List<MultipartFile> hosImgs,
-            RedirectAttributes redirectAttributes,
-            HttpServletRequest request
-    ) throws IOException {
-        String absPath = request.getServletContext().getRealPath("/resources/img/upload");
-        log.info("absPath={}",absPath);
-        Long hospitalId = hospitalService.registerHos(hospitalNewForm);
+            RedirectAttributes redirectAttributes
+    ) {
+        Long hospitalId = hospitalService.registerHos(hospitalNewForm); //병원저장
         Hospital hospital = hospitalRepository.findOne(hospitalId);
         //if (!hosImgs.isEmpty()) hospitalService.registerHosImgs(hospital, hosImgs, absPath);
         if (!hosImgs.isEmpty()) hospitalService.registerHosImgs(hospital, hosImgs);
