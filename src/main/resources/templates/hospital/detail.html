@@ -12,12 +12,26 @@
         <div class="container">
             <div class="row">
                 <div class="col-sm-6 mb-sm-40">
-                    <a class="gallery" href="/assets/images/shop/product-7.jpg">
+                    <th:block th:each="hosImg,i:${hospital.hosImgs}">
+                        <th:block th:if="${i.index} == 0">
+                            <a class="gallery" th:href="${hosImg.himPath}">
+                                <img th:src="${hosImg.himPath}"/>
+                            </a>
+                        </th:block>
+                    </th:block>
+                    <ul class="product-gallery">
+                    <th:block th:each="hosImg,i:${hospital.hosImgs}">
+                        <th:block th:if="${i.index} > 0">
+                            <li><a class="gallery" th:href="${hosImg.himPath}"></a><img th:src="${hosImg.himPath}"/></li>
+                        </th:block>
+                    </th:block>
+                    </ul>
+<!--                    <a class="gallery" href="/assets/images/shop/product-7.jpg">
                         <th:block th:each="hosImg:${hospital.hosImgs}" >
                             <img th:src="${hosImg.himPath}"/>
                         </th:block>
                     </a>
-<!--                    <ul class="product-gallery">
+                    <ul class="product-gallery">
                         <li><a class="gallery" href="/assets/images/shop/product-8.jpg"></a><img src="assets/images/shop/product-8.jpg" alt="Single Product"/></li>
                         <li><a class="gallery" href="/assets/images/shop/product-9.jpg"></a><img src="assets/images/shop/product-9.jpg" alt="Single Product"/></li>
                         <li><a class="gallery" href="/assets/images/shop/product-10.jpg"></a><img src="assets/images/shop/product-10.jpg" alt="Single Product"/></li>
@@ -42,7 +56,7 @@
                     </div>
                     <div class="row mb-20">
                         <div class="col-sm-12">
-                            <div class="price font-alt"><span class="amount" th:text="${hospital.hosAddress}">병원 주소</span></div>
+                            <div class="price font-alt"><span class="amount" th:text="${hospital.hosAddress.jibunAddress}">병원 주소</span></div>
                         </div>
                     </div>
                     <div class="row mb-20">

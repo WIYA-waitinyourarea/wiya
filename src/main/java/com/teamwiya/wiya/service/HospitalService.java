@@ -13,8 +13,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.List;
 
 @Slf4j
@@ -27,14 +25,14 @@ public class HospitalService {
 
     private final HospitalRepository hospitalRepository;
     private final HosImgRepository hosImgRepository;
-
     /**
      * 병원 등록하는 로직
+     *
      * @param hospitalNewForm
+     * @param hosImgs
      * @return 병원 등록한 후 해당 아이디 반환
      */
     public Long registerHos(HospitalNewForm hospitalNewForm) {
-        log.info("file.dir={}", fileDir);
         // 병원 등록하기 전 검증해야될 내용은 없을까?
         // 병원 엔티티를 만드는 내용
         Address address = Address.createAddress(hospitalNewForm); //임베디드 타입
@@ -74,7 +72,8 @@ public class HospitalService {
         return hospitalRepository.findByHosNameContaining(keyword);
     }
 
-    public void registerHosImgs(Hospital hospital, List<MultipartFile> files) {
+    public void registerHosImgs(Long hospitalId, List<MultipartFile> files) {
+        Hospital hospital = hospitalRepository.findOne(hospitalId);
         for (MultipartFile file : files) {
             HosImg hosImg = HosImg.createHosImg(hospital, file);
             hosImgRepository.save(hosImg);

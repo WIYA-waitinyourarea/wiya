@@ -8,7 +8,7 @@ import java.sql.Timestamp;
 
 @Entity
 @Getter @Setter
-public class Booking {
+public class Booking extends TimeStamped {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long booId;
@@ -16,10 +16,6 @@ public class Booking {
     private Member member;
     @ManyToOne @JoinColumn(name = "hosId")
     private Hospital hospital;
-    //DATETIME VS TIME 뭘로할지 모르겠음
-    @Column(name = "booTime")
-    private Timestamp booTime;
-    //이건 스트링? 인트? 뭘로하지? 불리언으론 안될거같음
-    @Column(name = "booState")
-    private int booState;
+    @Enumerated
+    private BooState booState;
 }

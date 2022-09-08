@@ -54,9 +54,9 @@ public class HospitalController {
             RedirectAttributes redirectAttributes
     ) {
         Long hospitalId = hospitalService.registerHos(hospitalNewForm); //병원저장
-        Hospital hospital = hospitalRepository.findOne(hospitalId);
         //if (!hosImgs.isEmpty()) hospitalService.registerHosImgs(hospital, hosImgs, absPath);
-        if (!hosImgs.isEmpty()) hospitalService.registerHosImgs(hospital, hosImgs);
+        if (!hosImgs.isEmpty()) hospitalService.registerHosImgs(hospitalId, hosImgs);
+        Hospital hospital = hospitalRepository.findOne(hospitalId);
         model.addAttribute("hospital", hospital);
         redirectAttributes.addAttribute("hospitalId", hospitalId);
         return "redirect:/hospital/detail/{hospitalId}";
@@ -67,6 +67,7 @@ public class HospitalController {
     public String detail(@PathVariable Long hospitalId,
                          Model model) {
         Hospital hospital = hospitalService.findHospital(hospitalId);
+        log.info("hospitalimg={}", hospital.getHosImgs().get(0).getHimPath());
         //여기서 널이면 예외를 발생시켜야할까??????
         model.addAttribute("hospital", hospital);
         return "hospital/detail";

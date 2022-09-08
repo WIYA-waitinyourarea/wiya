@@ -6,6 +6,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sun.xml.bind.v2.runtime.Coordinator;
 import com.teamwiya.wiya.model.AddressCoo;
+import lombok.extern.slf4j.Slf4j;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -29,13 +30,14 @@ public class AddressToCoordinate {
     private static final String KAKAO_LOCAL_URL="http://dapi.kakao.com/v2/local/search/address.json?query="; // '카카오 로컬' REST API
     private static final String KAKAO_LOCAL_USER="KakaoAK 69675018b3453e8e2691782995b377d5"; // 카카오에서 발급받은 키
 
+
     public JSONObject coordinate(String address){
         String urlAddress;
+        System.out.println("address = " + address);
         URL obj;
         HttpURLConnection conn;
         String inputLine;
         StringBuilder response;
-        AddressCoo addressCoo;
         try {
             urlAddress = URLEncoder.encode(address, StandardCharsets.UTF_8);
             obj = new URL(KAKAO_LOCAL_URL+urlAddress); // API 통신을 위한 URL 객체 생성

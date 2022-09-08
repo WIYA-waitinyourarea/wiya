@@ -45,12 +45,13 @@ public class HosImg extends TimeStamped{
         log.info("filePath={}", savedPath);
         log.info("fileFile={}", savedFile);
         try {
-            file.transferTo(new File(savedPath, savedFile)); 
+            file.transferTo(new File(savedPath, savedFile));
         } catch (IOException e) {
             e.printStackTrace();
         }
         return HosImg.builder()
                 .himPath("/images/upload/" + savedFile)
+                .hospital(hospital)
                 //.himPath(savedPath+"/"+savedFile)
                 .build();
     }
