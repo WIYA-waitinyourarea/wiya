@@ -12,9 +12,9 @@ import java.util.List;
 @RequiredArgsConstructor
 public class BookingRepository {
 
-    private EntityManager em;
-    private MemberRepository memberRepository;
-    private HospitalRepository hospitalRepository;
+    private final EntityManager em;
+    private final MemberRepository memberRepository;
+    private final HospitalRepository hospitalRepository;
 
     public void save(Booking booking) {
         em.persist(booking);
