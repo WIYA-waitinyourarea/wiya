@@ -3,8 +3,7 @@ package com.teamwiya.wiya.dto;
 import lombok.Data;
 
 @Data
-public class BookingDTO {
+public class BookingNewDTO {
     private Long memId;
     private Long hosId;
-    private int count;
 }

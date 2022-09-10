@@ -20,26 +20,40 @@ public class BookingRepository {
         em.persist(booking);
     }
 
-    public List<Booking> findOne(Long memberId, Long hospitalId) {
+    public List<Booking> findOne(Long memId, Long hosId) {
         return  em.createQuery("select b " +
                 "from Booking  b " +
-                "where b.member.id = :memberId " +
-                "and b.hospital.hosId = :hospitalId " +
-                "and b.booState = 1 ", Booking.class)
-                .setParameter("memberId", 1L)
-                .setParameter("hospitalId", hospitalId)
+                "where b.member.id = :memId " +
+                "and b.hospital.hosId = :hosId " +
+                "and b.booState = :booState ", Booking.class)
+                .setParameter("memId", memId)
+                .setParameter("hosId", hosId)
+                .setParameter("booState", BooState.WAITING)
                 .getResultList();
 
     }
 
     /*동적쿼리로 바꿔야될 듯*/
-    public List<Booking> findByMember(Long memberId) {
+    public List<Booking> findByMember(Long memId) {
         return  em.createQuery("select b " +
                         "from Booking  b " +
-                        "where b.member.id = :memberId " +
-                        "and b.booState = 1 ", Booking.class)
-                .setParameter("memberId", 1L)
+                        "where b.member.id = :memId " +
+                        "and b.booState = 0 ", Booking.class)
+                .setParameter("memId", 1L)
                 .getResultList();
     }
 
+    /* count를 하는 방법을 알 수 있을까?*/
+    public List<Booking> checkRank(Booking booking) {
+        return em.createQuery("select b " +
+                "from Booking b " +
+                "where b.hospital.hosId = :hosId " +
+                "and b.modifiedAt < :time " +
+                "and b.booState = :booState", Booking.class)
+                .setParameter("hosId", booking.getHospital().getHosId())
+                .setParameter("time", booking.getModifiedAt())
+                .setParameter("booState", BooState.WAITING)
+                .getResultList();
+
+    }
 }

@@ -1,5 +1,6 @@
 package com.teamwiya.wiya.repository;
 
+import com.teamwiya.wiya.model.Booking;
 import com.teamwiya.wiya.model.Hospital;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.jpa.repository.JpaRepository;

@@ -1,10 +1,15 @@
 package com.teamwiya.wiya.controller;
 
-import com.teamwiya.wiya.dto.BookingDTO;
+import com.teamwiya.wiya.dto.BookingNewDTO;
+import com.teamwiya.wiya.model.Booking;
+import com.teamwiya.wiya.repository.BookingRepository;
 import com.teamwiya.wiya.service.BookingService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 @Slf4j
 @RestController
@@ -13,12 +18,29 @@ import org.springframework.web.bind.annotation.*;
 public class BookingController {
 
     private final BookingService bookingService;
+    private final BookingRepository bookingRepository;
 
     @PostMapping("")
-    public String booking(@RequestBody BookingDTO bookingDTO) {
+    public String booking(@RequestBody BookingNewDTO bookingDTO,
+                          HttpServletRequest request) {
         log.info("memId={}, hosId={}",bookingDTO.getMemId(),bookingDTO.getHosId());
+        //회원 아이디는 세션에서 받아와야함
+        //HttpSession session = request.getSession();
+        //Member member = (Member) session.getAttribute("member");
+        //Long memId = member.getId();
         Long bookingId = bookingService.registerBooking(bookingDTO.getMemId(), bookingDTO.getHosId());
         return "현재 대기 인원을 리턴하는게 제일 아름다울 거 같은데..";
+    }
+
+    @GetMapping("/count")
+    public String count(@RequestBody BookingNewDTO bookingDTO) {
+        //회원 아이디는 세션에서 받아와야함
+        //HttpSession session = request.getSession();
+        //Member member = (Member) session.getAttribute("member");
+        //Long memId = member.getId();
+        int count = bookingService.countCheck(bookingDTO.getMemId(), bookingDTO.getHosId());
+
+        return count + "명 대기 중 ..";
     }
 
 }
