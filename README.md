@@ -2,6 +2,10 @@
 동물병원 원격 줄서기 프로젝트
 
 # 🐯개발 환경
+- IntelliJ
+- GitHub
+- SourceTree
+- Mysql Workbench, DBeaver
 
 # 🐻주요 기능
 **실시간 대기인원 확인 및 줄서기**
