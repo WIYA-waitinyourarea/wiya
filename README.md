@@ -1,4 +1,4 @@
-# WIYA(Wait In Your Area)
+# 🐶WIYA(Wait In Your Area)
 동물병원 원격 줄서기 프로젝트
 
 # 🐯개발 환경
@@ -6,6 +6,14 @@
 - GitHub
 - SourceTree
 - Mysql Workbench, DBeaver
+
+# 🐷사용 기술
+- Spring Boot 2.7.3
+- JPA
+- Java 11 
+- MySQL
+- AWS
+- 
 
 # 🐻주요 기능
 **실시간 대기인원 확인 및 줄서기**
