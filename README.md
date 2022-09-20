@@ -1,5 +1,5 @@
 # 🐶WIYA(Wait In Your Area)
-** 동물병원 원격 줄서기 프로젝트
+**동물병원 원격 줄서기 프로젝트
 
 # 🐯개발 환경
 - IntelliJ
