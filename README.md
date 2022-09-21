@@ -5,7 +5,7 @@
 - IntelliJ
 - GitHub
 - SourceTree
-- Mysql Workbench, DBeaver
+- MySQL Workbench, DBeaver
 
 # 🐷사용 기술
 - Spring Boot 2.7.3
