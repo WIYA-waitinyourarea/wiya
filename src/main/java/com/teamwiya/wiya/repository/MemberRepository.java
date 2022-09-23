@@ -1,13 +1,28 @@
 package com.teamwiya.wiya.repository;
 
 import com.teamwiya.wiya.model.Member;
-import org.springframework.data.jpa.repository.JpaRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Repository;
 
-import java.util.Optional;
+import javax.persistence.EntityManager;
+import java.util.List;
 
-public interface MemberRepository extends JpaRepository<Member, Long> {
+@Repository
+@RequiredArgsConstructor
+public class MemberRepository {
+    private final EntityManager em;
 
-    Member findByMemMail(String email);
+    public void save(Member member) {
+        em.persist(member);
+    }
+
+    public List<Member> findByEmail(String memMail) { //중복체크 시 이메일로 확인
+        System.out.println("repository"+ memMail);
+        return em.createQuery("select m from Member m where m.memMail =:memMail", Member.class)
+                .setParameter("memMail", memMail)
+                .getResultList();
+    }
+
 
 
 }

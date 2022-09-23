@@ -1,65 +1,63 @@
-<!DOCTYPE html>
 <html lang="en-US" dir="ltr" xmlns:th="http://www.thymeleaf.org">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!--  
-    Document Title
-    =============================================
-    -->
-    <title>Titan | Multipurpose HTML5 Template</title>
-    <!--  
-    Favicons
-    =============================================
-    -->
-    <link rel="apple-touch-icon" sizes="57x57" href="/assets/images/favicons/apple-icon-57x57.png">
-    <link rel="apple-touch-icon" sizes="60x60" href="/assets/images/favicons/apple-icon-60x60.png">
-    <link rel="apple-touch-icon" sizes="72x72" href="/assets/images/favicons/apple-icon-72x72.png">
-    <link rel="apple-touch-icon" sizes="76x76" href="/assets/images/favicons/apple-icon-76x76.png">
-    <link rel="apple-touch-icon" sizes="114x114" href="/assets/images/favicons/apple-icon-114x114.png">
-    <link rel="apple-touch-icon" sizes="120x120" href="/assets/images/favicons/apple-icon-120x120.png">
-    <link rel="apple-touch-icon" sizes="144x144" href="/assets/images/favicons/apple-icon-144x144.png">
-    <link rel="apple-touch-icon" sizes="152x152" href="/assets/images/favicons/apple-icon-152x152.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/favicons/apple-icon-180x180.png">
-    <link rel="icon" type="image/png" sizes="192x192" href="/assets/images/favicons/android-icon-192x192.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/assets/images/favicons/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="96x96" href="/assets/images/favicons/favicon-96x96.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/assets/images/favicons/favicon-16x16.png">
-    <link rel="manifest" href="/manifest.json">
-    <meta name="msapplication-TileColor" content="#ffffff">
-    <meta name="msapplication-TileImage" content="assets/images/favicons/ms-icon-144x144.png">
-    <meta name="theme-color" content="#ffffff">
-    <!--  
-    Stylesheets
-    =============================================
-    
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!--
+  Document Title
+  =============================================
+  -->
+  <title>Titan | Multipurpose HTML5 Template</title>
+  <!--
+  Favicons
+  =============================================
+  -->
+  <link rel="apple-touch-icon" sizes="57x57" href="assets/images/favicons/apple-icon-57x57.png" th:href="@{/assets/images/favicons/apple-icon-57x57.png}">
+  <link rel="apple-touch-icon" sizes="60x60" href="assets/images/favicons/apple-icon-60x60.png" th:href="@{/assets/images/favicons/apple-icon-60x60.png}">
+  <link rel="apple-touch-icon" sizes="72x72" href="assets/images/favicons/apple-icon-72x72.png" th:href="@{/assets/images/favicons/apple-icon-72x72.png}">
+  <link rel="apple-touch-icon" sizes="76x76" href="assets/images/favicons/apple-icon-76x76.png" th:href="@{/assets/images/favicons/apple-icon-76x76.png}">
+  <link rel="apple-touch-icon" sizes="114x114" href="assets/images/favicons/apple-icon-114x114.png" th:href="@{/assets/images/favicons/apple-icon-114x114.png}">
+  <link rel="apple-touch-icon" sizes="120x120" href="assets/images/favicons/apple-icon-120x120.png" th:href="@{/assets/images/favicons/apple-icon-120x120.png}">
+  <link rel="apple-touch-icon" sizes="144x144" href="assets/images/favicons/apple-icon-144x144.png" th:href="@{/assets/images/favicons/apple-icon-144x144.png}">
+  <link rel="apple-touch-icon" sizes="152x152" href="assets/images/favicons/apple-icon-152x152.png" th:href="@{/assets/images/favicons/apple-icon-152x152.png}">
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/images/favicons/apple-icon-180x180.png" th:href="@{/assets/images/favicons/apple-icon-180x180.png}">
+  <link rel="icon" type="image/png" sizes="192x192" href="assets/images/favicons/android-icon-192x192.png" th:href="@{/assets/images/favicons/android-icon-192x192.png}">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/images/favicons/favicon-32x32.png" th:href="@{/assets/images/favicons/favicon-32x32.png}">
+  <link rel="icon" type="image/png" sizes="96x96" href="assets/images/favicons/favicon-96x96.png" th:href="@{/assets/images/favicons/favicon-96x96.png}">
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicons/favicon-16x16.png" th:href="@{/assets/images/favicons/favicon-16x16.png}">
+  <link rel="manifest" href="/manifest.json">
+  <meta name="msapplication-TileColor" content="#ffffff">
+  <meta name="msapplication-TileImage" content="assets/images/favicons/ms-icon-144x144.png" th:href="@{/assets/images/favicons/ms-icon-144x144.png}">
+  <meta name="theme-color" content="#ffffff">
+  <!--
+  Stylesheets
+  =============================================
 
-    -->
-    <!-- Default stylesheets-->
-    <link href="assets/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" th:href="@{/assets/lib/bootstrap/dist/css/bootstrap.min.css}">
-    <!-- Template specific stylesheets-->
-    <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:400,700" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Volkhov:400i" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet">
-    <link href="assets/lib/animate.css/animate.css" rel="stylesheet" th:href="@{/assets/lib/animate.css/animate.css}">
-    <link href="assets/lib/components-font-awesome/css/font-awesome.min.css" rel="stylesheet" th:href="@{/assets/lib/components-font-awesome/css/font-awesome.min.css}">
-    <link href="assets/lib/et-line-font/et-line-font.css" rel="stylesheet" th:href="@{/assets/lib/et-line-font/et-line-font.css}">
-    <link href="assets/lib/flexslider/flexslider.css" rel="stylesheet" th:href="@{/assets/lib/flexslider/flexslider.css}">
-    <link href="assets/lib/owl.carousel/dist/assets/owl.carousel.min.css" rel="stylesheet" th:href="@{/assets/lib/owl.carousel/dist/assets/owl.carousel.min.css}">
-    <link href="assets/lib/owl.carousel/dist/assets/owl.theme.default.min.css" rel="stylesheet" th:href="@{/assets/lib/owl.carousel/dist/assets/owl.theme.default.min.css}">
-    <link href="assets/lib/magnific-popup/dist/magnific-popup.css" rel="stylesheet" th:href="@{/assets/lib/magnific-popup/dist/magnific-popup.css}">
-    <link href="assets/lib/simple-text-rotator/simpletextrotator.css" rel="stylesheet" th:href="@{/assets/lib/simple-text-rotator/simpletextrotator.css}">
-    <!-- Main stylesheet and color file-->
+  -->
+  <!-- Default stylesheets-->
+  <link href="assets/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" th:href="@{/assets/lib/bootstrap/dist/css/bootstrap.min.css}">
+  <!-- Template specific stylesheets-->
+  <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:400,700" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Volkhov:400i" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet">
+  <link href="assets/lib/animate.css/animate.css" rel="stylesheet" th:href="@{/assets/lib/animate.css/animate.css}">
+  <link href="assets/lib/components-font-awesome/css/font-awesome.min.css" rel="stylesheet" th:href="@{/assets/lib/components-font-awesome/css/font-awesome.min.css}">
+  <link href="assets/lib/et-line-font/et-line-font.css" rel="stylesheet" th:href="@{/assets/lib/et-line-font/et-line-font.css}">
+  <link href="assets/lib/flexslider/flexslider.css" rel="stylesheet" th:href="@{/assets/lib/flexslider/flexslider.css}">
+  <link href="assets/lib/owl.carousel/dist/assets/owl.carousel.min.css" rel="stylesheet" th:href="@{/assets/lib/owl.carousel/dist/assets/owl.carousel.min.css}">
+  <link href="assets/lib/owl.carousel/dist/assets/owl.theme.default.min.css" rel="stylesheet" th:href="@{/assets/lib/owl.carousel/dist/assets/owl.theme.default.min.css}">
+  <link href="assets/lib/magnific-popup/dist/magnific-popup.css" rel="stylesheet" th:href="@{/assets/lib/magnific-popup/dist/magnific-popup.css}">
+  <link href="assets/lib/simple-text-rotator/simpletextrotator.css" rel="stylesheet" th:href="@{/assets/lib/simple-text-rotator/simpletextrotator.css}">
+  <!-- Main stylesheet and color file-->
 
-    <link href="assets/css/style.css" rel="stylesheet" th:href="@{/assets/css/style.css}">
+  <link href="assets/css/style.css" rel="stylesheet" th:href="@{/assets/css/style.css}">
 
-    <!--    <link href="assets/css/style.css" rel="stylesheet">-->
-    <link id="color-scheme" href="assets/css/colors/default.css" rel="stylesheet" th:href="@{/assets/css/colors/default.css}">
-
+  <!--    <link href="assets/css/style.css" rel="stylesheet">-->
+  <link id="color-scheme" href="assets/css/colors/default.css" rel="stylesheet" th:href="@{/assets/css/colors/default.css}">
 
 
-  </head>
+
+</head>
   <body data-spy="scroll" data-target=".onpage-navigation" data-offset="60">
     <main>
       <div class="page-loader">
@@ -164,7 +162,7 @@
                       <li><a href="../../../../../Users/user/Documents/카카오톡%20받은%20파일/titan-master/restaurant_menu2.html">Menu 3 Columns</a></li>
                     </ul>
                   </li>
-                  <li><a href="login_register.html">Login / Register</a></li>
+                  <li><a href="login.html">Login / Register</a></li>
                   <li><a href="../../../../../Users/user/Documents/카카오톡%20받은%20파일/titan-master/faq.html">FAQ</a></li>
                   <li><a href="../../../../../Users/user/Documents/카카오톡%20받은%20파일/titan-master/404.html">Page 404</a></li>
                 </ul>
@@ -375,43 +373,126 @@
         <section class="module">
           <div class="container">
             <div class="row">
-              <div class="col-sm-5 col-sm-offset-1 mb-sm-40">
-                <h4 class="font-alt">로그인</h4>
-                <hr class="divider-w mb-10">
-                <form class="form">
-                  <div class="form-group">
-                    <input class="form-control" id="memMail" type="text" name="memMail" placeholder="이메일"/>
-                  </div>
-                  <div class="form-group">
-                    <input class="form-control" id="memPassword" type="password" name="memPassword" placeholder="비밀번호"/>
-                  </div>
-                  <div class="form-group">
-                    <button class="btn btn-round btn-b">Login</button>
-                  </div>
-                  <div class="form-group"><a href="">Forgot Password?</a></div>
-                </form>
-              </div>
+
               <div class="col-sm-5">
                 <h4 class="font-alt">회원가입</h4>
                 <hr class="divider-w mb-10">
-                <form class="form" action="/register">
+                <form class="form" action="/member/register" th:object="${memberFormDTO}" method="post">
                   <div class="form-group">
-                    <input class="form-control" id="E-mail" type="text" name="email" placeholder="이메일"/>
+                    <input class="form-control" id="memMail" th:field="*{memMail}" oninput="checkEmail()" type="text" name="memMail" placeholder="이메일"
+                     th:class="${#fields.hasErrors('memMail')}? 'form-control fieldError' : 'form-control'"/>
+                    <p th:if="${#fields.hasErrors('memMail')}"
+                       th:errors="*{memMail}">Incorrect data</p>
+
+                  <span class="checkMessageF">이미 사용 중인 이메일 입니다.</span>
+                  <span class="checkMessageT">사용 가능한 이메일 입니다.</span>
+                  <span class="mailInfo">이메일 사용 가능 여부</span>
+                  </div>
+                  <style>
+                    .checkMessageF {
+                      color: red;
+                      display: none;
+
+                    }
+                    .checkMessageT {
+                      color: darkblue;
+                      display: none;
+
+                    }
+                  </style>
+
+                  <script>
+                    function checkEmail() {
+                      const memMail = $("#memMail").val();
+                      //alert("중복확인~");
+                      $.ajax({
+                        url:'/memMailCheck',
+                        type:'post',
+                        data:{memMail:memMail}, //http 요청 바디에 담길 내용
+                        //contentType:'application/json', //보내는 형식
+                        success:function (data){ //컨트롤러에서 넘어온 값 받아서
+                          //alert(data);
+                          if(data == "T"){
+                            $(".checkMessageT").css("display", "inline-block");
+                            $(".checkMessageF").css("display", "none");
+                            $(".mailInfo").css("display", "none");
+                          }else{
+                            $(".checkMessageF").css("display", "inline-block");
+                            $(".checkMessageT").css("display", "none");
+                            $(".mailInfo").css("display", "none");
+                            alert("이메일을 다시 입력해주세요");
+                            $('#memMail').val('');
+                          }
+                        },
+                        error: function () {
+                         alert("에러");
+                        },
+
+                      });
+                    };
+                  </script>
+
+
+                  <div class="form-group">
+                    <input class="form-control" id="memName" th:field="*{memName}" type="text" name="memName" placeholder="이름"/>
                   </div>
                   <div class="form-group">
-                    <input class="form-control" id="memName" type="text" name="memName" placeholder="이름"/>
+                    <input class="form-control" id="memNickname" th:field="*{memNickname}" type="text" name="memNickname" placeholder="닉네임"/>
                   </div>
                   <div class="form-group">
-                    <input class="form-control" id="memNickname" type="text" name="memNickname" placeholder="닉네임"/>
+                    <input class="form-control" id="memPwd" th:field="*{memPwd}" type="password" name="memPwd" placeholder="비밀번호"/>
                   </div>
                   <div class="form-group">
-                    <input class="form-control" id="memPwd" type="password" name="memPwd" placeholder="비밀번호"/>
+                    <input class="form-control" id="memPwdCheck" th:field="*{memPwdCheck}" oninput="pwdMatchingCheck()" type="password" name="memPwdCheck" placeholder="비밀번호확인"/>
+
+                    <span class="pwd_wrong">비밀번호가 일치하지 않습니다.</span>
+                    <span class="pwd_correct">비밀번호 일치</span>
                   </div>
+
+                  <style>
+                    .pwd_wrong {
+                      color: red;
+                      display: none;
+
+                    }
+                    .pwd_correct {
+                      color: darkblue;
+                      display: none;
+
+                    }
+                  </style>
+
+                  <script type="text/javascript">
+
+                    function pwdMatchingCheck() {
+                      var pwd = document.getElementById('memPwd').value;
+                      var pwdCheck = document.getElementById('memPwdCheck').value;
+
+                      if(pwd != pwdCheck){
+                        $(".pwd_wrong").css("display", "inline-block");
+                        $(".pwd_correct").css("display", "none");
+                      }else{
+                        $(".pwd_correct").css("display", "inline-block");
+                        $(".pwd_wrong").css("display", "none");
+                      }
+                    }
+
+                    function pwdDoubleCheck() {
+                      var pwd = document.getElementById('memPwd').value;
+                      var pwdCheck = document.getElementById('memPwdCheck').value;
+                      if(pwd != pwdCheck){
+                        alert("비밀번호와 비밀번호확인이 일치하지 않습니다");
+                        $('#memPwdCheck').val('');
+                        event.preventDefault();
+
+                      }
+                    }
+
+                  </script>
+
+
                   <div class="form-group">
-                    <input class="form-control" id="re-memPwd" type="password" name="re-memPwd" placeholder="비밀번호확인"/>
-                  </div>
-                  <div class="form-group">
-                    <button class="btn btn-block btn-round btn-b">가입하기</button>
+                    <button class="btn btn-block btn-round btn-b" type="submit" onclick="pwdDoubleCheck()">가입하기</button>
                   </div>
                 </form>
               </div>
