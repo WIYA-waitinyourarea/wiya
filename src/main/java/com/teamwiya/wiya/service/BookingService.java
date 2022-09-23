@@ -38,6 +38,7 @@ public class BookingService {
         Hospital hospital = hospitalRepository.findOne(hosId);
         /*한개를 찾는 메소드여야 하는데, .getResultList()메소드로 인해 리스트 반환*/
         List<Booking> oneList = bookingRepository.findOne(memId, hosId);
+        /*현재는 멤버를 하나로 설정해서 여러결과가 조회되므로 그냥 마지막걸로 테스트 중*/
         Booking booking = oneList.get(oneList.size()-1);//언박싱.. 좀 더 우아한 방법이 있을듯 // 혹은 2개가 조회시 예외 발생
         List<Booking> bookings = bookingRepository.checkRank(booking);
         return bookings.size();

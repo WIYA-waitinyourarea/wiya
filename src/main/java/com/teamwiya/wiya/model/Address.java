@@ -1,6 +1,6 @@
 package com.teamwiya.wiya.model;
 
-import com.teamwiya.wiya.dto.HospitalNewForm;
+import com.teamwiya.wiya.dto.HospitalSaveForm;
 import com.teamwiya.wiya.util.AddressToCoordinate;
 import lombok.*;
 import org.json.simple.JSONObject;
@@ -24,17 +24,17 @@ public class Address {
     private double x;
     private double y;
 
-    public static Address createAddress (HospitalNewForm hospitalNewForm) {
+    public static Address createAddress (HospitalSaveForm hospitalSaveForm) {
         AddressToCoordinate addressToCoordinate = new AddressToCoordinate();
-        JSONObject jsonObject = addressToCoordinate.coordinate(hospitalNewForm.getJibunAddress());
+        JSONObject jsonObject = addressToCoordinate.coordinate(hospitalSaveForm.getJibunAddress());
         JSONObject roadJoso = addressToCoordinate.newAddressJson(jsonObject);
         return Address.builder()
                 .sido((String) roadJoso.get("region_1depth_name"))
                 .siqungu((String) roadJoso.get("region_2depth_name"))
                 .bname((String) roadJoso.get("region_3depth_name"))
-                .jibunAddress(hospitalNewForm.getJibunAddress())
+                .jibunAddress(hospitalSaveForm.getJibunAddress())
                 .roadAddress((String) roadJoso.get("address_name"))
-                .sangse(hospitalNewForm.getSangse())
+                .sangse(hospitalSaveForm.getSangse())
                 .x(Double.parseDouble((String) jsonObject.get("x")))
                 .y(Double.parseDouble((String) jsonObject.get("y")))
                 .build();

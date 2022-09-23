@@ -38,8 +38,9 @@ public class BookingRepository {
         return  em.createQuery("select b " +
                         "from Booking  b " +
                         "where b.member.id = :memId " +
-                        "and b.booState = 0 ", Booking.class)
+                        "and b.booState = :booState ", Booking.class)
                 .setParameter("memId", 1L)
+                .setParameter("booState", BooState.WAITING)
                 .getResultList();
     }
 

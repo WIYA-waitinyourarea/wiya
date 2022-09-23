@@ -1,6 +1,6 @@
 package com.teamwiya.wiya.service;
 
-import com.teamwiya.wiya.dto.HospitalNewForm;
+import com.teamwiya.wiya.dto.HospitalSaveForm;
 import com.teamwiya.wiya.model.Address;
 import com.teamwiya.wiya.model.HosImg;
 import com.teamwiya.wiya.model.Hospital;
@@ -28,19 +28,19 @@ public class HospitalService {
     /**
      * 병원 등록하는 로직
      *
-     * @param hospitalNewForm
+     * @param hospitalSaveForm
      * @param hosImgs
      * @return 병원 등록한 후 해당 아이디 반환
      */
-    public Long registerHos(HospitalNewForm hospitalNewForm) {
+    public Long registerHos(HospitalSaveForm hospitalSaveForm) {
         // 병원 등록하기 전 검증해야될 내용은 없을까?
         // 병원 엔티티를 만드는 내용
-        Address address = Address.createAddress(hospitalNewForm); //임베디드 타입
+        Address address = Address.createAddress(hospitalSaveForm); //임베디드 타입
         Hospital hospital = Hospital.createHospital(
-                hospitalNewForm.getHosName(),
-                hospitalNewForm.getHosPhone(),
+                hospitalSaveForm.getHosName(),
+                hospitalSaveForm.getHosPhone(),
                 address,
-                hospitalNewForm.getHosOpenHour()
+                hospitalSaveForm.getHosOpenHour()
         ); // 이 시점에 엔티티 생성
         // 병원을 저장하는 내용
         hospitalRepository.save(hospital);
