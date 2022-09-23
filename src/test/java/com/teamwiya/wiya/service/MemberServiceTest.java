@@ -1,18 +1,12 @@
 package com.teamwiya.wiya.service;
 
-import com.teamwiya.wiya.model.Member;
-import com.teamwiya.wiya.model.MemberFormDTO;
 import com.teamwiya.wiya.repository.MemberRepository;
-import org.assertj.core.api.Assertions;
-import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-
-import java.util.Optional;
-
-import static org.junit.jupiter.api.Assertions.*;
+import org.springframework.transaction.annotation.Transactional;
 
 @SpringBootTest
+@Transactional
 class MemberServiceTest {
 
     @Autowired
@@ -21,7 +15,7 @@ class MemberServiceTest {
     @Autowired
     MemberRepository memberRepository;
 
-    @Test
+/*    @Test
     void createMember() {
         Member member = Member.builder()
                 .memMail("test@email.com")
@@ -32,7 +26,7 @@ class MemberServiceTest {
         Optional<Member> result = memberRepository.findById(member1.getId());
         Assertions.assertThat(result.get().getMemMail()).isEqualTo(member1.getMemMail());
 
-    }
+    }*/
 
 
 

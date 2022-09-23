@@ -4,44 +4,26 @@ import lombok.*;
 
 import javax.persistence.*;
 
+
+@Data
 @NoArgsConstructor
-@AllArgsConstructor
 @Entity
-@Getter
 @Builder
-public class Member {
+@AllArgsConstructor
+public class Member extends TimeStamped{
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name ="memId")
     private Long id; //pk -> memId
 
-    @Column
     private String memName;
-
-    @Column
     private String memPwd;
-
-    @Column(unique = true)
+    private String memPwdCheck;
     private String memMail;
-
-    @Column
     private String memNickname;
 
     @Enumerated(EnumType.STRING)
     private MemberRole role;
-
-    /*
-    public static Member createMember(MemberFormDTO memberFormDTO, PasswordEncoder passwordEncoder) {
-        Member member = Member.builder()
-                .memName(memberFormDTO.getMemName())
-                .memMail(memberFormDTO.getMemMail())
-                .memNickname(memberFormDTO.getMemNickname())
-                .memPwd(passwordEncoder.encode(memberFormDTO.getMemPwd()))
-                .role(MemberRole.USER)
-                .build();
-        return member;
-    }
-*/
 
 }
