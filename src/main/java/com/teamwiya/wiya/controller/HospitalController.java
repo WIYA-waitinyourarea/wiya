@@ -1,6 +1,7 @@
 package com.teamwiya.wiya.controller;
 
 import com.teamwiya.wiya.dto.HospitalSaveForm;
+import com.teamwiya.wiya.dto.HospitalUpdateForm;
 import com.teamwiya.wiya.model.Hospital;
 import com.teamwiya.wiya.repository.HospitalRepository;
 import com.teamwiya.wiya.service.HospitalService;
@@ -32,7 +33,7 @@ public class HospitalController {
      */
     @GetMapping("/add")
     public String addForm(Model model){
-        model.addAttribute("hospital", new HospitalSaveForm());
+        model.addAttribute("hospitalSaveForm", new HospitalSaveForm());
         return "hospital/new-form";
     }
 
@@ -44,7 +45,7 @@ public class HospitalController {
      */
     @PostMapping(value = "/add")
     public String add(
-            @Validated @ModelAttribute("hospital") HospitalSaveForm hospitalSaveForm,
+            @Validated @ModelAttribute("hospitalSaveForm") HospitalSaveForm hospitalSaveForm,
             BindingResult bindingResult,
             @RequestParam List<MultipartFile> hosImgs,
             RedirectAttributes redirectAttributes
@@ -60,7 +61,7 @@ public class HospitalController {
 
         Hospital hospital = hospitalRepository.findOne(hospitalId);
         redirectAttributes.addAttribute("hospitalId", hospitalId);
-        redirectAttributes.addAttribute("status",true);
+        redirectAttributes.addAttribute("status","create");
         return "redirect:/hospital/detail/{hospitalId}";
 
     }
@@ -85,11 +86,32 @@ public class HospitalController {
     }
 
     @GetMapping("/edit/{hospitalId}")
-    public String edit(@PathVariable Long hospitalId, Model model) {
+    public String editForm(@PathVariable Long hospitalId, Model model) {
         Hospital hospital = hospitalService.findHospital(hospitalId);
-        model.addAttribute("hospital", hospital);
+        HospitalUpdateForm form = new HospitalUpdateForm();
+        form.setHosId(hospital.getHosId());
+        form.setHosName(hospital.getHosName());
+        form.setHosPhone(hospital.getHosPhone());
+        form.setJibunAddress(hospital.getHosAddress().getJibunAddress());
+        form.setSangse(hospital.getHosAddress().getSangse());
+        /*사진을 어떻게 넘기지??????????*/
+        model.addAttribute("hospitalUpdateForm", form);
         return "hospital/edit-form";
     }
 
+    @PostMapping("/edit/{hopitalId}")
+    public String edit(
+            @Validated @ModelAttribute("hospitalUpdateForm") HospitalUpdateForm hospitalUpdateForm,
+            BindingResult bindingResult,
+            @RequestParam List<MultipartFile> hosImgs,
+            RedirectAttributes redirectAttributes
+    ) {
+        //바인딩 에러나면 다시 폼으로 돌리기
+        if(bindingResult.hasErrors()) return "hospital/edit-form";
+        hospitalService.updateHopital(hospitalUpdateForm);
+        redirectAttributes.addAttribute("hospitalId", hospitalUpdateForm.getHosId());
+        redirectAttributes.addAttribute("status","update");
+        return "redirect:/hospital/detail/{hospitalId}";
+    }
 
 }

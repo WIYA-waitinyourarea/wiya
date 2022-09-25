@@ -10,7 +10,11 @@
             <h2>병원 등록 폼</h2>
         </div>
         <h4 class="mb-3">병원 입력</h4>
-        <form th:action method="post" th:object="${hospital}" enctype="multipart/form-data">
+        <form th:action method="post" th:object="${hospitalUpdateForm}" enctype="multipart/form-data">
+            <div>
+                <label for="hosName">병원번호</label>
+                <input type="text" th:field="*{hosId}" class="form-control" placeholder="입력하세요" readonly>
+            </div>
             <div>
                 <label for="hosName">병원명</label>
                 <input type="text" th:field="*{hosName}" class="form-control" placeholder="입력하세요">
@@ -26,9 +30,9 @@
                 <input type="text" id="postcode" class="form-control" placeholder="우편번호">
                 <input type="button" onclick="execDaumPostcode()" value="우편번호 찾기"><br>
                 <input type="text" id="roadAddress" class="form-control" placeholder="도로명주소">
-                <input type="text" th:field="*{jibunAddress}" class="form-control" placeholder="지번주소">
+                <input type="text" th:field="*{jibunAddress}" class="form-control" placeholder="지번주소"><!---->
                 <span id="guide" style="color:#999;display:none"></span>
-                <input type="text" th:field="*{sangse}" class="form-control" placeholder="상세주소">
+                <input type="text" th:field="*{sangse}" class="form-control" placeholder="상세주소"><!-- -->
                 <input type="text" id="extraAddress" class="form-control" placeholder="참고항목">
             </div>
             <div class="field-error" th:errors="*{jibunAddress}">주소 오류</div>
@@ -38,7 +42,7 @@
             </div>
             <div>
                 <label for="hosImgs">사진 등록</label>
-                <input type="file" th:field="*{hosImgs}" class="form-control" multiple>
+                <input type="file" th:field="*{hosImgs}" class="form-control" multiple><!---->
             </div>
             <hr class="my-4">
             <div class="row">

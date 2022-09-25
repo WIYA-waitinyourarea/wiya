@@ -37,15 +37,16 @@ public class HosImg extends TimeStamped{
      */
     public static HosImg createHosImg(Hospital hospital, MultipartFile file){
         String path = file.getOriginalFilename();
+
         String savedPath = System.getProperty("user.dir") + "/out/production/resources/static/images/upload";
         File existChk = new File(savedPath);
-        if(!existChk.exists()) existChk.mkdirs();
+        if(!existChk.exists()) existChk.mkdirs(); //메이크 디렉토리
         String savedFile = UUID.randomUUID().toString().replaceAll("-", "") // 서버에 저장할 파일 명으로 쓸 UUID (중복방지)
                 + path.substring(path.lastIndexOf(".")); // 확장자 명 추출
-        log.info("filePath={}", savedPath);
-        log.info("fileFile={}", savedFile);
+/*        log.info("filePath={}", savedPath);
+        log.info("fileFile={}", savedFile);*/
         try {
-            file.transferTo(new File(savedPath, savedFile));
+            file.transferTo(new File(savedPath, savedFile)); // 서버에 파일로서 저장
         } catch (IOException e) {
             e.printStackTrace();
         }

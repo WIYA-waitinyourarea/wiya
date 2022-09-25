@@ -6,12 +6,15 @@ import lombok.Setter;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import java.util.List;
 
 @Data
 public class HospitalUpdateForm {
 
+    @NotNull
+    private Long hosId;
     @NotBlank
     private String hosName;
     @NotBlank

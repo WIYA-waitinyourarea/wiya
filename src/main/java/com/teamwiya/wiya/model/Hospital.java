@@ -1,5 +1,6 @@
 package com.teamwiya.wiya.model;
 
+import com.teamwiya.wiya.dto.HospitalUpdateForm;
 import lombok.*;
 
 import javax.persistence.*;
@@ -67,4 +68,13 @@ public class Hospital extends TimeStamped{
                 .hosOpenhour(hosOpenhour)
                 .build();
      }
+
+    public void update(HospitalUpdateForm hospitalUpdateForm) {
+        if(!this.hosAddress.getJibunAddress().equals(hospitalUpdateForm.getJibunAddress())) {
+            this.hosAddress = Address.createAddress(hospitalUpdateForm.getJibunAddress(), hospitalUpdateForm.getSangse());
+        }
+        this.hosName = hospitalUpdateForm.getHosName();
+        this.hosPhone = hospitalUpdateForm.getHosPhone();
+        this.hosOpenhour = hospitalUpdateForm.getHosOpenHour();
+    }
 }

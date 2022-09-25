@@ -24,17 +24,17 @@ public class Address {
     private double x;
     private double y;
 
-    public static Address createAddress (HospitalSaveForm hospitalSaveForm) {
+    public static Address createAddress (String jibunAddress, String sangse) {
         AddressToCoordinate addressToCoordinate = new AddressToCoordinate();
-        JSONObject jsonObject = addressToCoordinate.coordinate(hospitalSaveForm.getJibunAddress());
+        JSONObject jsonObject = addressToCoordinate.coordinate(jibunAddress);
         JSONObject roadJoso = addressToCoordinate.newAddressJson(jsonObject);
         return Address.builder()
                 .sido((String) roadJoso.get("region_1depth_name"))
                 .siqungu((String) roadJoso.get("region_2depth_name"))
                 .bname((String) roadJoso.get("region_3depth_name"))
-                .jibunAddress(hospitalSaveForm.getJibunAddress())
+                .jibunAddress(jibunAddress)
                 .roadAddress((String) roadJoso.get("address_name"))
-                .sangse(hospitalSaveForm.getSangse())
+                .sangse(sangse)
                 .x(Double.parseDouble((String) jsonObject.get("x")))
                 .y(Double.parseDouble((String) jsonObject.get("y")))
                 .build();
