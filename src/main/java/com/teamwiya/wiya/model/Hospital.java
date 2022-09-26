@@ -38,7 +38,7 @@ public class Hospital extends TimeStamped{
 
      private String hosOpenhour;
 
-     @OneToMany(mappedBy = "hospital", cascade = CascadeType.ALL)
+     @OneToMany(mappedBy = "hospital", cascade = CascadeType.ALL, orphanRemoval = true)
      private List<HosImg> hosImgs = new ArrayList<>();
 
     /*public Hospital(Long hosId, String hosName, String hosPhone, HosStatus hosStatus, HosBooking hosBooking, Address hosAddress, double hosLatitude, double hosLongitude, String hosOpenhour, List<HosImg> hosImgs) {
@@ -69,8 +69,10 @@ public class Hospital extends TimeStamped{
                 .build();
      }
 
+     /*상태 유지를 이용한 업데이트*/
     public void update(HospitalUpdateForm hospitalUpdateForm) {
-        if(!this.hosAddress.getJibunAddress().equals(hospitalUpdateForm.getJibunAddress())) {
+        if(!this.hosAddress.getJibunAddress().equals(hospitalUpdateForm.getJibunAddress())
+                || !this.hosAddress.getSangse().equals(hospitalUpdateForm.getSangse())){
             this.hosAddress = Address.createAddress(hospitalUpdateForm.getJibunAddress(), hospitalUpdateForm.getSangse());
         }
         this.hosName = hospitalUpdateForm.getHosName();

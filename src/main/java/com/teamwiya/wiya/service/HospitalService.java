@@ -67,7 +67,7 @@ public class HospitalService {
      * @return List<Hospital>
      */
     @Transactional(readOnly = true) //검석어 테이블 인서트 시, 삭제 필요
-   public List<Hospital> searchHospital(String keyword) {
+    public List<Hospital> searchHospital(String keyword) {
         //아직 검색어 로그는 엔티티 만들지 않음
         return hospitalRepository.findByHosNameContaining(keyword);
     }
@@ -82,6 +82,16 @@ public class HospitalService {
 
     public void updateHopital(HospitalUpdateForm hospitalUpdateForm) {
         Hospital hospital = hospitalRepository.findOne(hospitalUpdateForm.getHosId());
-            hospital.update(hospitalUpdateForm);
+        /*기존 사진 중 삭제된 사진이 있는 경우*/
+        if(hospital.getHosImgs().size() != hospitalUpdateForm.getHosImgsAfter().size()){
+            for (int i = 0; i < hospital.getHosImgs().size(); i++) {
+                if(!hospitalUpdateForm.getHosImgsAfter().contains(hospital.getHosImgs().get(i).getHimId())) {
+                    hospital.getHosImgs().remove(i--);
+                }
+            }
+        }
+        hospital.update(hospitalUpdateForm);
+
     }
+
 }

@@ -94,7 +94,7 @@ public class HospitalController {
         form.setHosPhone(hospital.getHosPhone());
         form.setJibunAddress(hospital.getHosAddress().getJibunAddress());
         form.setSangse(hospital.getHosAddress().getSangse());
-        /*사진을 어떻게 넘기지??????????*/
+        form.setHosImgsBefore(hospital.getHosImgs());
         model.addAttribute("hospitalUpdateForm", form);
         return "hospital/edit-form";
     }
@@ -106,8 +106,10 @@ public class HospitalController {
             @RequestParam List<MultipartFile> hosImgs,
             RedirectAttributes redirectAttributes
     ) {
+        log.info("form={}", hospitalUpdateForm);
         //바인딩 에러나면 다시 폼으로 돌리기
         if(bindingResult.hasErrors()) return "hospital/edit-form";
+
         hospitalService.updateHopital(hospitalUpdateForm);
         redirectAttributes.addAttribute("hospitalId", hospitalUpdateForm.getHosId());
         redirectAttributes.addAttribute("status","update");

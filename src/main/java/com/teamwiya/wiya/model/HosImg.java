@@ -11,6 +11,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.UUID;
 
+import static javax.persistence.FetchType.LAZY;
+
 
 @Slf4j
 @Entity
@@ -22,10 +24,12 @@ public class HosImg extends TimeStamped{
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long himId;
-    @ManyToOne @JoinColumn(name = "hosId")
+    @ManyToOne(fetch = LAZY)
+    @JoinColumn(name = "hosId")
     private Hospital hospital;
     private String himPath;
     private boolean himMain;
+    private String himOrigin;
 
 
     /*== 생성 메소드 ==*/
@@ -37,7 +41,6 @@ public class HosImg extends TimeStamped{
      */
     public static HosImg createHosImg(Hospital hospital, MultipartFile file){
         String path = file.getOriginalFilename();
-
         String savedPath = System.getProperty("user.dir") + "/out/production/resources/static/images/upload";
         File existChk = new File(savedPath);
         if(!existChk.exists()) existChk.mkdirs(); //메이크 디렉토리
@@ -53,7 +56,7 @@ public class HosImg extends TimeStamped{
         return HosImg.builder()
                 .himPath("/images/upload/" + savedFile)
                 .hospital(hospital)
-                //.himPath(savedPath+"/"+savedFile)
+                .himOrigin(path)
                 .build();
     }
 

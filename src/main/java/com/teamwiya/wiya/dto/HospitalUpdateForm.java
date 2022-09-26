@@ -1,8 +1,10 @@
 package com.teamwiya.wiya.dto;
 
+import com.teamwiya.wiya.model.HosImg;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.lang.Nullable;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.NotBlank;
@@ -22,8 +24,10 @@ public class HospitalUpdateForm {
     private String hosPhone;
     @NotBlank
     private String jibunAddress; //서울 서대문구 북가좌동 328-51
-    private String sangse;
+    private String sangse; //202호
     private String hosOpenHour;
+    /*사진 수정 관련 필드*/
+    private List<HosImg> hosImgsBefore;
+    private List<Long> hosImgsAfter;
     private List<MultipartFile> hosImgs;
-
 }
