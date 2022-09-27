@@ -22,7 +22,7 @@ public class CommentService {
 
     @Transactional
     public Comment addComment(CommentRequestDTO dto) {
-        log.info("boaId={}", dto.getBoardId());
+        //log.info("boaId={}", dto.getBoardId());
         Optional<Board> findBoard = boardRepository.findById(dto.getBoardId());
         //java 8문법
         Comment comment = new Comment(dto, findBoard.orElse(null));// 엔티티를 생성

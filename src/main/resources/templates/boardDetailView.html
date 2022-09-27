@@ -616,14 +616,14 @@
         $.ajax({
           type:"POST",
           url : '/comment/enroll',/*응답으로 comment 를 받아와야함*/
-          dataType:"JSON",
-          contentType: "application/json",
+          dataType:"JSON",  //dataType: 서버에서 어떤 타입 받을 것인지
+          contentType: "application/json",  //보내는 데이터의 타입
           data : JSON.stringify({
             "content" : cmt,
             "boardId" : bid
           }),
 
-          success: function(response){
+          success: function(response){//응답 형식 : Comment 클래스 객체
                 alert("데이터 저장 성공");
                 let tempHtml = addComment(response)
                 $('#entireComment').append(tempHtml)
