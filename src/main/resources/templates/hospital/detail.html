@@ -70,7 +70,7 @@
                         <div class="col-sm-4 mb-sm-20">
                             <input class="form-control input-lg" type="number" name="" value="1" max="40" min="1" required="required"/>
                         </div>
-                        <div class="col-sm-8"><a class="btn btn-lg btn-block btn-round btn-b" href="#">줄서기</a></div>
+                        <div class="col-sm-8"><a class="btn btn-lg btn-block btn-round btn-b" onclick="bookingRegs()">줄서기</a></div>
                     </div>
                     <div class="row mb-20">
                         <div class="col-sm-12">
@@ -291,5 +291,32 @@
     </section>-->
 </th:block>
 
+
+<th:block layout:fragment="js">
+    <script type="text/javascript">
+        /**예약하기 버튼을 누르면 부킹 테이블에 저장되는 에이젝스*/
+        var bookingRegs = function () {
+            $.ajax({
+                url: "/hospital/booking",
+                type : "POST",
+                data : '{"memId" : 1, "hosId" : 57}',
+                contentType: 'application/json; charset=utf-8',
+                /*dataType : 인텔리전트 게스 테스트 끝나면 제이슨으로 바꿀 예정,*/
+                success: function(data) {
+                    alert(data);
+                    $("#content").html(data);
+                },
+                error: function(){
+                    alert("해당 병원은 줄서기를 할 수 없습니다.")
+                }
+            })
+        }
+
+    </script>
+    <script type="text/javascript">
+        /** 대기 인원 새로고침 */
+
+    </script>
+</th:block>
 
 </html>

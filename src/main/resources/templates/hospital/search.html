@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="layouts/layout"
+        lang="ko">
+<th:block layout:fragment="content">
+    <div class="container">
+        <!--searchResult-->
+
+        <!--map-->
+        <div id="map" style="width:500px;height:400px;"></div>
+    </div> <!-- /container -->
+</th:block>
+
+<!--Js-->
+<th:block layout:fragment="js">
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=9e9609355eae48fe68cf95a6a3f745d5"></script>
+    <script>
+        var container = document.getElementById('map');
+        var options = {
+            center: new kakao.maps.LatLng(33.450701, 126.570667),
+            level: 3
+        };
+
+        var map = new kakao.maps.Map(container, options);
+    </script>
+</th:block>
+</html>

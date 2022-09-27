@@ -10,7 +10,11 @@
             <h2>병원 등록 폼</h2>
         </div>
         <h4 class="mb-3">병원 입력</h4>
-        <form th:action method="post" th:object="${hospitalSaveForm}" enctype="multipart/form-data">
+        <form th:action method="post" th:object="${hospitalUpdateForm}" enctype="multipart/form-data">
+            <div>
+                <label for="hosName">병원번호</label>
+                <input type="text" th:field="*{hosId}" class="form-control" placeholder="입력하세요" readonly>
+            </div>
             <div>
                 <label for="hosName">병원명</label>
                 <input type="text" th:field="*{hosName}" class="form-control" placeholder="입력하세요">
@@ -23,22 +27,31 @@
             <div class="field-error" th:errors="*{hosPhone}">전화번호 오류</div>
             <div>
                 <label for="hosAddress">주소</label>
-                <input type="text" id="postcode" class="form-control" placeholder="우편번호">
+                <input type="text" id="postcode" class="form-control" placeholder="우편번호" readonly>
                 <input type="button" onclick="execDaumPostcode()" value="우편번호 찾기"><br>
-                <input type="text" id="roadAddress" class="form-control" placeholder="도로명주소">
-                <input type="text" th:field="*{jibunAddress}" class="form-control" placeholder="지번주소">
+                <input type="text" id="roadAddress" class="form-control" placeholder="도로명주소"readonly>
+                <input type="text" th:field="*{jibunAddress}" class="form-control" placeholder="지번주소" readonly><!---->
                 <span id="guide" style="color:#999;display:none"></span>
-                <input type="text" th:field="*{sangse}" class="form-control" placeholder="상세주소">
-                <input type="text" id="extraAddress" class="form-control" placeholder="참고항목">
+                <input type="text" th:field="*{sangse}" class="form-control" placeholder="상세주소"><!-- -->
+                <input type="text" id="extraAddress" class="form-control" placeholder="참고항목" readonly>
             </div>
             <div class="field-error" th:errors="*{jibunAddress}">주소 오류</div>
             <div>
                 <label for="hosOpenhour">영업시간</label>
-                <input type="text" id="hosOpenhour" name="hosOpenhour" class="form-control" placeholder="입력하세요">
+                <input type="text" th:field="*{hosOpenHour}" class="form-control" placeholder="입력하세요">
             </div>
             <div>
-                <label for="hosImgs">사진 등록</label>
-                <input type="file" th:field="*{hosImgs}" class="form-control" multiple>
+                <label for="hosImgs">사진 추가</label>
+                <input type="file" th:field="*{hosImgs}" class="form-control" multiple><!---->
+                <div>
+                    <th:block th:each="img : ${hospitalUpdateForm.hosImgsBefore}">
+                        <p>
+                            <span th:text="${img.himOrigin}"></span>
+                            <span class="deleteOriginBtn">X</span>
+                            <input type="hidden" th:name="hosImgsAfter" th:value="${img.himId}">
+                        </p>
+                    </th:block>
+                </div>
                 <div id="hosImgsList"></div>
             </div>
             <hr class="my-4">
@@ -59,6 +72,12 @@
 
 <!--Js-->
 <th:block layout:fragment="js">
+
+    <script>
+        $(".deleteOriginBtn").on("click", function() {
+            $(this).parent("p").remove();
+        })
+    </script>
     <!--hosImgsList-->
     <script>
         const hosImgsList = document.querySelector("#hosImgsList");
@@ -75,7 +94,7 @@
             let addList = "";
             Array.from(hosImgs.files)
                 .forEach(file => {
-                        addList += `<p id="${file.lastModified}">
+                    addList += `<p id="${file.lastModified}">
                             ${file.name}
                             <span data-index='${file.lastModified}' class='deleteBtn' onclick="deleteImg();">X</span>
                         </p>`;
@@ -101,6 +120,8 @@
         hosImgs.addEventListener("change", uploadImg);
     </script>
     <!--hosImgsList-->
+
+
 
     <!--kakao주소api start-->
     <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
