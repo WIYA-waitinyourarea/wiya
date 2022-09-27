@@ -16,12 +16,8 @@ public class HosImgRepository {
 
     private final EntityManager em;
 
-    public void save(HosImg hosImg) {
-        em.persist(hosImg);
-    }
+    public void save(HosImg hosImg) {em.persist(hosImg);}
 
-    public HosImg findById(Long id) {
-        return em.find(HosImg.class, id);
-    }
+    public HosImg findById(Long id) {return em.find(HosImg.class, id);}
 
 }

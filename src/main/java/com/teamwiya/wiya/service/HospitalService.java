@@ -28,28 +28,28 @@ public class HospitalService {
     private final HosImgRepository hosImgRepository;
     /**
      * 병원 등록하는 로직
-     *
      * @param hospitalSaveForm
      * @return 병원 등록한 후 해당 아이디 반환
      */
-    public Long registerHos(HospitalSaveForm hospitalSaveForm) {
-        // 병원 등록하기 전 검증해야될 내용은 없을까?
-        // 병원 엔티티를 만드는 내용
+    public Long registerHos(HospitalSaveForm hospitalSaveForm, List<MultipartFile> files) {
+
         Address address = Address.createAddress(hospitalSaveForm.getJibunAddress(), hospitalSaveForm.getSangse()); //임베디드 타입
+        // 병원 엔티티 생성
         Hospital hospital = Hospital.createHospital(
                 hospitalSaveForm.getHosName(),
                 hospitalSaveForm.getHosPhone(),
                 address,
                 hospitalSaveForm.getHosOpenHour()
-        ); // 이 시점에 엔티티 생성
-        // 병원을 저장하는 내용
+        );
+        // 병원을 저장 (병원 영속성 시작)
         hospitalRepository.save(hospital);
+        // 병원 이미지 저장
+        for (MultipartFile file : files) {
+            HosImg hosImg = HosImg.createHosImg(hospital, file);
+            hosImgRepository.save(hosImg);
+        }
         return hospital.getHosId();
     }
-
-    /**
-     * UD 메소드 필요
-     */
 
     /**
      * 특정 병원에 대한 정보
@@ -72,17 +72,11 @@ public class HospitalService {
         return hospitalRepository.findByHosNameContaining(keyword);
     }
 
-    public void registerHosImgs(Long hospitalId, List<MultipartFile> files) {
-        Hospital hospital = hospitalRepository.findOne(hospitalId);
-        for (MultipartFile file : files) {
-            HosImg hosImg = HosImg.createHosImg(hospital, file);
-            hosImgRepository.save(hosImg);
-        }
-    }
 
-    public void updateHopital(HospitalUpdateForm hospitalUpdateForm) {
+    public void updateHopital(HospitalUpdateForm hospitalUpdateForm, List<MultipartFile> files) {
         Hospital hospital = hospitalRepository.findOne(hospitalUpdateForm.getHosId());
         /*기존 사진 중 삭제된 사진이 있는 경우*/
+        hospital.update(hospitalUpdateForm);
         if(hospital.getHosImgs().size() != hospitalUpdateForm.getHosImgsAfter().size()){
             for (int i = 0; i < hospital.getHosImgs().size(); i++) {
                 if(!hospitalUpdateForm.getHosImgsAfter().contains(hospital.getHosImgs().get(i).getHimId())) {
@@ -90,7 +84,11 @@ public class HospitalService {
                 }
             }
         }
-        hospital.update(hospitalUpdateForm);
+        /*새로등록된 이미지 저장*/
+       for (MultipartFile file : files) {
+            HosImg hosImg = HosImg.createHosImg(hospital, file);
+            hosImgRepository.save(hosImg);
+        }
 
     }
 

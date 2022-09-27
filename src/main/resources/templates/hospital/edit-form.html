@@ -78,6 +78,49 @@
             $(this).parent("p").remove();
         })
     </script>
+    <!--hosImgsList-->
+    <script>
+        const hosImgsList = document.querySelector("#hosImgsList");
+        const hosImgs = document.querySelector("#hosImgs");
+        /*const deleteBtn = document.querySelector(".deleteBtn");*/
+        const dataTransfer = new DataTransfer();
+        function uploadImg(){
+            const files = document.querySelector('#hosImgs').files;
+            Array.from(files)
+                .forEach(file => {
+                    dataTransfer.items.add(file);
+                });
+            document.querySelector('#hosImgs').files = dataTransfer.files;
+            let addList = "";
+            Array.from(hosImgs.files)
+                .forEach(file => {
+                    addList += `<p id="${file.lastModified}">
+                            ${file.name}
+                            <span data-index='${file.lastModified}' class='deleteBtn' onclick="deleteImg();">X</span>
+                        </p>`;
+                });
+            hosImgsList.innerHTML = addList;
+        }
+
+        function deleteImg() {
+            const removeTargetId = event.target.dataset.index;
+            console.log(removeTargetId);
+            const removeTarget = document.getElementById(removeTargetId);
+            const files = document.querySelector('#hosImgs').files;
+            dataTransfer.clearData();
+            Array.from(files)
+                .filter(file => file.lastModified != removeTargetId)
+                .forEach(file => {
+                    dataTransfer.items.add(file);
+                });
+            document.querySelector('#hosImgs').files = dataTransfer.files;
+            removeTarget.remove();
+        }
+
+        hosImgs.addEventListener("change", uploadImg);
+    </script>
+    <!--hosImgsList-->
+
 
 
     <!--kakao주소api start-->
