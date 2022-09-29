@@ -7,6 +7,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
+import java.awt.print.PageFormat;
+import java.awt.print.Pageable;
+import java.awt.print.Printable;
 import java.util.List;
 
 //스프링에서 자동으로 프록시 -> 빈객체 생성해줌
@@ -14,7 +17,7 @@ import java.util.List;
 
 @Repository
 @RequiredArgsConstructor
-public class HospitalRepository {
+public class HospitalRepository implements Pageable {
 
     private final EntityManager em;
 
@@ -32,11 +35,47 @@ public class HospitalRepository {
     }
     /*병원명 검색*/
     public List<Hospital> findByHosNameContaining(String keyword) {
-        return null;
+        em.createQuery("");
+        return em.createQuery("select h from Hospital h where h.hosName LIKE :keyword", Hospital.class)
+                .setParameter("keyword", "%"+keyword+"%")
+                .getResultList();
     }
+
+
+    public List<Hospital> findByHosNamePage(String keyword, int offset, int limit) {
+        return em.createQuery("select h from Hospital h" +
+                        " where h.hosName LIKE :keyword" +
+                        " order by h.hosAddress.x", Hospital.class)
+                .setParameter("keyword", "%"+keyword+"%")
+                .setFirstResult(offset)
+                .setMaxResults(limit)
+                .getResultList();
+    }
+
+    public Long countSearchHospital(String keyword) {
+        return em.createQuery("select count(h) from Hospital h " +
+                " where h.hosName LIKE :keyword", Long.class)
+                .setParameter("keyword", "%"+keyword+"%")
+                .getSingleResult();
+    }
+
     /*동네 검색*/
     public List<Hospital> findByHosAddressContaining(String keyword){
         return null;
     }
 
+    @Override
+    public int getNumberOfPages() {
+        return 0;
+    }
+
+    @Override
+    public PageFormat getPageFormat(int pageIndex) throws IndexOutOfBoundsException {
+        return null;
+    }
+
+    @Override
+    public Printable getPrintable(int pageIndex) throws IndexOutOfBoundsException {
+        return null;
+    }
 }

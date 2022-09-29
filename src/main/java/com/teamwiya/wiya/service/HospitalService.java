@@ -67,9 +67,12 @@ public class HospitalService {
      * @return List<Hospital>
      */
     @Transactional(readOnly = true) //검석어 테이블 인서트 시, 삭제 필요
-    public List<Hospital> searchHospital(String keyword) {
-        //아직 검색어 로그는 엔티티 만들지 않음
-        return hospitalRepository.findByHosNameContaining(keyword);
+    public List<Hospital> searchHospital(String keyword, int page) {
+        int limit = 4;
+        int offset = (page-1)*limit;
+        log.info("offset={}",offset);
+        return hospitalRepository.findByHosNamePage(keyword, offset, limit);
+        //return hospitalRepository.findByHosNameContaining(keyword);
     }
 
 

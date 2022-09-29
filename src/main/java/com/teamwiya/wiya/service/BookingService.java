@@ -5,6 +5,7 @@ import com.teamwiya.wiya.model.Hospital;
 import com.teamwiya.wiya.model.Member;
 import com.teamwiya.wiya.repository.BookingRepository;
 import com.teamwiya.wiya.repository.HospitalRepository;
+import com.teamwiya.wiya.repository.MemberKHKHKHKHKHKH;
 import com.teamwiya.wiya.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -21,7 +22,8 @@ public class BookingService {
 
     private final BookingRepository bookingRepository;
     private final HospitalRepository hospitalRepository;
-    private final MemberRepository memberRepository;
+    /*private final MemberRepository memberRepository;*/
+    private final MemberKHKHKHKHKHKH memberRepository;
 
     public Long registerBooking(Long memId, Long hosId){
         Member member = memberRepository.findById(memId).orElse(null);

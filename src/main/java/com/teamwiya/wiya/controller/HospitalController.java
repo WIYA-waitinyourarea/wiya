@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
@@ -106,11 +107,22 @@ public class HospitalController {
         return "hospital/detail";
     }
 
-    @GetMapping("/search")
+    @GetMapping("/search/{keyword}")
     public String search(
-            /*@PathVariable String keyWord,*/
+            @PathVariable String keyword,
+            @RequestParam int page,
             Model model){
         // 모델에 리스트(검색결과)를 추가하는 작업
+        List<Hospital> searchResult = hospitalService.searchHospital(keyword, page);
+        long totalCount = hospitalRepository.countSearchHospital(keyword);
+        int totalPages = (int) (totalCount % 4 == 0? totalCount / 4 : totalCount / 4 + 1);
+        log.info("totalCount / totalpages = {} / {}", totalCount , totalPages );
+        ArrayList<Integer> pages = new ArrayList<>();
+        for (int i = 1; i <= totalPages ; i++) {
+            pages.add(i);
+        }
+        model.addAttribute("pages", pages);
+        model.addAttribute("searchResult",searchResult);
         return "hospital/search";
     }
 

@@ -32,10 +32,6 @@ public class Hospital extends TimeStamped{
     @Embedded
     private Address hosAddress;
 
-     private double hosLatitude;
-
-     private double hosLongitude;
-
      private String hosOpenhour;
 
      @OneToMany(mappedBy = "hospital", cascade = CascadeType.ALL, orphanRemoval = true)
