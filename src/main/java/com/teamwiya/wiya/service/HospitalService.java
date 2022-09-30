@@ -32,8 +32,9 @@ public class HospitalService {
      * @return 병원 등록한 후 해당 아이디 반환
      */
     public Long registerHos(HospitalSaveForm hospitalSaveForm, List<MultipartFile> files) {
-
-        Address address = Address.createAddress(hospitalSaveForm.getJibunAddress(), hospitalSaveForm.getSangse()); //임베디드 타입
+        // 병원 엔티티에 임베디드 타입인 주소 생성
+        Address address = Address.createAddress(hospitalSaveForm.getJibunAddress(), hospitalSaveForm.getSangse());
+        address.getBname();
         // 병원 엔티티 생성
         Hospital hospital = Hospital.createHospital(
                 hospitalSaveForm.getHosName(),
@@ -45,8 +46,10 @@ public class HospitalService {
         hospitalRepository.save(hospital);
         // 병원 이미지 저장
         for (MultipartFile file : files) {
-            HosImg hosImg = HosImg.createHosImg(hospital, file);
-            hosImgRepository.save(hosImg);
+            if(!file.isEmpty()) {
+                HosImg hosImg = HosImg.createHosImg(hospital, file);
+                hosImgRepository.save(hosImg);
+            }
         }
         return hospital.getHosId();
     }

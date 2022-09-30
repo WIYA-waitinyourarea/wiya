@@ -9,9 +9,9 @@
 
         <!--검색 영역-->
         <div>
-            <form role="form">
+            <form th:action method="get">
                 <div class="search-box">
-                    <input class="form-control" type="text" placeholder="Search...">
+                    <input class="form-control" type="text" name="keyword" th:value="${param.keyword}" placeholder="Search...">
                     <button class="search-btn" type="submit"><i class="fa fa-search"></i></button>
                 </div>
             </form>
@@ -40,7 +40,7 @@
         </div>
 
         <!--searchResult-->
-        <div class="widget" style="width: 20%; display: inline-block">
+        <div class="widget" style="width: 25%; display:inline-block; float: left" >
             <h5 class="widget-title font-alt">검색 결과</h5>
             <ul class="widget-posts">
                 <li class="clearfix" th:each="hospital : ${searchResult}">

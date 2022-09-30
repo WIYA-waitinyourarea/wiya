@@ -51,11 +51,8 @@ public class HospitalController {
         //바인딩 에러나면 다시 폼으로 돌리기
         if(bindingResult.hasErrors()) return "hospital/new-form";
 
-        /*이 두 메소드를 한 트랜잭셔널 안에서 처리해야되는데..*/
         /*병원 저장*/
         Long hospitalId = hospitalService.registerHos(hospitalSaveForm, hosImgs);
-        /*병원 이미지 저장*/
-        /*if (!hosImgs.isEmpty()) hospitalService.registerHosImgs(hospitalId, hosImgs);*/
 
         Hospital hospital = hospitalRepository.findOne(hospitalId);
         redirectAttributes.addAttribute("hospitalId", hospitalId);
@@ -107,10 +104,10 @@ public class HospitalController {
         return "hospital/detail";
     }
 
-    @GetMapping("/search/{keyword}")
+    @GetMapping("/search")
     public String search(
-            @PathVariable String keyword,
-            @RequestParam int page,
+            @RequestParam(name = "keyword", defaultValue = "") String keyword,
+            @RequestParam(defaultValue = "1") int page,
             Model model){
         // 모델에 리스트(검색결과)를 추가하는 작업
         List<Hospital> searchResult = hospitalService.searchHospital(keyword, page);

@@ -34,26 +34,11 @@ public class Hospital extends TimeStamped{
 
      private String hosOpenhour;
 
+     @ManyToOne()
+     private Sigudong hosSigudong;
+
      @OneToMany(mappedBy = "hospital", cascade = CascadeType.ALL, orphanRemoval = true)
      private List<HosImg> hosImgs = new ArrayList<>();
-
-
-
-
-    /*public Hospital(Long hosId, String hosName, String hosPhone, HosStatus hosStatus, HosBooking hosBooking, Address hosAddress, double hosLatitude, double hosLongitude, String hosOpenhour, List<HosImg> hosImgs) {
-        this.hosId = hosId;
-        this.hosName = hosName;
-        this.hosPhone = hosPhone;
-        this.hosStatus = hosStatus;
-        this.hosBooking = hosBooking;
-        this.hosAddress = hosAddress;
-        this.hosLatitude = hosLatitude;
-        this.hosLongitude = hosLongitude;
-        this.hosOpenhour = hosOpenhour;
-        this.hosImgs = hosImgs;
-    }*/
-
-    //이게 왜 퍼블릭으로밖에 안되는거지? @Builder에 대한 문제다
 
 
     /*== 빌더패턴을 통한 생성 메소드 ==*/
