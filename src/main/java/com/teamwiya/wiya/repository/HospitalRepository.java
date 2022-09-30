@@ -17,7 +17,7 @@ import java.util.List;
 
 @Repository
 @RequiredArgsConstructor
-public class HospitalRepository implements Pageable {
+public class HospitalRepository {
 
     private final EntityManager em;
 
@@ -41,7 +41,6 @@ public class HospitalRepository implements Pageable {
                 .getResultList();
     }
 
-
     public List<Hospital> findByHosNamePage(String keyword, int offset, int limit) {
         return em.createQuery("select h from Hospital h" +
                         " where h.hosName LIKE :keyword" +
@@ -51,7 +50,6 @@ public class HospitalRepository implements Pageable {
                 .setMaxResults(limit)
                 .getResultList();
     }
-
     public Long countSearchHospital(String keyword) {
         return em.createQuery("select count(h) from Hospital h " +
                 " where h.hosName LIKE :keyword", Long.class)
@@ -64,18 +62,5 @@ public class HospitalRepository implements Pageable {
         return null;
     }
 
-    @Override
-    public int getNumberOfPages() {
-        return 0;
-    }
 
-    @Override
-    public PageFormat getPageFormat(int pageIndex) throws IndexOutOfBoundsException {
-        return null;
-    }
-
-    @Override
-    public Printable getPrintable(int pageIndex) throws IndexOutOfBoundsException {
-        return null;
-    }
 }

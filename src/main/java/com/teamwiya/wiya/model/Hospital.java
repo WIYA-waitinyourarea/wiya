@@ -5,7 +5,6 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 @Entity
@@ -34,7 +33,8 @@ public class Hospital extends TimeStamped{
 
      private String hosOpenhour;
 
-     @ManyToOne()
+     @ManyToOne(fetch = FetchType.LAZY)
+     @JoinColumn(name = "hos_sigudong")
      private Sigudong hosSigudong;
 
      @OneToMany(mappedBy = "hospital", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -42,13 +42,14 @@ public class Hospital extends TimeStamped{
 
 
     /*== 빌더패턴을 통한 생성 메소드 ==*/
-    public static Hospital createHospital(String hosName, String hosPhone, Address hosAddress, String hosOpenhour) {
+    public static Hospital createHospital(String hosName, String hosPhone, Address hosAddress, Sigudong dong, String hosOpenhour) {
         return Hospital.builder()
                 .hosName(hosName)
                 .hosPhone(hosPhone)
                 .hosStatus(HosStatus.OPEN)
                 .hosBooking(HosBooking.POSSIBLE)
                 .hosAddress(hosAddress)
+                .hosSigudong(dong)
                 .hosOpenhour(hosOpenhour)
                 .build();
      }

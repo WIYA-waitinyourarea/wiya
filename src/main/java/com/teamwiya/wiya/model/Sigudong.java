@@ -1,6 +1,7 @@
 package com.teamwiya.wiya.model;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -12,6 +13,7 @@ import static javax.persistence.FetchType.LAZY;
 
 @Entity
 @Getter
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class Sigudong {
@@ -21,7 +23,9 @@ public class Sigudong {
 
     private String sigudongName;
 
-    @OneToMany(mappedBy = "hopitals")
+    private Long bCode;
+
+    @OneToMany(mappedBy = "hosSigudong")
     private List<Hospital> hospitals = new ArrayList<>();
 
     /*상위 주소 (강남구 : 서울시 / 역삼동 : 강남구*/
@@ -31,8 +35,6 @@ public class Sigudong {
     /*하위 주소 (서울시 : {서대문구, 용산구, 강남구, ...} / 강남구 : {역삼동, 대치동, ...}*/
     @OneToMany(mappedBy = "parent")
     private List<Sigudong> child = new ArrayList<>();
-
-
 
 
 }

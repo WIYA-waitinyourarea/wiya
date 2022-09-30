@@ -69,7 +69,10 @@ public class AddressToCoordinate {
     public JSONObject newAddressJson(JSONObject jsonObject){
        return ((JSONObject) jsonObject.get("road_address"));
     }
-
+    public Long bCode(JSONObject jsonObject){
+        JSONObject address = (JSONObject) jsonObject.get("address");
+        return  Long.parseLong((String)address.get("b_code"));
+    }
 }
 /*
 {"documents":

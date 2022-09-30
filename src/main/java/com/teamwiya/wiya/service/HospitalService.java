@@ -5,10 +5,14 @@ import com.teamwiya.wiya.dto.HospitalUpdateForm;
 import com.teamwiya.wiya.model.Address;
 import com.teamwiya.wiya.model.HosImg;
 import com.teamwiya.wiya.model.Hospital;
+import com.teamwiya.wiya.model.Sigudong;
 import com.teamwiya.wiya.repository.HosImgRepository;
 import com.teamwiya.wiya.repository.HospitalRepository;
+import com.teamwiya.wiya.repository.SigudongRepository;
+import com.teamwiya.wiya.util.AddressToCoordinate;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,20 +30,46 @@ public class HospitalService {
 
     private final HospitalRepository hospitalRepository;
     private final HosImgRepository hosImgRepository;
+    private final SigudongRepository sigudongRepository;
     /**
      * 병원 등록하는 로직
      * @param hospitalSaveForm
      * @return 병원 등록한 후 해당 아이디 반환
      */
     public Long registerHos(HospitalSaveForm hospitalSaveForm, List<MultipartFile> files) {
+
         // 병원 엔티티에 임베디드 타입인 주소 생성
         Address address = Address.createAddress(hospitalSaveForm.getJibunAddress(), hospitalSaveForm.getSangse());
-        address.getBname();
+        Sigudong si, gu, dong;
+
+        // 진짜 뭔가 구려
+        if (sigudongRepository.findByName((address.getBCode()/100000000)*100000000).isEmpty()){
+            si = Sigudong.builder().sigudongName(address.getSido()).bCode((address.getBCode()/100000000)*100000000).build();
+            sigudongRepository.save(si);
+        } else {
+            si = sigudongRepository.findByName((address.getBCode()/100000000)*100000000).get(0);
+        }
+
+        if (sigudongRepository.findByName((address.getBCode()/100000)*100000).isEmpty()){
+            gu = Sigudong.builder().sigudongName(address.getSiqungu()).bCode((address.getBCode()/100000)*100000).parent(si).build();
+            sigudongRepository.save(gu);
+        } else {
+            gu = sigudongRepository.findByName((address.getBCode()/100000)*100000).get(0);
+        }
+
+        if (sigudongRepository.findByName(address.getBCode()).isEmpty()){
+            dong = Sigudong.builder().sigudongName(address.getBname()).bCode(address.getBCode()).parent(gu).build();
+            sigudongRepository.save(dong);
+        } else {
+            dong = sigudongRepository.findByName(address.getBCode()).get(0);
+        }
+
         // 병원 엔티티 생성
         Hospital hospital = Hospital.createHospital(
                 hospitalSaveForm.getHosName(),
                 hospitalSaveForm.getHosPhone(),
                 address,
+                dong,
                 hospitalSaveForm.getHosOpenHour()
         );
         // 병원을 저장 (병원 영속성 시작)
@@ -97,5 +127,6 @@ public class HospitalService {
         }
 
     }
+
 
 }
