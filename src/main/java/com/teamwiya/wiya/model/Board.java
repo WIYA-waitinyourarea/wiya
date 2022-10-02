@@ -1,8 +1,10 @@
 package com.teamwiya.wiya.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 //@Getter@
@@ -10,6 +12,7 @@ import java.util.List;
 @NoArgsConstructor
 @Entity
 @Builder
+@ToString
 @AllArgsConstructor
 public class Board extends TimeStamped{
 
@@ -21,15 +24,20 @@ public class Board extends TimeStamped{
     @Column(nullable = false)
     private String content;
 
-    /*
+
     @ManyToOne
     @JoinColumn(name = "Member_ID")
     private Member member;
-    */
 
-    @OneToMany(mappedBy = "board", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
+    @JsonIgnore
+    @OneToMany(mappedBy = "board", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     @OrderBy("id asc") // 댓글 정렬
-    private List<Comment> comments;
+    private List<Comment> comments = new ArrayList<>();
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "board", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    @OrderBy("id asc") // 댓글 정렬
+    private List<BoaImg> boaImgs = new ArrayList<>();
 
 
 
