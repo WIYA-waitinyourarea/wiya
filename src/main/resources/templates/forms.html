@@ -21,26 +21,15 @@
               <div class="col-sm-8 col-sm-offset-2">
                 <h4 class="font-alt mb-0">궁금증 질문하기</h4>
                 <hr class="divider-w mt-10 mb-20">
-                <form class="form" role="form" th:action="@{/board/write}" method="post">
-                  <!--<div class="form-group">
-                    <input class="form-control input-lg" type="text" placeholder="Large input"/>
-                  </div>
-                  <div class="form-group">
-                    <input class="form-control" type="text" placeholder="Default input"/>
-                  </div>
-                  <div class="form-group">
-                    <input class="form-control input-sm" type="text" placeholder="Small input"/>
-                  </div>
-                  <div class="form-group">
-                    <input class="form-control" type="text" placeholder="Disabled input" disabled=""/>
-                  </div>
-                  <div class="form-group">
-                    <input class="form-control" type="text" placeholder="Readonly input" readonly=""/>
-                  </div>-->
+
+                <form class="form" role="form" th:action="@{/board/write}" method="post" enctype="multipart/form-data">
+
+                  <input type="file" name="myfile">
                   <textarea class="form-control" rows="7" placeholder="내용" name="content"></textarea>
                   <br>
                   <button type="submit">작성</button>
                 </form>
+
               </div>
             </div>
           </div>

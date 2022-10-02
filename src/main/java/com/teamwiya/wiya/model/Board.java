@@ -34,6 +34,11 @@ public class Board extends TimeStamped{
     @OrderBy("id asc") // 댓글 정렬
     private List<Comment> comments = new ArrayList<>();
 
+    @JsonIgnore
+    @OneToMany(mappedBy = "board", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    @OrderBy("id asc") // 댓글 정렬
+    private List<BoaImg> boaImgs = new ArrayList<>();
+
 
 
 

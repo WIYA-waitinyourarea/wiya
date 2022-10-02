@@ -458,6 +458,11 @@
                     </div>
                   </div>
                   <div class="post-entry">
+                    <div th:each="boaimg : ${board.boaImgs}">
+                      <img id="imgId" th:src="'/images/'+${boaimg.saveName}" alt="첨부이미지" th:if="${boaimg != null}" />
+                      <p th:text="'/images/'+${boaimg.saveName}" ></p>
+                    </div>
+
                     <p th:text="${board.content}" >-</p>
                   </div>
                   <div class="post-more"><a class="more-link" href="#" th:href="@{/board/view(id=${board.id})}">댓글 달기</a></div>
