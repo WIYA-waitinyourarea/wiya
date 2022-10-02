@@ -1,5 +1,6 @@
 package com.teamwiya.wiya.controller;
 
+import com.teamwiya.wiya.dto.MemberLoginDTO;
 import com.teamwiya.wiya.model.Member;
 import com.teamwiya.wiya.model.MemberSaveForm;
 import com.teamwiya.wiya.repository.MemberRepository;
@@ -19,7 +20,6 @@ import java.util.List;
 public class MemberController {
 
     private final MemberService memberService;
-
     private final MemberRepository memberRepository;
 
     @GetMapping("/member/register") /*회원가입 창 이동*/
@@ -31,13 +31,25 @@ public class MemberController {
     @PostMapping("/member/register") /*회원가입 */
     public String register(Member member) {
         memberService.register(member);
-        return "redirect:/member/login";
+        return "redirect:/member/loginForm";
     }
 
-    @GetMapping("/member/login")
-    public String login() {
+    @GetMapping("/member/loginForm")  /*로그인 창 이동*/
+    public String loginForm() {
         return "login";
     }
+
+
+   @PostMapping("/login") /*로그인 시도 */
+    public String login(@ModelAttribute MemberLoginDTO memberLoginDTO) {
+        MemberLoginDTO loginResult = memberService.login(memberLoginDTO);
+        if(loginResult != null){ //로그인 성공 시 메인페이지로
+            return "redirect:";
+        }else{ //로그인 실패 시 다시 로그인
+            return "redirect:/member/loginForm";
+        }
+    }
+
 
     @PostMapping("/memMailCheck")
     @ResponseBody //바디에 담아서 넘기겠다 , 리턴자료형은 스트링
@@ -55,47 +67,5 @@ public class MemberController {
         }
     };
 
-/*
-
-    @GetMapping("/member/{memMail}/exists")
-    public ResponseEntity<Boolean> duplicateMailCheck(@RequestParam String memMail){
-        return ResponseEntity.ok(memberService.overlappedMail(memMail));
-    }
-*/
-/*
-    @GetMapping("/member/list")
-    public String memberList(Model model){
-        model.addAttribute("list", memberService.memberList());
-        return "registerSuccess";
-    }
-*/
-
-
-
-/*
-    @PostMapping("/member/register")
-    public String memberList(Model model, Member member){
-        memberService.register(member);
-        model.addAttribute("list", memberService.memberList());
-        return "registerSuccess";
-    }
-*/
-/*
-    private final MemberService memberService;
-
-    @PostMapping("/login_register")
-    public String register(@ModelAttribute MemberFormDTO memberFormDTO){
-        Member member = new Member();
-        member.setMemName(memberFormDTO.getMemName());
-        member.setMemMail(member.getMemMail());
-        member.setMemNickname(member.getMemNickname());
-        member.setMemPwd(member.getMemPwd());
-
-        memberService.
-
-        //memberService.join(member);
-        return "/register";
-    }
-*/
 
 }
