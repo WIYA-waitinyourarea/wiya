@@ -40,36 +40,14 @@ public class HospitalService {
 
         // 병원 엔티티에 임베디드 타입인 주소 생성
         Address address = Address.createAddress(hospitalSaveForm.getJibunAddress(), hospitalSaveForm.getSangse());
-        Sigudong si, gu, dong;
-
-        // 진짜 뭔가 구려
-        if (sigudongRepository.findByName((address.getBCode()/100000000)*100000000).isEmpty()){
-            si = Sigudong.builder().sigudongName(address.getSido()).bCode((address.getBCode()/100000000)*100000000).build();
-            sigudongRepository.save(si);
-        } else {
-            si = sigudongRepository.findByName((address.getBCode()/100000000)*100000000).get(0);
-        }
-
-        if (sigudongRepository.findByName((address.getBCode()/100000)*100000).isEmpty()){
-            gu = Sigudong.builder().sigudongName(address.getSiqungu()).bCode((address.getBCode()/100000)*100000).parent(si).build();
-            sigudongRepository.save(gu);
-        } else {
-            gu = sigudongRepository.findByName((address.getBCode()/100000)*100000).get(0);
-        }
-
-        if (sigudongRepository.findByName(address.getBCode()).isEmpty()){
-            dong = Sigudong.builder().sigudongName(address.getBname()).bCode(address.getBCode()).parent(gu).build();
-            sigudongRepository.save(dong);
-        } else {
-            dong = sigudongRepository.findByName(address.getBCode()).get(0);
-        }
+        Sigudong gu = sigudongRepository.findById((address.getBCode()/100000)*100000);
 
         // 병원 엔티티 생성
         Hospital hospital = Hospital.createHospital(
                 hospitalSaveForm.getHosName(),
                 hospitalSaveForm.getHosPhone(),
                 address,
-                dong,
+                gu,
                 hospitalSaveForm.getHosOpenHour()
         );
         // 병원을 저장 (병원 영속성 시작)
@@ -111,8 +89,17 @@ public class HospitalService {
 
     public void updateHopital(HospitalUpdateForm hospitalUpdateForm, List<MultipartFile> files) {
         Hospital hospital = hospitalRepository.findOne(hospitalUpdateForm.getHosId());
+        Address address = hospital.getHosAddress();
+        Sigudong gu = sigudongRepository.findById(address.getBCode());
+        if(hospital.getHosAddress().getJibunAddress().equals(hospitalUpdateForm.getJibunAddress()) // 지번주소가 달라졌거나
+                || !hospital.getHosAddress().getSangse().equals(hospitalUpdateForm.getSangse())){ //상세주소가달라졌으면
+            address = Address.createAddress(hospitalUpdateForm.getJibunAddress(), hospitalUpdateForm.getSangse());
+            gu = sigudongRepository.findById((address.getBCode()/100000)*100000);
+        }
+        hospital.update(hospitalUpdateForm, address, gu);
+
+
         /*기존 사진 중 삭제된 사진이 있는 경우*/
-        hospital.update(hospitalUpdateForm);
         if(hospital.getHosImgs().size() != hospitalUpdateForm.getHosImgsAfter().size()){
             for (int i = 0; i < hospital.getHosImgs().size(); i++) {
                 if(!hospitalUpdateForm.getHosImgsAfter().contains(hospital.getHosImgs().get(i).getHimId())) {
@@ -125,6 +112,9 @@ public class HospitalService {
             HosImg hosImg = HosImg.createHosImg(hospital, file);
             hosImgRepository.save(hosImg);
         }
+
+
+
 
     }
 

@@ -25,8 +25,8 @@ public class HosImg extends TimeStamped{
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long himId;
     @ManyToOne(fetch = LAZY)
-    @JoinColumn(name = "hosId")
-    private Hospital hospital;
+    @JoinColumn(name = "hosId") //hosImg 테이블의 컬럼명
+    private Hospital hospital; //hospital PK
     private String himPath;
     private boolean himMain;
     private String himOrigin;
