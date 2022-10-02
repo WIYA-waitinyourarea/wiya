@@ -4,6 +4,7 @@ import com.teamwiya.wiya.dto.HospitalSaveForm;
 import com.teamwiya.wiya.dto.HospitalUpdateForm;
 import com.teamwiya.wiya.model.Hospital;
 import com.teamwiya.wiya.repository.HospitalRepository;
+import com.teamwiya.wiya.repository.SigudongRepository;
 import com.teamwiya.wiya.service.HospitalService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -27,6 +28,7 @@ public class HospitalController {
     //기본적으로 레파지토리는 서비스계층에서 접근하는게 일반적이지만 유연하게 설계
     private final HospitalRepository hospitalRepository;
     private final HospitalService hospitalService;
+    private final SigudongRepository sigudongRepository;
 
     /**
      * @return 뷰템플릿 논리명
@@ -113,11 +115,11 @@ public class HospitalController {
         List<Hospital> searchResult = hospitalService.searchHospital(keyword, page);
         long totalCount = hospitalRepository.countSearchHospital(keyword);
         int totalPages = (int) (totalCount % 4 == 0? totalCount / 4 : totalCount / 4 + 1);
-        log.info("totalCount / totalpages = {} / {}", totalCount , totalPages );
         ArrayList<Integer> pages = new ArrayList<>();
         for (int i = 1; i <= totalPages ; i++) {
             pages.add(i);
         }
+        model.addAttribute("sigudongs", sigudongRepository.findAll());
         model.addAttribute("pages", pages);
         model.addAttribute("searchResult",searchResult);
         return "hospital/search";
