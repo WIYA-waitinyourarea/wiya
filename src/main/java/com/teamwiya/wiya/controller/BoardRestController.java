@@ -1,7 +1,7 @@
 package com.teamwiya.wiya.controller;
 
 import com.teamwiya.wiya.model.Comment;
-import com.teamwiya.wiya.model.CommentRequestDTO;
+import com.teamwiya.wiya.dto.CommentRequestDTO;
 import com.teamwiya.wiya.repository.CommentRepository;
 import com.teamwiya.wiya.service.CommentService;
 import lombok.RequiredArgsConstructor;

@@ -2,7 +2,7 @@ package com.teamwiya.wiya.controller;
 
 import com.teamwiya.wiya.dto.MemberLoginDTO;
 import com.teamwiya.wiya.model.Member;
-import com.teamwiya.wiya.model.MemberSaveForm;
+import com.teamwiya.wiya.dto.MemberSaveForm;
 import com.teamwiya.wiya.repository.MemberRepository;
 import com.teamwiya.wiya.service.MemberService;
 import lombok.RequiredArgsConstructor;

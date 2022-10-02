@@ -2,7 +2,7 @@ package com.teamwiya.wiya.service;
 
 import com.teamwiya.wiya.model.Board;
 import com.teamwiya.wiya.model.Comment;
-import com.teamwiya.wiya.model.CommentRequestDTO;
+import com.teamwiya.wiya.dto.CommentRequestDTO;
 import com.teamwiya.wiya.repository.BoardRepository;
 import com.teamwiya.wiya.repository.CommentRepository;
 import lombok.RequiredArgsConstructor;

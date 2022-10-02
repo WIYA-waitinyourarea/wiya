@@ -22,11 +22,10 @@ public class BookingService {
 
     private final BookingRepository bookingRepository;
     private final HospitalRepository hospitalRepository;
-    /*private final MemberRepository memberRepository;*/
-    private final MemberKHKHKHKHKHKH memberRepository;
+    private final MemberRepository memberRepository;
 
     public Long registerBooking(Long memId, Long hosId){
-        Member member = memberRepository.findById(memId).orElse(null);
+        Member member = memberRepository.findById(memId);
         Hospital hospital = hospitalRepository.findOne(hosId);
         Booking booking = Booking.createBooking(member, hospital);
         log.debug("booking={},{},{}",booking.getMember().getId(),booking.getHospital().getHosId(),booking.getBooId());
@@ -36,7 +35,7 @@ public class BookingService {
 
     @Transactional(readOnly = true)
     public int countCheck(Long memId, Long hosId){
-        Member member = memberRepository.findById(memId).orElse(null);
+        Member member = memberRepository.findById(memId);
         Hospital hospital = hospitalRepository.findOne(hosId);
         /*한개를 찾는 메소드여야 하는데, .getResultList()메소드로 인해 리스트 반환*/
         List<Booking> oneList = bookingRepository.findOne(memId, hosId);

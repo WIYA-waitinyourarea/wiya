@@ -1,5 +1,6 @@
 package com.teamwiya.wiya.model;
 
+import com.teamwiya.wiya.dto.CommentRequestDTO;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

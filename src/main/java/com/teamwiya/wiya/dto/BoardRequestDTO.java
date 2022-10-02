@@ -1,4 +1,4 @@
-package com.teamwiya.wiya.model;
+package com.teamwiya.wiya.dto;
 
 import lombok.Getter;
 
