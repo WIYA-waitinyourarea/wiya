@@ -10,20 +10,20 @@
 
     <section class="module">
         <div class="container">
-            <div class="row">
+          <div class="row" th:each="market :${market}">
                 <div class="col-sm-6 mb-sm-40">
-                 <!--   <th:block th:each="market :${market}">
-                        <th:block th:if="${i.index} == 0">
-                            <a class="gallery" th:href="${hosImg.himPath}">
-                                <img th:src="${hosImg.himPath}"/>
+                    <th:block>
+                            <a class="gallery">
+                                <img th:src="${market.filename}"/>
                             </a>
-                        </th:block>
                     </th:block>
-                    <ul class="product-gallery">
-                    <th:block th:each="hosImg,i:${hospital.hosImgs}">
-                        <th:block th:if="${i.index} > 0">
-                            <li><a class="gallery" th:href="${hosImg.himPath}"></a><img th:src="${hosImg.himPath}"/></li>
-                        </th:block>
+
+
+              <!--      <ul class="product-gallery">
+                    <th:block  th:each="market :${market}">
+
+                            <li><a class="gallery" th:href="@{${market.filepath}}"></a><img th:src="@{market.filepath}"/></li>
+
                     </th:block>
                     </ul>-->
 <!--                    <a class="gallery" href="/assets/images/shop/product-7.jpg">
@@ -37,9 +37,9 @@
                         <li><a class="gallery" href="/assets/images/shop/product-10.jpg"></a><img src="assets/images/shop/product-10.jpg" alt="Single Product"/></li>
                     </ul>-->
                 </div>
-                <div class="col-sm-6">
+                <div class="col-sm-6" th:each="market :${market}">
                     <div class="row">
-                        <div class="col-sm-12" th:each="market :${market}">
+                        <div class="col-sm-12">
                             <h1 class="product-title font-alt" th:text="${market.postTitle}">글제목</h1>
                         </div>
                     </div>

@@ -21,19 +21,20 @@ public class MemberRepository {
     }
 
     public List<Member> findByEmail(String memMail) { //중복체크 로직
-        System.out.println("repository"+ memMail);
+        //System.out.println("repository"+ memMail);
         return em.createQuery("select m from Member m where m.memMail =:memMail", Member.class)
                 .setParameter("memMail", memMail)
                 .getResultList();
     }
 
+
 /*
-   public Optional<Member> findByLoginMail(String loginMail) {
-        return this.
+    public Member checkEmail(String memMail) { //중복체크 로직
+        //System.out.println("repository"+ memMail);
+        return em.createQuery("select m from Member m where m.memMail =:memMail", Member.class)
+                .setParameter("memMail", memMail)
+                .getSingleResult(); //엔티티 없으면 예외
     }
 */
-
-
-
 
 }

@@ -19,78 +19,11 @@
                     </div>
                   </form>
                 </div>
-                <!--
-                              <div class="widget">
-                                <h5 class="widget-title font-alt">Blog Categories</h5>
-                                <ul class="icon-list">
-                                  <li><a href="#">Photography - 7</a></li>
-                                  <li><a href="#">Web Design - 3</a></li>
-                                  <li><a href="#">Illustration - 12</a></li>
-                                  <li><a href="#">Marketing - 1</a></li>
-                            <li><a href="#">Wordpress - 16</a></li>
-                                </ul>
-                              </div>
-
-                              <div class="widget">
-                                <h5 class="widget-title font-alt">Popular Posts</h5>
-                                <ul class="widget-posts">
-                                  <li class="clearfix">
-                                    <div class="widget-posts-image"><a href="#"><img src="assets/images/rp-1.jpg" alt="Post Thumbnail"/></a></div>
-                                    <div class="widget-posts-body">
-                                      <div class="widget-posts-title"><a href="#">Designer Desk Essentials</a></div>
-                                      <div class="widget-posts-meta">23 january</div>
-                                    </div>
-                                  </li>
-                                  <li class="clearfix">
-                                    <div class="widget-posts-image"><a href="#"><img src="assets/images/rp-2.jpg" alt="Post Thumbnail"/></a></div>
-                                    <div class="widget-posts-body">
-                                      <div class="widget-posts-title"><a href="#">Realistic Business Card Mockup</a></div>
-                                      <div class="widget-posts-meta">15 February</div>
-                                    </div>
-                                  </li>
-                                  <li class="clearfix">
-                                    <div class="widget-posts-image"><a href="#"><img src="assets/images/rp-3.jpg" alt="Post Thumbnail"/></a></div>
-                                    <div class="widget-posts-body">
-                                      <div class="widget-posts-title"><a href="#">Eco bag Mockup</a></div>
-                                      <div class="widget-posts-meta">21 February</div>
-                                    </div>
-                                  </li>
-                                  <li class="clearfix">
-                                    <div class="widget-posts-image"><a href="#"><img src="assets/images/rp-4.jpg" alt="Post Thumbnail"/></a></div>
-                                    <div class="widget-posts-body">
-                                      <div class="widget-posts-title"><a href="#">Bottle Mockup</a></div>
-                                      <div class="widget-posts-meta">2 March</div>
-                                    </div>
-                                  </li>
-                                </ul>
-                              </div>
-                              <div class="widget">
-                                <h5 class="widget-title font-alt">Tag</h5>
-                                <div class="tags font-serif"><a href="#" rel="tag">Blog</a><a href="#" rel="tag">Photo</a><a href="#" rel="tag">Video</a><a href="#" rel="tag">Image</a><a href="#" rel="tag">Minimal</a><a href="#" rel="tag">Post</a><a href="#" rel="tag">Theme</a><a href="#" rel="tag">Ideas</a><a href="#" rel="tag">Tags</a><a href="#" rel="tag">Bootstrap</a><a href="#" rel="tag">Popular</a><a href="#" rel="tag">English</a>
-                                </div>
-                              </div>
-                              <div class="widget">
-                                <h5 class="widget-title font-alt">Text</h5>The languages only differ in their grammar, their pronunciation and their most common words. Everyone realizes why a new common language would be desirable: one could refuse to pay expensive translators.
-                              </div>
-                              <div class="widget">
-                                <h5 class="widget-title font-alt">Recent Comments</h5>
-                                <ul class="icon-list">
-                                  <li>Maria on <a href="#">Designer Desk Essentials</a></li>
-                                  <li>John on <a href="#">Realistic Business Card Mockup</a></li>
-                                  <li>Andy on <a href="#">Eco bag Mockup</a></li>
-                                  <li>Jack on <a href="#">Bottle Mockup</a></li>
-                                  <li>Mark on <a href="#">Our trip to the Alps</a></li>
-                                </ul>
-                              </div>
-                            </div>
-              -->
 
               <!--@@@@@@@@@@@@@@@여기서 부터 코딩하면됩니다.@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@-->
               <div class="col-sm-8 col-sm-offset-1">
                   <div class="post-thumbnail">
                     <a th:href="@{/market/write}"><img src="/assets/images/write.png" alt="글 쓰기 버튼"/>상품 등록하기</a></div>
-
-
 
                 <div class="container">
                   <div>
@@ -105,13 +38,9 @@
                         <td th:text="${post.id}"></td>
                         <td th:text="관리자"></td>
                         <td th:text="${post.itemPrice}"></td>
-                      <!--  <td th:text="${post.postTitle}" th:onclick="location.href='/market/write'"></td>-->
                         <td>
                           <a th:href="@{/market/detail/{post_id}(post_id=${post.id})}" th:text="${post.postTitle}" /></td>
 <!--pathvariable 넣는 방법-->
-                        <!--<td>
-                          <a href="#" th:href="@{/items/{id}/edit (id=${item.id})}" class="btn btn-primary" role="button">수정</a>
-                        </td> -->
                       </tr>
                       </tbody>
                     </table>

@@ -21,7 +21,7 @@
               <div class="col-sm-8 col-sm-offset-2">
                 <h4 class="font-alt mb-0">마켓 상품 등록</h4>
                 <hr class="divider-w mt-10 mb-20">
-                <form class="form" action="/market/write" th:object="${MarketDTO}" method="post">
+                <form class="form" action="/market/write" th:object="${MarketDTO}" method="post" enctype="multipart/form-data">
 
                   <div class="form-group">
                     <input class="form-control" id="postTitle"th:field="*{postTitle}" type="text" name="postTitle" placeholder="글제목"/>
@@ -34,6 +34,9 @@
                     <input class="form-control" type="text" placeholder="Readonly input" readonly=""/>
                   </div>-->
                   <textarea class="form-control" rows="7" placeholder="글내용" th:field="*{postContent}" name="content"></textarea>
+
+                  <!--<input type="file" name="files" multiple="multiple"/>-->
+                  <input type="file" name="file"/>
                   <br>
                   <button type="submit">작성</button>
                 </form>

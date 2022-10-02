@@ -4,8 +4,10 @@ import com.teamwiya.wiya.model.MarketItemStatus;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.NotBlank;
+import java.util.List;
 
 @Data
 public class MarketDTO {
@@ -20,8 +22,11 @@ public class MarketDTO {
     @NotBlank(message = "가격은 필수 입력값입니다.")
     private int itemPrice;
 
-    private MarketItemStatus itemStatus;
+    private String filename;
+    private String filepath;
 
+
+    private MarketItemStatus itemStatus;
 
 
 }
