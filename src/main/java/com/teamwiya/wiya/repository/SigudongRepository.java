@@ -28,5 +28,9 @@ public class SigudongRepository {
     public List<Sigudong> findAll() {
         return em.createQuery("select s from Sigudong s",Sigudong.class).getResultList();
     }
+    public List<Sigudong> findSi() {
+        return em.createQuery("select s from Sigudong s where s.parent is null ", Sigudong.class)
+                .getResultList();
+    }
 
 }

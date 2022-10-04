@@ -3,6 +3,7 @@ package com.teamwiya.wiya.controller;
 import com.teamwiya.wiya.dto.HospitalSaveForm;
 import com.teamwiya.wiya.dto.HospitalUpdateForm;
 import com.teamwiya.wiya.model.Hospital;
+import com.teamwiya.wiya.model.Sigudong;
 import com.teamwiya.wiya.repository.HospitalRepository;
 import com.teamwiya.wiya.repository.SigudongRepository;
 import com.teamwiya.wiya.service.HospitalService;
@@ -119,7 +120,8 @@ public class HospitalController {
         for (int i = 1; i <= totalPages ; i++) {
             pages.add(i);
         }
-        model.addAttribute("sigudongs", sigudongRepository.findAll());
+        List<Sigudong> si = sigudongRepository.findSi(); //sidos
+        model.addAttribute("sidos", si);
         model.addAttribute("pages", pages);
         model.addAttribute("searchResult",searchResult);
         return "hospital/search";
