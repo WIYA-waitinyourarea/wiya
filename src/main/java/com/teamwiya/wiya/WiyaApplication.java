@@ -9,6 +9,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
 @EnableScheduling
+@EnableJpaAuditing
 //@ComponentScan(basePackages = {"com.teamwiya.wiya.controller"})
 @SpringBootApplication
 public class WiyaApplication {
