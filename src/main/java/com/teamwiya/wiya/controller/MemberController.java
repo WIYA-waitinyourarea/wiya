@@ -1,5 +1,6 @@
 package com.teamwiya.wiya.controller;
 
+import com.teamwiya.wiya.config.SessionConst;
 import com.teamwiya.wiya.dto.MemberLoginDTO;
 import com.teamwiya.wiya.model.Member;
 import com.teamwiya.wiya.dto.MemberSaveForm;
@@ -11,6 +12,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
@@ -34,19 +37,27 @@ public class MemberController {
         return "redirect:/member/loginForm";
     }
 
-    @GetMapping("/member/loginForm")  /*로그인 창 이동*/
+    //@GetMapping("/member/loginForm")  /*로그인 창 이동*/
+    @GetMapping("/login")  /*로그인 창 이동*/
     public String loginForm() {
         return "login";
     }
 
 
    @PostMapping("/login") /*로그인 시도 */
-    public String login(@ModelAttribute MemberLoginDTO memberLoginDTO) {
+    public String login(
+            @ModelAttribute MemberLoginDTO memberLoginDTO,
+            HttpServletRequest request,
+            @RequestParam(defaultValue = "/") String redirectURL
+   ) {
         MemberLoginDTO loginResult = memberService.login(memberLoginDTO);
         if(loginResult != null){ //로그인 성공 시 메인페이지로
-            return "redirect:";
+            HttpSession session = request.getSession(true);
+            session.setAttribute(SessionConst.LOGIN_EMAIL, memberLoginDTO.getMemMail());
+            return "redirect:"+redirectURL;
         }else{ //로그인 실패 시 다시 로그인
-            return "redirect:/member/loginForm";
+            return "login";
+            //return "redirect:/member/loginForm";
         }
     }
 
