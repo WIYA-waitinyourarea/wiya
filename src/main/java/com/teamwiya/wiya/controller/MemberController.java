@@ -38,13 +38,13 @@ public class MemberController {
     }
 
     //@GetMapping("/member/loginForm")  /*로그인 창 이동*/
-    @GetMapping("/login")  /*로그인 창 이동*/
+    //@RequestMapping("/login")  /*로그인 창 이동*/
     public String loginForm() {
         return "login";
     }
 
 
-   @PostMapping("/login") /*로그인 시도 */
+   //@PostMapping("/login") /*로그인 시도 */
     public String login(
             @ModelAttribute MemberLoginDTO memberLoginDTO,
             HttpServletRequest request,
