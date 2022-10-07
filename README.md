@@ -37,3 +37,12 @@
 ## 🐰 ERD
 
 ![Untitled Diagram-Page-1 drawio (1)](https://user-images.githubusercontent.com/79090478/194466011-268aa906-3f22-49df-a5b2-2a6a3194cf10.png)
+
+## 🐼 [Wiki](https://github.com/WIYA-waitinyourarea/wiya/wiki)
+
+* [디렉토리 구조](https://github.com/WIYA-waitinyourarea/wiya/wiki/directory)
+* [API 문서](https://github.com/WIYA-waitinyourarea/wiya/wiki/api)
+* [Sprint](https://github.com/WIYA-waitinyourarea/wiya/wiki#Sprint)
+* [토의](https://github.com/WIYA-waitinyourarea/wiya/wiki#토의)
+  * [데일리 스크럼](https://github.com/WIYA-waitinyourarea/wiya/wiki/daily_scrum)
+  * [회의록](https://github.com/WIYA-waitinyourarea/wiya/wiki/meeting)
