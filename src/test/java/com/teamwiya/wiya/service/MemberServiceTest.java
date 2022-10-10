@@ -1,6 +1,7 @@
 package com.teamwiya.wiya.service;
 
-import com.teamwiya.wiya.repository.MemberRepository;
+import com.teamwiya.wiya.member.repository.MemberRepository;
+import com.teamwiya.wiya.member.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;

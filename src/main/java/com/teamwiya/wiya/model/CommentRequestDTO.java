@@ -1,5 +1,6 @@
 package com.teamwiya.wiya.model;
 
+import com.teamwiya.wiya.member.model.Member;
 import lombok.Getter;
 
 @Getter

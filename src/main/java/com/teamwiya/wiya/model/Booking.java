@@ -1,9 +1,9 @@
 package com.teamwiya.wiya.model;
 
+import com.teamwiya.wiya.member.model.Member;
 import lombok.*;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
 
 @Entity
 @Getter

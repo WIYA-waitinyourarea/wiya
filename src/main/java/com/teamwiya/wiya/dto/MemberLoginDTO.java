@@ -1,9 +1,7 @@
 package com.teamwiya.wiya.dto;
 
-import com.teamwiya.wiya.model.Member;
+import com.teamwiya.wiya.member.model.Member;
 import lombok.Data;
-
-import javax.validation.constraints.NotBlank;
 
 @Data
 public class MemberLoginDTO {

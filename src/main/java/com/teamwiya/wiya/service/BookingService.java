@@ -2,11 +2,10 @@ package com.teamwiya.wiya.service;
 
 import com.teamwiya.wiya.model.Booking;
 import com.teamwiya.wiya.model.Hospital;
-import com.teamwiya.wiya.model.Member;
+import com.teamwiya.wiya.member.model.Member;
 import com.teamwiya.wiya.repository.BookingRepository;
 import com.teamwiya.wiya.repository.HospitalRepository;
 import com.teamwiya.wiya.repository.MemberKHKHKHKHKHKH;
-import com.teamwiya.wiya.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

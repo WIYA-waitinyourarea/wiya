@@ -1,7 +1,6 @@
-package com.teamwiya.wiya.repository;
+package com.teamwiya.wiya.market.repository;
 
-import com.teamwiya.wiya.model.Hospital;
-import com.teamwiya.wiya.model.Market;
+import com.teamwiya.wiya.market.model.Market;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -30,6 +29,10 @@ public class MarketRepository {
      //           .setParameter("post_Id", "post_Id")
      //           .getResultList();
 
+    public void deleteById(Long post_id) {
+        em.createQuery("delete from Market m where m.id =:post_id", Market.class)
+                .setParameter("post_id", post_id);
+    }
 
 }
 

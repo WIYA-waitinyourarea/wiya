@@ -1,14 +1,5 @@
 package com.teamwiya.wiya.config;
 
-import com.teamwiya.wiya.repository.MemberRepository;
-import com.teamwiya.wiya.service.MemberService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.sql.DataSource;
 /*
 
 @Configuration //스프링 빈에 등록하기 위한 설정파일 표시 어노테이션

@@ -39,7 +39,8 @@
                         <td th:text="관리자"></td>
                         <td th:text="${post.itemPrice}"></td>
                         <td>
-                          <a th:href="@{/market/detail/{post_id}(post_id=${post.id})}" th:text="${post.postTitle}" /></td>
+                          <a th:href="@{/market/detail/{post_id}(post_id=${post.id})}" th:text="${post.postTitle}" />
+                        </td>
 <!--pathvariable 넣는 방법-->
                       </tr>
                       </tbody>

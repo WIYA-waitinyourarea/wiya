@@ -158,7 +158,7 @@
       const memMail = $("#memMail").val();
       //alert("중복확인~");
       $.ajax({
-        url:'/memMailCheck',
+        url:'/mailcheck',
         type:'post',
         data:{memMail:memMail}, //http 요청 바디에 담길 내용
         //contentType:'application/json', //보내는 형식

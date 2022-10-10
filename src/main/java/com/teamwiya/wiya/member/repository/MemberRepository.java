@@ -1,14 +1,12 @@
-package com.teamwiya.wiya.repository;
+package com.teamwiya.wiya.member.repository;
 
-import com.teamwiya.wiya.model.Member;
+import com.teamwiya.wiya.member.model.Member;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Repository
 @Slf4j
@@ -25,6 +23,10 @@ public class MemberRepository {
         return em.createQuery("select m from Member m where m.memMail =:memMail", Member.class)
                 .setParameter("memMail", memMail)
                 .getResultList();
+    }
+
+    public void deleteById(String postId) {
+
     }
 
 
