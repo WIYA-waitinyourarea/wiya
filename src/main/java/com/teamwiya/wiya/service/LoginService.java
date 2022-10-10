@@ -1,7 +1,6 @@
 package com.teamwiya.wiya.service;
 
-import com.teamwiya.wiya.model.Member;
-import com.teamwiya.wiya.repository.MemberRepository;
+import com.teamwiya.wiya.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

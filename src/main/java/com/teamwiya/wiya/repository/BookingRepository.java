@@ -1,5 +1,6 @@
 package com.teamwiya.wiya.repository;
 
+import com.teamwiya.wiya.member.repository.MemberRepository;
 import com.teamwiya.wiya.model.BooState;
 import com.teamwiya.wiya.model.Booking;
 import lombok.RequiredArgsConstructor;

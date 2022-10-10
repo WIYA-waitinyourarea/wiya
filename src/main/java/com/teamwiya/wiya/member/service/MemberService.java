@@ -1,12 +1,10 @@
-package com.teamwiya.wiya.service;
+package com.teamwiya.wiya.member.service;
 
 import com.teamwiya.wiya.dto.MemberLoginDTO;
-import com.teamwiya.wiya.model.Member;
-import com.teamwiya.wiya.repository.MemberRepository;
+import com.teamwiya.wiya.member.model.Member;
+import com.teamwiya.wiya.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

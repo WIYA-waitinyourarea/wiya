@@ -1,13 +1,9 @@
 package com.teamwiya.wiya.dto;
 
-import com.teamwiya.wiya.model.MarketItemStatus;
+import com.teamwiya.wiya.market.model.MarketItemStatus;
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.NotBlank;
-import java.util.List;
 
 @Data
 public class MarketDTO {

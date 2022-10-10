@@ -1,8 +1,8 @@
-package com.teamwiya.wiya.service;
+package com.teamwiya.wiya.market.service;
 
 import com.teamwiya.wiya.dto.MarketDTO;
-import com.teamwiya.wiya.model.Market;
-import com.teamwiya.wiya.repository.MarketRepository;
+import com.teamwiya.wiya.market.model.Market;
+import com.teamwiya.wiya.market.repository.MarketRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -56,5 +56,15 @@ public class MarketService {
     public Market findOne(Long post_Id){
         return marketRepository.findOne(post_Id);
     }
+
+
+    //특정게시글 삭제
+    @Transactional
+    public void marketDelete(Long id) {
+        marketRepository.deleteById(id);
+    }
+
+
+
 
 }

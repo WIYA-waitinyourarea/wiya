@@ -1,5 +1,6 @@
-package com.teamwiya.wiya.model;
+package com.teamwiya.wiya.member.model;
 
+import com.teamwiya.wiya.model.TimeStamped;
 import lombok.*;
 
 import javax.persistence.*;
@@ -10,7 +11,7 @@ import javax.persistence.*;
 @Entity
 @Builder
 @AllArgsConstructor
-public class Member extends TimeStamped{
+public class Member extends TimeStamped {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

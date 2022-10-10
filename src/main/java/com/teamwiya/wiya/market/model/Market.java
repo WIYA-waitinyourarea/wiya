@@ -1,5 +1,6 @@
-package com.teamwiya.wiya.model;
+package com.teamwiya.wiya.market.model;
 
+import com.teamwiya.wiya.model.TimeStamped;
 import lombok.*;
 
 import javax.persistence.*;
@@ -9,7 +10,7 @@ import javax.persistence.*;
 @Entity
 @Builder
 @AllArgsConstructor
-public class Market extends TimeStamped{
+public class Market extends TimeStamped {
 
     @Id
     @GeneratedValue
