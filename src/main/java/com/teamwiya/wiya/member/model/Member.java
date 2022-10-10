@@ -1,6 +1,6 @@
 package com.teamwiya.wiya.member.model;
 
-import com.teamwiya.wiya.model.TimeStamped;
+import com.teamwiya.wiya.TimeStamped;
 import lombok.*;
 
 import javax.persistence.*;

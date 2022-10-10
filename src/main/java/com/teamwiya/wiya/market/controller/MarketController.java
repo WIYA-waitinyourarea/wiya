@@ -1,6 +1,6 @@
 package com.teamwiya.wiya.market.controller;
 
-import com.teamwiya.wiya.dto.MarketDTO;
+import com.teamwiya.wiya.market.dto.MarketDTO;
 import com.teamwiya.wiya.market.model.Market;
 import com.teamwiya.wiya.market.repository.MarketRepository;
 import com.teamwiya.wiya.market.service.MarketService;

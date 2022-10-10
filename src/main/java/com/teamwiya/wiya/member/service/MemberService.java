@@ -1,6 +1,6 @@
 package com.teamwiya.wiya.member.service;
 
-import com.teamwiya.wiya.dto.MemberLoginDTO;
+import com.teamwiya.wiya.member.dto.MemberLoginDTO;
 import com.teamwiya.wiya.member.model.Member;
 import com.teamwiya.wiya.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
@@ -16,9 +16,10 @@ import java.util.List;
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
-public class MemberService  {
+public class MemberService{
 
     private final MemberRepository memberRepository;
+
     @Transactional
     public Long register(Member member) {
         duplicateMemberCheck(member);//중복회원검증
@@ -51,6 +52,8 @@ public class MemberService  {
         }
 
     }
+
+
 /*
 public MemberLoginDTO login(MemberLoginDTO memberLoginDTO) {
     // db에서 해당 이메일 정보를 가져와서,

@@ -156,12 +156,17 @@
   <script>
     function checkEmail() {
       const memMail = $("#memMail").val();
+/*      var header = $("meta[name='_csrf_header']").attr('content');
+      var token = $("meta[name='_csrf']").attr('content');*/
       //alert("중복확인~");
       $.ajax({
         url:'/mailcheck',
         type:'post',
         data:{memMail:memMail}, //http 요청 바디에 담길 내용
         //contentType:'application/json', //보내는 형식
+        /*beforeSend: function(xhr){
+          xhr.setRequestHeader(header, token);
+        },*/
         success:function (data){ //컨트롤러에서 넘어온 값 받아서
           //alert(data);
           if(data == "T"){

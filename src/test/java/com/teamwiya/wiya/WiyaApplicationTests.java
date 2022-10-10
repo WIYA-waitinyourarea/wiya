@@ -1,16 +1,14 @@
 package com.teamwiya.wiya;
 
 
-import com.teamwiya.wiya.model.Board;
-import com.teamwiya.wiya.repository.BoardRepository;
+import com.teamwiya.wiya.board.model.Board;
+import com.teamwiya.wiya.board.repository.BoardRepository;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import javax.transaction.Transactional;
-import java.lang.reflect.Member;
-import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @SpringBootTest

@@ -29,6 +29,9 @@ public class MemberRepository {
 
     }
 
+    public Member findById(Long memId){
+        return em.find(Member.class, memId);
+    }
 
 /*
     public Member checkEmail(String memMail) { //중복체크 로직
