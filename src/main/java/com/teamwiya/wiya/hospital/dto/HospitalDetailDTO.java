@@ -1,14 +1,14 @@
-package com.teamwiya.wiya.dto;
+package com.teamwiya.wiya.hospital.dto;
 
-import com.teamwiya.wiya.model.HosImg;
-import com.teamwiya.wiya.model.HosStatus;
+import com.teamwiya.wiya.hospital.model.HosImg;
+import com.teamwiya.wiya.hospital.model.HosStatus;
 import lombok.Data;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Data
-public class HosapitalDetailDTO {
+public class HospitalDetailDTO {
 
     private Long hosId;
     private String hosName;

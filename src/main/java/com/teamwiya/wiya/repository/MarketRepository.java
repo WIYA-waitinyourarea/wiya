@@ -1,6 +1,5 @@
 package com.teamwiya.wiya.repository;
 
-import com.teamwiya.wiya.model.Hospital;
 import com.teamwiya.wiya.model.Market;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;

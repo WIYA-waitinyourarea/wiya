@@ -1,9 +1,10 @@
-package com.teamwiya.wiya.model;
+package com.teamwiya.wiya.hospital.model;
 
+import com.teamwiya.wiya.model.Member;
+import com.teamwiya.wiya.model.TimeStamped;
 import lombok.*;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
 
 @Entity
 @Getter

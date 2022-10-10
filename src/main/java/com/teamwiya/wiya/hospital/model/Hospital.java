@@ -1,6 +1,7 @@
-package com.teamwiya.wiya.model;
+package com.teamwiya.wiya.hospital.model;
 
-import com.teamwiya.wiya.dto.HospitalUpdateForm;
+import com.teamwiya.wiya.hospital.dto.HospitalUpdateForm;
+import com.teamwiya.wiya.model.TimeStamped;
 import lombok.*;
 
 import javax.persistence.*;
@@ -12,7 +13,7 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class Hospital extends TimeStamped{
+public class Hospital extends TimeStamped {
 
     //1. PK / 2. 자동으로 값 생성(아이덴티티 전략 -> 디비가 생성)
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)

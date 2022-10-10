@@ -1,16 +1,13 @@
-package com.teamwiya.wiya.controller;
+package com.teamwiya.wiya.hospital.controller;
 
-import com.teamwiya.wiya.dto.BookingNewDTO;
-import com.teamwiya.wiya.model.Booking;
-import com.teamwiya.wiya.repository.BookingRepository;
-import com.teamwiya.wiya.service.BookingService;
+import com.teamwiya.wiya.hospital.dto.BookingSaveRequest;
+import com.teamwiya.wiya.hospital.repository.BookingRepository;
+import com.teamwiya.wiya.hospital.service.BookingService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-import java.util.List;
 
 @Slf4j
 @RestController
@@ -22,7 +19,7 @@ public class BookingController {
     private final BookingRepository bookingRepository;
 
     @PostMapping("")
-    public String booking(@RequestBody BookingNewDTO bookingDTO,
+    public String booking(@RequestBody BookingSaveRequest bookingDTO,
                           HttpServletRequest request) {
         log.info("memId={}, hosId={}",bookingDTO.getMemId(),bookingDTO.getHosId());
         //회원 아이디는 세션에서 받아와야함
@@ -34,7 +31,7 @@ public class BookingController {
     }
 
     @GetMapping("/count")
-    public String count(@RequestBody BookingNewDTO bookingDTO) {
+    public String count(@RequestBody BookingSaveRequest bookingDTO) {
         //회원 아이디는 세션에서 받아와야함
         //HttpSession session = request.getSession();
         //Member member = (Member) session.getAttribute("member");

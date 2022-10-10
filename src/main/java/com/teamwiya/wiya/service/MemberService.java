@@ -2,14 +2,17 @@ package com.teamwiya.wiya.service;
 
 import com.teamwiya.wiya.dto.MemberLoginDTO;
 import com.teamwiya.wiya.model.Member;
+import com.teamwiya.wiya.model.MemberRole;
 import com.teamwiya.wiya.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Collection;
 import java.util.List;
 
 //@RequiredArgsConstructor //생성자 자동 생성
@@ -18,7 +21,7 @@ import java.util.List;
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
-public class MemberService  {
+public class MemberService{
 
     private final MemberRepository memberRepository;
     @Transactional
@@ -53,6 +56,8 @@ public class MemberService  {
         }
 
     }
+
+
 /*
 public MemberLoginDTO login(MemberLoginDTO memberLoginDTO) {
     // db에서 해당 이메일 정보를 가져와서,

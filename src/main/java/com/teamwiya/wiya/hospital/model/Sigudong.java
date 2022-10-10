@@ -1,4 +1,4 @@
-package com.teamwiya.wiya.model;
+package com.teamwiya.wiya.hospital.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

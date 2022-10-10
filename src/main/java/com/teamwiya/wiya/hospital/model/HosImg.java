@@ -1,9 +1,9 @@
-package com.teamwiya.wiya.model;
+package com.teamwiya.wiya.hospital.model;
 
 
+import com.teamwiya.wiya.model.TimeStamped;
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
@@ -20,7 +20,7 @@ import static javax.persistence.FetchType.LAZY;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class HosImg extends TimeStamped{
+public class HosImg extends TimeStamped {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long himId;

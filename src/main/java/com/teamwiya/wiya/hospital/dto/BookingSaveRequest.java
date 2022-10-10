@@ -1,9 +1,9 @@
-package com.teamwiya.wiya.dto;
+package com.teamwiya.wiya.hospital.dto;
 
 import lombok.Data;
 
 @Data
-public class BookingNewDTO {
+public class BookingSaveRequest {
     private Long memId;
     private Long hosId;
 }

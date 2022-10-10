@@ -1,5 +1,5 @@
 package com.teamwiya.wiya.config;
 
 public interface SessionConst {
-    public final String LOGIN_EMAIL = "loginEmail";
+    public final String LOGIN_EMAIL = "loginMail";
 }

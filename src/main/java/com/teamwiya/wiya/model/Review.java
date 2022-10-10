@@ -1,5 +1,6 @@
 package com.teamwiya.wiya.model;
 
+import com.teamwiya.wiya.hospital.model.Hospital;
 import lombok.Getter;
 import lombok.Setter;
 

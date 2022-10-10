@@ -1,7 +1,6 @@
-package com.teamwiya.wiya.repository;
+package com.teamwiya.wiya.hospital.repository;
 
-import com.teamwiya.wiya.model.Address;
-import com.teamwiya.wiya.model.Sigudong;
+import com.teamwiya.wiya.hospital.model.Sigudong;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 

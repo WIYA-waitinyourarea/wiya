@@ -1,15 +1,10 @@
-package com.teamwiya.wiya.repository;
+package com.teamwiya.wiya.hospital.repository;
 
-import com.teamwiya.wiya.model.Booking;
-import com.teamwiya.wiya.model.Hospital;
+import com.teamwiya.wiya.hospital.model.Hospital;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
-import java.awt.print.PageFormat;
-import java.awt.print.Pageable;
-import java.awt.print.Printable;
 import java.util.List;
 
 //스프링에서 자동으로 프록시 -> 빈객체 생성해줌

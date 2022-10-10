@@ -1,12 +1,12 @@
-package com.teamwiya.wiya.controller;
+package com.teamwiya.wiya.hospital.controller;
 
-import com.teamwiya.wiya.dto.HospitalSaveForm;
-import com.teamwiya.wiya.dto.HospitalUpdateForm;
-import com.teamwiya.wiya.model.Hospital;
-import com.teamwiya.wiya.model.Sigudong;
-import com.teamwiya.wiya.repository.HospitalRepository;
-import com.teamwiya.wiya.repository.SigudongRepository;
-import com.teamwiya.wiya.service.HospitalService;
+import com.teamwiya.wiya.hospital.dto.HospitalSaveForm;
+import com.teamwiya.wiya.hospital.dto.HospitalUpdateForm;
+import com.teamwiya.wiya.hospital.model.Hospital;
+import com.teamwiya.wiya.hospital.model.Sigudong;
+import com.teamwiya.wiya.hospital.repository.HospitalRepository;
+import com.teamwiya.wiya.hospital.repository.SigudongRepository;
+import com.teamwiya.wiya.hospital.service.HospitalService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -37,7 +37,7 @@ public class HospitalController {
     @GetMapping("/add")
     public String addForm(Model model){
         model.addAttribute("hospitalSaveForm", new HospitalSaveForm());
-        return "hospital/new-form";
+        return "hospital/newform";
     }
 
     /**
@@ -76,7 +76,7 @@ public class HospitalController {
         form.setSangse(hospital.getHosAddress().getSangse());
         form.setHosImgsBefore(hospital.getHosImgs());
         model.addAttribute("hospitalUpdateForm", form);
-        return "hospital/edit-form";
+        return "hospital/editform";
     }
 
     @PostMapping("/edit/{hopitalId}")
@@ -107,7 +107,7 @@ public class HospitalController {
         return "hospital/detail";
     }
 
-    @GetMapping("/search")
+    @GetMapping("/list")
     public String search(
             @RequestParam(name = "keyword", defaultValue = "") String keyword,
             @RequestParam(defaultValue = "1") int page,
@@ -124,7 +124,7 @@ public class HospitalController {
         model.addAttribute("sidos", si);
         model.addAttribute("pages", pages);
         model.addAttribute("searchResult",searchResult);
-        return "hospital/search";
+        return "hospital/list";
     }
 
 }

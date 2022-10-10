@@ -1,13 +1,11 @@
-package com.teamwiya.wiya.repository;
+package com.teamwiya.wiya.hospital.repository;
 
-import com.teamwiya.wiya.model.HosImg;
-import com.teamwiya.wiya.model.Hospital;
+import com.teamwiya.wiya.hospital.model.HosImg;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
-import java.util.List;
 
 @Slf4j
 @Repository

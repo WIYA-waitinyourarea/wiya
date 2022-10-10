@@ -1,5 +1,6 @@
-package com.teamwiya.wiya.model;
+package com.teamwiya.wiya.hospital.model;
 
+import com.teamwiya.wiya.model.Member;
 import lombok.Getter;
 import lombok.Setter;
 

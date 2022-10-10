@@ -1,7 +1,8 @@
-package com.teamwiya.wiya.repository;
+package com.teamwiya.wiya.hospital.repository;
 
-import com.teamwiya.wiya.model.BooState;
-import com.teamwiya.wiya.model.Booking;
+import com.teamwiya.wiya.hospital.model.BooState;
+import com.teamwiya.wiya.hospital.model.Booking;
+import com.teamwiya.wiya.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 

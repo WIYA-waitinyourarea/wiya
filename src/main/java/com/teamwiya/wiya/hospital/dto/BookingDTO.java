@@ -1,4 +1,4 @@
-package com.teamwiya.wiya.dto;
+package com.teamwiya.wiya.hospital.dto;
 
 import lombok.Data;
 

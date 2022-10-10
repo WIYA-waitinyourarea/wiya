@@ -1,6 +1,5 @@
-package com.teamwiya.wiya.model;
+package com.teamwiya.wiya.hospital.model;
 
-import com.teamwiya.wiya.dto.HospitalSaveForm;
 import com.teamwiya.wiya.util.AddressToCoordinate;
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
