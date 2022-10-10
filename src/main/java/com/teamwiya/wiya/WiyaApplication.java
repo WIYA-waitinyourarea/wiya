@@ -10,7 +10,6 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 
 @EnableScheduling
 @EnableJpaAuditing
-//@ComponentScan(basePackages = {"com.teamwiya.wiya.controller"})
 @SpringBootApplication
 public class WiyaApplication {
 	public static void main(String[] args) {

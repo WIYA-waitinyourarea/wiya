@@ -1,8 +1,6 @@
 package com.teamwiya.wiya.controller;
 
 import com.teamwiya.wiya.model.Board;
-import com.teamwiya.wiya.model.Comment;
-import com.teamwiya.wiya.model.CommentRequestDTO;
 import com.teamwiya.wiya.repository.CommentRepository;
 import com.teamwiya.wiya.service.BoardService;
 import lombok.RequiredArgsConstructor;
@@ -18,13 +16,13 @@ public class BoardController {
     private final BoardService boardService;
     private final CommentRepository commentRepository;
 
-    @GetMapping("/board/write")//localhost:8090/board/write
+    @GetMapping("/board/new")//localhost:8090/board/write
     public String boardWriteForm(){
-        return "forms";
+        return "board/newform";
     }
 
 
-    @PostMapping("/board/write")
+    @PostMapping("/board/new")
     public String boardWritePro(Board board, Model model, @RequestParam("myfile") MultipartFile file){
                                 //@ModelAttribute("board") Board board
                                 //내가 파라미터(name 속성으로 넘긴것들)로 넘긴 것들을 set 해주겠다.
@@ -67,25 +65,25 @@ public class BoardController {
         model.addAttribute("message","글 작성이 완료되었습니다.");
         model.addAttribute("searchUrl","/board/list");
 
-        return "message";
+        return "board/message";
     }
 
     @GetMapping("/board/list")
     public String boardList(Model model){
 
         model.addAttribute("list",boardService.boardList());
-        return "boardList";
+        return "board/list";
     }
 
-    @GetMapping("/board/view")
+    @GetMapping("/board/detail")
     public String boardView(Model model, @RequestParam Long id){
 
         model.addAttribute("board",boardService.boardView(id));
 
-        return "boardDetailView";
+        return "board/detail";
     }
 
-    @GetMapping("/board/delete")
+    @GetMapping("/board/delete")//post로 수정
     public String boaedDelete(@RequestParam Long id){
 
         boardService.boardDelete(id);
@@ -93,13 +91,13 @@ public class BoardController {
         return "redirect:/board/list";
     }
 
-    @GetMapping("/board/modify/{id}")
+    @GetMapping("/board/edit/{id}")
     public String boardModify(@PathVariable Long id, Model model){
         model.addAttribute("board",boardService.boardView(id));
-        return "formModify";
+        return "board/editform";
     }
 
-    @PostMapping("/board/modify/{id}")
+    @PostMapping("/board/edit/{id}")
     public String boardUpdate(@PathVariable Long id,Board board){
         Board boardTemp = boardService.boardView(id);       //기존에 있던 내용 가져오기
         boardTemp.setContent(board.getContent());
