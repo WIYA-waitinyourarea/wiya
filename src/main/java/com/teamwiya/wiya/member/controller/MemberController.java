@@ -49,13 +49,14 @@ public class MemberController {
             HttpServletRequest request,
             @RequestParam(defaultValue = "/") String redirectURL
    ) {
+        log.info("redirectURL={}", redirectURL);
         MemberLoginDTO loginResult = memberService.login(memberLoginDTO);
         if(loginResult != null){ //로그인 성공 시 메인페이지로
             HttpSession session = request.getSession(true);
             session.setAttribute(SessionConst.LOGIN_EMAIL, memberLoginDTO.getMemMail());
             return "redirect:"+redirectURL;
         }else{ //로그인 실패 시 다시 로그인
-            return "login";
+            return "member/login";
             //return "redirect:/member/loginForm";
         }
     }

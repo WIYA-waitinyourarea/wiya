@@ -14,13 +14,12 @@ public class WebConfig implements WebMvcConfigurer {
         registry.addInterceptor(new LoginCheckInterceptor())
                 .order(1)
                 .addPathPatterns("/**")
-                .excludePathPatterns("/", "/login", "/logout", "/memMailCheck", "/member/register", "/assets/**","/*.ico","/error", "/*.js", "/*.css");
-
+                .excludePathPatterns("/", "/member/login", "/member/logout", "/mailcheck", "/member/register", "/assets/**","/*.ico","/error", "/*.js", "/*.css");
     }
 
-    //@Override
+    /*@Override
     public void addViewControllers(ViewControllerRegistry registry) {
         registry.addViewController("/login").setViewName("login");
         //registry.addViewController("/login").setViewName("login");
-    }
+    }*/
 }
