@@ -2697,11 +2697,11 @@ Google map
 	Responsive Styles - Media Queries
 --------------------------------------------------------------*/
 @media (min-width: 768px) {
-  .navbar-transparent {
+/*  .navbar-transparent {
     background: transparent;
     padding-bottom: 15px;
     padding-top: 15px;
-  }
+  }*/
   .navbar-custom .dropdown-menu {
     position: absolute;
     display: block;
