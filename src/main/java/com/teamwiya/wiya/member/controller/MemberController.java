@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.websocket.Session;
 import java.util.List;
 
 @Controller
@@ -28,7 +29,7 @@ public class MemberController {
     @GetMapping("/member/register") /*회원가입 창 이동*/
     public String registerForm(Model model) {
         model.addAttribute("memberFormDTO", new MemberSaveForm());
-        return "/member/register";
+        return "member/register";
     }
 
     @PostMapping("/member/register") /*회원가입 */
@@ -50,15 +51,25 @@ public class MemberController {
             @RequestParam(defaultValue = "/") String redirectURL
    ) {
         log.info("redirectURL={}", redirectURL);
-        MemberLoginDTO loginResult = memberService.login(memberLoginDTO);
+        Member loginResult = memberService.login(memberLoginDTO);
         if(loginResult != null){ //로그인 성공 시 메인페이지로
             HttpSession session = request.getSession(true);
-            session.setAttribute(SessionConst.LOGIN_EMAIL, memberLoginDTO.getMemMail());
+            session.setAttribute(SessionConst.LOGIN_EMAIL, loginResult);
             return "redirect:"+redirectURL;
         }else{ //로그인 실패 시 다시 로그인
             return "member/login";
             //return "redirect:/member/loginForm";
         }
+    }
+
+
+    @PostMapping("/member/logout")
+    public String logout(
+            HttpServletRequest request
+    ) {
+        HttpSession session = request.getSession(false);
+        session.invalidate();
+        return "redirect:/";
     }
 
 

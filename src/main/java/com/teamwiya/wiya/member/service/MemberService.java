@@ -34,7 +34,7 @@ public class MemberService{
         }
     }
 
-   public MemberLoginDTO login(MemberLoginDTO memberLoginDTO) {
+   public Member login(MemberLoginDTO memberLoginDTO) {
         // db에서 해당 이메일 정보를 가져와서,
         // 입력받은 비밀번호와 db에서 조회한 비번의 일치 여부
         // 일치하면 로그인 성공, 불일치하면 실패
@@ -43,7 +43,7 @@ public class MemberService{
         if (!checkMemMail.isEmpty()) {
             Member loginEntity = checkMemMail.get(0);
             if (loginEntity.getMemPwd().equals(memberLoginDTO.getMemPwd())) {
-                return MemberLoginDTO.toMemberDTO(loginEntity);
+                return loginEntity;
             }else{ //비번 틀릴때
                 return null;
             }

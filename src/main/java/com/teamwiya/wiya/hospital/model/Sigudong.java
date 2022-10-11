@@ -18,7 +18,7 @@ import static javax.persistence.FetchType.LAZY;
 @AllArgsConstructor
 public class Sigudong {
 
-    @Id @GeneratedValue
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long sigudongId;//1124900000
 
     private String sigudongName; //용산구
