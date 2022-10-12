@@ -8,9 +8,9 @@
         </div>
         <div class="collapse navbar-collapse" id="custom-collapse">
             <ul class="nav navbar-nav navbar-right">
-                <li class="dropdown"><a class="" th:href="@{/hospital/list}">병원 찾기</a></li>
-                <li class="dropdown"><a class="" th:href="@{/board/list}">커뮤니티</a></li>
-                <li class="dropdown"><a class="" th:href="@{/market/list}">마켓</a></li>
+                <li class="dropdown"><a class="" th:href="@{/hospital/list}">병원찾기</a></li>
+                <li class="dropdown"><a class="" th:href="@{/board/list}">정보마당</a></li>
+                <li class="dropdown"><a class="" th:href="@{/market/list}">중고장터</a></li>
                 <li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown">About</a>
                     <ul class="dropdown-menu">
                         <li><a href="">위야 소개</a></li>
@@ -24,8 +24,8 @@
                 </th:block>
                 <th:block th:unless="${session.loginMember == null}">
                     <li class="dropdown"><a class="" th:text="|${session.loginMember.memNickname} 님|">회원님</a></li>
-                    <form name="logout" th:action="@{/member/logout}" th:method="post"></form>
                     <li class="dropdown"><a href="#" onclick="javascript:document.logout.submit();">로그아웃</a></li>
+                    <form name="logout" th:action="@{/member/logout}" th:method="post"></form>
                 </th:block>
             </ul>
         </div>
