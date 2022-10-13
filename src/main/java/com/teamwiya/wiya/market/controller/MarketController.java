@@ -23,7 +23,7 @@ public class MarketController {
     @GetMapping("/market/write") /*장터 글쓰기 페이지*/
     public String marketWrite(Model model) {
         model.addAttribute("MarketDTO", new MarketDTO());
-        return "/market/newform";
+        return "market/newform";
     }
 
     @PostMapping("/market/write") /* 장터 게시글 작성 성공시 */
@@ -53,14 +53,14 @@ public class MarketController {
     public String marketPostlist(Model model) {
         List<Market> posts = marketService.findPosts();
         model.addAttribute("posts", posts);
-        return "/market/list";
+        return "market/list";
     }
 
     @GetMapping("/market/detail/{post_id}") /*글 상세 페이지*/
     public String postListdetail(Model model, @PathVariable Long post_id) {
         Market market = marketService.findOne(post_id);
         model.addAttribute("market", market);
-        return "/market/detail";
+        return "market/detail";
     }
 
 /*
