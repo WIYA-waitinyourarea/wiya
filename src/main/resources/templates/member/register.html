@@ -41,7 +41,8 @@
                   </div>
 
                   <div class="form-group">
-                    <input class="form-control" id="memName" th:field="*{memName}" type="text" name="memName" placeholder="이름"/>
+                    <input class="form-control" th:field="*{memMailCheck}" type="text" th:style="${#strings.isEmpty(session.registerMail)} ? |display:none| : |display:block|" placeholder="인증번호"/>
+                    <div class="field-error" th:errors="*{memMailCheck}">인증번호 오류</div>
                   </div>
                   <div class="form-group">
                     <input class="form-control" id="memName" th:field="*{memName}" type="text" name="memName" placeholder="이름"/>
@@ -138,15 +139,14 @@
 
   <script>
     function sendMail() {
-      alert(1);
       const memMail = $("#memMail").val();
-      alert(memMail);
       $.ajax({
         url:'/member/sendmail',
         type:'get',
         data:{memMail:memMail},
         success:function (data){
-          alert(data);
+          alert("인증번호 발송 완료");
+          $("#memMailCheck").css("display","");
         },
         error: function () {
           alert("메일 발송 에러");

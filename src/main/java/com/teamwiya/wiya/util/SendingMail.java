@@ -22,7 +22,6 @@ public class SendingMail {
 
         //난수발생
         String check = createCheck();
-        log.info("난수= {}", check);
         // MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage, true, "UTF-8");
         try {
             //발송 메일을 담는 메세지 객체 ㅅㅇ성
@@ -34,7 +33,7 @@ public class SendingMail {
             mimeMessageHelper.setTo(mail);
             //메일 제목
             mimeMessageHelper.setSubject("[WIYA] 인증번호 발송입니다" ); // 메일제목
-            mimeMessageHelper.setText("text/html","<p>안녕하세요.</p><p>인증번호는"+ check + "입니다.</p><p>감사합니다</p>"); // 메일 내용
+            mimeMessageHelper.setText("text/html","<p>안녕하세요.</p><p>인증번호는 "+ check + " 입니다.</p><p>감사합니다</p>"); // 메일 내용
 
             javaMailSender.send(mimeMessage);
         } catch (MessagingException e) {

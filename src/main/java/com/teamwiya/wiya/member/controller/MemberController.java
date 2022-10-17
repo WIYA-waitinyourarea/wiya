@@ -39,9 +39,15 @@ public class MemberController {
     @PostMapping("/member/register") /*회원가입 */
     public String register(
             @Validated @ModelAttribute("memberSaveForm") MemberSaveForm memberSaveForm,
-            BindingResult bindingResult
+            BindingResult bindingResult,
+            HttpServletRequest request
     ) {
         //검증
+        HttpSession session = request.getSession();
+        String check = (String) session.getAttribute(SessionConst.REGISTER_EMAIL);
+        if(check == null || !check.equals(memberSaveForm.getMemMailCheck())){
+            bindingResult.rejectValue("memMailCheck", "check", "인증번호 다시 입력");
+        }
         if(bindingResult.hasErrors()) return "member/register";
 
         memberService.register(memberSaveForm);
@@ -98,12 +104,18 @@ public class MemberController {
         }
     }
 
+    /*나중에 여기 JSON으로 바꾸고싶음*/
     @GetMapping("/member/sendmail")
     @ResponseBody
-    public String sendMail(@RequestParam("memMail") String memMail) {
+    public String sendMail(
+            @RequestParam("memMail") String memMail,
+            HttpServletRequest request
+    ) {
         System.out.println("member.getMemMail() = " + memMail);
-        log.info("mail={}",memMail);
-        return sendingMail.MailCheck(memMail);
+        HttpSession session = request.getSession();
+        String check = sendingMail.MailCheck(memMail);
+        session.setAttribute(SessionConst.REGISTER_EMAIL, check);
+        return check;
     }
 
 }
