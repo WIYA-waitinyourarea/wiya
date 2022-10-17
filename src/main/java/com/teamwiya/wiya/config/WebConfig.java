@@ -24,7 +24,8 @@ public class WebConfig implements WebMvcConfigurer {
                         "/error",
                         "/*.js",
                         "/*.css",
-                        "/images/**"
+                        "/images/**",
+                        "/member/sendmail"
                 );
     }
 

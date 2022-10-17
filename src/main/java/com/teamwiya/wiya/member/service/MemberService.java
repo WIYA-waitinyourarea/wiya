@@ -1,6 +1,7 @@
 package com.teamwiya.wiya.member.service;
 
 import com.teamwiya.wiya.member.dto.MemberLoginDTO;
+import com.teamwiya.wiya.member.dto.MemberSaveForm;
 import com.teamwiya.wiya.member.model.Member;
 import com.teamwiya.wiya.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
@@ -21,7 +22,9 @@ public class MemberService{
     private final MemberRepository memberRepository;
 
     @Transactional
-    public Long register(Member member) {
+    public Long register(MemberSaveForm memberSaveForm) {
+
+         Member member = Member.createMember(memberSaveForm);
         duplicateMemberCheck(member);//중복회원검증
         memberRepository.save(member);
         return member.getId();
@@ -42,7 +45,8 @@ public class MemberService{
         List<Member> checkMemMail = memberRepository.findByEmail(memberLoginDTO.getMemMail());
         if (!checkMemMail.isEmpty()) {
             Member loginEntity = checkMemMail.get(0);
-            if (loginEntity.getMemPwd().equals(memberLoginDTO.getMemPwd())) {
+            String inputPwd = Member.hashing(memberLoginDTO.getMemPwd(), loginEntity.getMemSalt());
+            if (loginEntity.getMemPwd().equals(inputPwd)){
                 return loginEntity;
             }else{ //비번 틀릴때
                 return null;

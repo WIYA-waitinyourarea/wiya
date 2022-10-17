@@ -52,7 +52,7 @@
             </ul>
         </div>
         <!--map-->
-        <div style="width:70%; display: inline-block">
+        <div style="padding: 50px; width:70%; display: inline-block">
             <div id="map" style="width:700px; height:700px;"></div>
         </div>
 
@@ -98,13 +98,6 @@
         [/]
     </script>
     <script th:inline="javascript">
-        class Member {
-            private Long id;
-            private String name;
-        }
-        var xxxxxxxx = [[${sidos}]]
-        //1. 리스트
-        //2. 리스트 <Sigudong> 여기 안에도 리스트가 있따 >> child
 
         //첫번째 셀렉트 태그 뿌리는 반복문
         var sido = document.getElementById("sido");

@@ -6,10 +6,13 @@ import com.teamwiya.wiya.member.model.Member;
 import com.teamwiya.wiya.member.repository.MemberRepository;
 import com.teamwiya.wiya.member.dto.MemberSaveForm;
 import com.teamwiya.wiya.member.service.MemberService;
+import com.teamwiya.wiya.util.SendingMail;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -18,27 +21,35 @@ import javax.websocket.Session;
 import java.util.List;
 
 @Controller
-@RequestMapping
 @RequiredArgsConstructor
 @Slf4j
 public class MemberController {
 
     private final MemberService memberService;
     private final MemberRepository memberRepository;
+    private final SendingMail sendingMail;
 
     @GetMapping("/member/register") /*회원가입 창 이동*/
-    public String registerForm(Model model) {
-        model.addAttribute("memberFormDTO", new MemberSaveForm());
+    public String registerForm(
+            @ModelAttribute("memberSaveForm") MemberSaveForm memberSaveForm
+    ) {
         return "member/register";
     }
 
     @PostMapping("/member/register") /*회원가입 */
-    public String register(Member member) {
-        memberService.register(member);
+    public String register(
+            @Validated @ModelAttribute("memberSaveForm") MemberSaveForm memberSaveForm,
+            BindingResult bindingResult
+    ) {
+        //검증
+        if(bindingResult.hasErrors()) return "member/register";
+
+        memberService.register(memberSaveForm);
+
         return "redirect:/member/login";
     }
 
-    @RequestMapping("/member/login")  /*로그인 창 이동*/
+    @GetMapping("/member/login")  /*로그인 창 이동*/
     public String loginForm() {
         return "member/login";
     }
@@ -75,10 +86,8 @@ public class MemberController {
 
     @PostMapping("/mailcheck")
     @ResponseBody //바디에 담아서 넘기겠다 , 리턴자료형은 스트링
-    /*public String memMailCheck(@RequestParam("memMail") String memMail) {*/
-    public String memMailCheck(Member member) {
-        List<Member> checkmail = memberRepository.findByEmail(member.getMemMail());
-        System.out.println("controller"+ checkmail);
+    public String memMailCheck(@RequestParam("memMail") String memMail) {
+        List<Member> checkmail = memberRepository.findByEmail(memMail);
         log.info("list={}",checkmail);
         if(checkmail.isEmpty()){
             return "T";
@@ -87,7 +96,14 @@ public class MemberController {
         }else{
             throw new IllegalStateException("새로운 이메일을 입력하세요");
         }
-    };
+    }
 
+    @GetMapping("/member/sendmail")
+    @ResponseBody
+    public String sendMail(@RequestParam("memMail") String memMail) {
+        System.out.println("member.getMemMail() = " + memMail);
+        log.info("mail={}",memMail);
+        return sendingMail.MailCheck(memMail);
+    }
 
 }

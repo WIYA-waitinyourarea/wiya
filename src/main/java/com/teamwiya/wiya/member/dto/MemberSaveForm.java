@@ -1,6 +1,7 @@
 package com.teamwiya.wiya.member.dto;
 
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Length;
@@ -9,7 +10,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
 @NoArgsConstructor
-@Getter
+@Data
 public class MemberSaveForm {
 
     @NotBlank(message = "이름은 필수 입력값입니다.")

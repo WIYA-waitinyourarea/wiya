@@ -24,18 +24,25 @@
               <div class="col-sm-5">
                 <h4 class="font-alt">회원가입</h4>
                 <hr class="divider-w mb-10">
-                <form class="form" action="/member/register" th:object="${memberFormDTO}" method="post">
+                <form class="form" action="" th:object="${memberSaveForm}" method="post">
                   <div class="form-group">
-                    <input class="form-control" id="memMail" th:field="*{memMail}" oninput="checkEmail()" type="text" name="memMail" placeholder="이메일"
+                    <input class="form-control" id="memMail" th:field="*{memMail}" oninput="checkEmail()" type="text" name="memMail" placeholder="이메일">
+                    <!--<p th:errors="*{memMail}">Incorrect data</p>-->
+                    <!--<input class="form-control" id="memMail" th:field="*{memMail}" oninput="checkEmail()" type="text" name="memMail" placeholder="이메일"
                      th:class="${#fields.hasErrors('memMail')}? 'form-control fieldError' : 'form-control'"/>
                     <p th:if="${#fields.hasErrors('memMail')}"
-                       th:errors="*{memMail}">Incorrect data</p>
+                       th:errors="*{memMail}">Incorrect data</p>-->
 
-                  <span class="checkMessageF">이미 사용 중인 이메일 입니다.</span>
-                  <span class="checkMessageT">사용 가능한 이메일 입니다.</span>
-                  <span class="mailInfo">이메일 사용 가능 여부</span>
+                    <span class="checkMessageF">이미 사용 중인 이메일 입니다.</span>
+                    <span class="checkMessageT">사용 가능한 이메일 입니다.</span>
+                    <span class="mailInfo">이메일 사용 가능 여부</span>
+                    <div class="btn btn-block btn-round btn-b" onclick="sendMail()">인증번호 발송</div>
+
                   </div>
 
+                  <div class="form-group">
+                    <input class="form-control" id="memName" th:field="*{memName}" type="text" name="memName" placeholder="이름"/>
+                  </div>
                   <div class="form-group">
                     <input class="form-control" id="memName" th:field="*{memName}" type="text" name="memName" placeholder="이름"/>
                   </div>
@@ -122,11 +129,30 @@
           }
         },
         error: function () {
-          alert("에러");
+          alert("메일체크 에러");
         },
 
       });
     };
+  </script>
+
+  <script>
+    function sendMail() {
+      alert(1);
+      const memMail = $("#memMail").val();
+      alert(memMail);
+      $.ajax({
+        url:'/member/sendmail',
+        type:'get',
+        data:{memMail:memMail},
+        success:function (data){
+          alert(data);
+        },
+        error: function () {
+          alert("메일 발송 에러");
+        },
+      });
+    }
   </script>
 
 </th:block>
