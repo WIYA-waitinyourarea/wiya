@@ -1,6 +1,7 @@
 package com.teamwiya.wiya.member.model;
 
 import com.teamwiya.wiya.TimeStamped;
+import com.teamwiya.wiya.member.dto.MemberChangpwdForm;
 import com.teamwiya.wiya.member.dto.MemberSaveForm;
 import lombok.*;
 
@@ -48,6 +49,16 @@ public class Member extends TimeStamped {
                 //.role(MemberRole.USER)
                 .build();
     }
+
+
+
+    public void updatePwd(MemberChangpwdForm memberChangpwdForm) {
+        String salt = createSalt();
+        String hashingPwd = hashing(memberChangpwdForm.getMemPwd(), salt);
+        this.memPwd = hashingPwd;
+        this.memSalt = salt;
+    }
+
 
     /**
      * 해싱에 필요한 솔트를 만들어내는 메소드, 회원가입 시에만 사용

@@ -1,10 +1,13 @@
 package com.teamwiya.wiya.config;
 
 import com.teamwiya.wiya.interceptor.LoginCheckInterceptor;
+import com.teamwiya.wiya.interceptor.MemberFindInterceptor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+
+import java.util.Locale;
 
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
@@ -17,7 +20,7 @@ public class WebConfig implements WebMvcConfigurer {
                 .excludePathPatterns("/",
                         "/member/login",
                         "/member/logout",
-                        "/mailcheck",
+                        "/member/mailcheck",
                         "/member/register",
                         "/assets/**",
                         "/*.ico",
@@ -25,8 +28,13 @@ public class WebConfig implements WebMvcConfigurer {
                         "/*.js",
                         "/*.css",
                         "/images/**",
-                        "/member/sendmail"
+                        "/member/sendmail",
+                        "/member/findpwd",
+                        "/member/changepwd"
                 );
+        registry.addInterceptor(new MemberFindInterceptor())
+                .order(2)
+                .addPathPatterns("/member/changepwd");
     }
 
     /*@Override

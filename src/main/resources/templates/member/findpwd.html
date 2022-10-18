@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="layouts/layout"
+        lang="ko">
+
+<th:block layout:fragment="content">
+
+
+        <div class="container">
+            <div class="row">
+
+                <div class="col-sm-5">
+                    <h4 class="font-alt">비밀번호 찾기</h4>
+                    <hr class="divider-w mb-10">
+                    <form class="form" action="" th:object="${memberFindpwdForm}" method="post">
+                        <div class="form-group">
+                            <input class="form-control" id="memMail" th:field="*{memMail}" oninput="checkEmail()" type="text" name="memMail" placeholder="이메일">
+                            <div class="field-error" th:errors="*{memMail}">인증번호 오류</div>
+                            <div class="btn btn-block btn-round btn-b" onclick="sendMail()">인증번호 발송</div>
+                        </div>
+
+                        <div class="form-group">
+                            <input class="form-control" th:field="*{memMailCheck}" type="text" th:style="${#strings.isEmpty(session.registerMail)} ? |display:none| : |display:block|" placeholder="인증번호"/>
+                            <div class="field-error" th:errors="*{memMailCheck}">인증번호 오류</div>
+                        </div>
+
+                        <div class="form-group">
+                            <button class="btn btn-block btn-round btn-b" type="submit">비밀번호 변경</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+</th:block>
+
+<th:block layout:fragment="js">
+    <script>
+        function sendMail() {
+            const memMail = $("#memMail").val();
+            $.ajax({
+                url:'/member/sendmail',
+                type:'get',
+                data:{memMail:memMail},
+                success:function (data){
+                    alert("인증번호 발송 완료");
+                    $("#memMailCheck").css("display","");
+                },
+                error: function () {
+                    alert("메일 발송 에러");
+                },
+            });
+        }
+    </script>
+</th:block>
+<th:block layout:fragment="css">
+    <!--원하는 css 추가 작업-->
+</th:block>
+
+</html>

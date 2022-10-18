@@ -1,5 +1,6 @@
 package com.teamwiya.wiya.member.service;
 
+import com.teamwiya.wiya.member.dto.MemberChangpwdForm;
 import com.teamwiya.wiya.member.dto.MemberLoginDTO;
 import com.teamwiya.wiya.member.dto.MemberSaveForm;
 import com.teamwiya.wiya.member.model.Member;
@@ -37,11 +38,11 @@ public class MemberService{
         }
     }
 
-   public Member login(MemberLoginDTO memberLoginDTO) {
+    public Member login(MemberLoginDTO memberLoginDTO) {
         // db에서 해당 이메일 정보를 가져와서,
         // 입력받은 비밀번호와 db에서 조회한 비번의 일치 여부
         // 일치하면 로그인 성공, 불일치하면 실패
-       log.info("입력된 아이디={}", memberLoginDTO.getMemMail());
+        log.info("입력된 아이디={}", memberLoginDTO.getMemMail());
         List<Member> checkMemMail = memberRepository.findByEmail(memberLoginDTO.getMemMail());
         if (!checkMemMail.isEmpty()) {
             Member loginEntity = checkMemMail.get(0);
@@ -55,6 +56,15 @@ public class MemberService{
             return null;
         }
 
+    }
+
+    @Transactional
+    public void updatePwd(MemberChangpwdForm memberChangpwdForm) {
+        List<Member> checkMemMail = memberRepository.findByEmail(memberChangpwdForm.getMemMail());
+        if (!checkMemMail.isEmpty()) {
+            Member member = checkMemMail.get(0);
+            member.updatePwd(memberChangpwdForm);
+        }
     }
 
 

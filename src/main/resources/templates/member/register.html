@@ -108,8 +108,8 @@
       var token = $("meta[name='_csrf']").attr('content');*/
       //alert("중복확인~");
       $.ajax({
-        url:'/mailcheck',
-        type:'post',
+        url:'/member/mailcheck',
+        type:'get',
         data:{memMail:memMail}, //http 요청 바디에 담길 내용
         //contentType:'application/json', //보내는 형식
         /*beforeSend: function(xhr){
@@ -134,7 +134,7 @@
         },
 
       });
-    };
+    }
   </script>
 
   <script>

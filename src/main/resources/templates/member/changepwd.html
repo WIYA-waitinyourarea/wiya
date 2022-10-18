@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="layouts/layout"
+        lang="ko">
+
+<th:block layout:fragment="content">
+
+    <div class="container">
+    <div class="row">
+        <div class="col-sm-6 col-sm-offset-3">
+            <h1 class="module-title font-alt mb-0">Login-Register</h1>
+        </div>
+    </div>
+    </div>
+    </section>
+    <section class="module">
+        <div class="container">
+            <div class="row">
+
+                <div class="col-sm-5">
+                    <h4 class="font-alt">새로운 비밀번호 입력</h4>
+                    <hr class="divider-w mb-10">
+                    <form class="form" action="" th:object="${memberChangpwdForm}" method="post">
+                        <div class="form-group">
+                            <input class="form-control" th:field="*{memMail}" oninput="checkEmail()" type="text" name="memMail" placeholder="이메일" readonly>
+                        </div>
+                        <div class="form-group">
+                            <input class="form-control" th:field="*{memPwd}" type="password" name="memPwd" placeholder="비밀번호"/>
+                        </div>
+                        <div class="form-group">
+                            <input class="form-control" th:field="*{memPwdCheck}" oninput="pwdMatchingCheck()" type="password" name="memPwdCheck" placeholder="비밀번호확인"/>
+                            <span class="pwd_wrong">비밀번호가 일치하지 않습니다.</span>
+                            <span class="pwd_correct">비밀번호 일치</span>
+                        </div>
+                        <div class="form-group">
+                            <button class="btn btn-block btn-round btn-b" type="submit">비밀번호 변경</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+</th:block>
+
+<th:block layout:fragment="js">
+    <script type="text/javascript">
+
+        function pwdMatchingCheck() {
+            var pwd = document.getElementById('memPwd').value;
+            var pwdCheck = document.getElementById('memPwdCheck').value;
+
+            if(pwd != pwdCheck){
+                $(".pwd_wrong").css("display", "inline-block");
+                $(".pwd_correct").css("display", "none");
+            }else{
+                $(".pwd_correct").css("display", "inline-block");
+                $(".pwd_wrong").css("display", "none");
+            }
+        }
+
+        function pwdDoubleCheck() {
+            var pwd = document.getElementById('memPwd').value;
+            var pwdCheck = document.getElementById('memPwdCheck').value;
+            if(pwd != pwdCheck){
+                alert("비밀번호와 비밀번호확인이 일치하지 않습니다");
+                $('#memPwdCheck').val('');
+                event.preventDefault();
+            }
+        }
+
+    </script>
+</th:block>
+<th:block layout:fragment="css">
+    <style>
+        .pwd_wrong {
+            color: red;
+            display: none;
+
+        }
+        .pwd_correct {
+            color: darkblue;
+            display: none;
+
+        }
+    </style>
+</th:block>
+
+</html>
