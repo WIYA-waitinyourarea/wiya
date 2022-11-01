@@ -32,15 +32,14 @@ public class Hospital extends TimeStamped {
     @Embedded
     private Address hosAddress;
 
-     private String hosOpenhour;
+    private String hosOpenhour;
 
-     @ManyToOne(fetch = FetchType.LAZY)
-     @JoinColumn(name = "hos_sigudong")
-     private Sigudong hosSigudong;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "hos_sigudong")
+    private Sigudong hosSigudong;
 
-     @OneToMany(mappedBy = "hospital", cascade = CascadeType.ALL, orphanRemoval = true)
-     private List<HosImg> hosImgs = new ArrayList<>();
-
+    @OneToMany(mappedBy = "hospital", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<HosImg> hosImgs = new ArrayList<>();
 
     /*== 빌더패턴을 통한 생성 메소드 ==*/
     public static Hospital createHospital(String hosName, String hosPhone, Address hosAddress, Sigudong dong, String hosOpenhour) {

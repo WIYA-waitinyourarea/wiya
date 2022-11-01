@@ -85,7 +85,7 @@ public class HospitalService {
     }
 
 
-    public void updateHopital(HospitalUpdateForm hospitalUpdateForm, List<MultipartFile> files) {
+    public void updateHospital(HospitalUpdateForm hospitalUpdateForm, List<MultipartFile> files) {
         Hospital hospital = hospitalRepository.findOne(hospitalUpdateForm.getHosId());
         Address address = hospital.getHosAddress();
         Sigudong gu = sigudongRepository.findById(address.getBCode());
@@ -98,9 +98,12 @@ public class HospitalService {
 
 
         /*기존 사진 중 삭제된 사진이 있는 경우*/
+        //바꿔야한다. 원래는 고아객체를 만들어서 이미지 엔티티를 삭제 시켰으나....
+        // remove를 시켜야함.
         if(hospital.getHosImgs().size() != hospitalUpdateForm.getHosImgsAfter().size()){
             for (int i = 0; i < hospital.getHosImgs().size(); i++) {
                 if(!hospitalUpdateForm.getHosImgsAfter().contains(hospital.getHosImgs().get(i).getHimId())) {
+                    hosImgRepository.remove(hospital.getHosImgs().get(i).getHimId());
                     hospital.getHosImgs().remove(i--);
                 }
             }

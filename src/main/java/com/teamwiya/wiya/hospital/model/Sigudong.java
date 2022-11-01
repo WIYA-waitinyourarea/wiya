@@ -23,10 +23,9 @@ public class Sigudong {
 
     private String sigudongName; //용산구
 
-    @OneToMany(mappedBy = "hosSigudong")
-    private List<Hospital> hospitals = new ArrayList<>();  // 용산구 1병워, 용산2병원, ...
     @ManyToOne(fetch = LAZY) @JoinColumn(name = "parent_id")
     private Sigudong parent; //서울특별시 객체
+
     @OneToMany(mappedBy = "parent")
     private List<Sigudong> child = new ArrayList<>(); //empty
     /*해당 엔티티는 생성할 일이 없음*/

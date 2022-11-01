@@ -79,7 +79,7 @@ public class HospitalController {
         return "hospital/editform";
     }
 
-    @PostMapping("/edit/{hopitalId}")
+    @PostMapping("/edit/{hospitalId}")
     public String edit(
             @Validated @ModelAttribute("hospitalUpdateForm") HospitalUpdateForm hospitalUpdateForm,
             BindingResult bindingResult,
@@ -90,7 +90,7 @@ public class HospitalController {
         //바인딩 에러나면 다시 폼으로 돌리기
         if(bindingResult.hasErrors()) return "hospital/edit-form";
 
-        hospitalService.updateHopital(hospitalUpdateForm, hosImgs);
+        hospitalService.updateHospital(hospitalUpdateForm, hosImgs);
         redirectAttributes.addAttribute("hospitalId", hospitalUpdateForm.getHosId());
         redirectAttributes.addAttribute("status","update");
         return "redirect:/hospital/detail/{hospitalId}";

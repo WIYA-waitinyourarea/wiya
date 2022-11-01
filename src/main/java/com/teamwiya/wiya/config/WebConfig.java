@@ -32,6 +32,8 @@ public class WebConfig implements WebMvcConfigurer {
                         "/member/findpwd",
                         "/member/changepwd"
                 );
+
+        /*비밀찾기 후 변경하는 인터셉터*/
         registry.addInterceptor(new MemberFindInterceptor())
                 .order(2)
                 .addPathPatterns("/member/changepwd");
