@@ -7,6 +7,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -24,7 +25,7 @@ public class HospitalUpdateForm {
     private String sangse; //202호
     private String hosOpenHour;
     /*사진 수정 관련 필드*/
-    private List<HosImg> hosImgsBefore;
-    private List<Long> hosImgsAfter;
-    private List<MultipartFile> hosImgs;
+    private List<HosImg> hosImgsBefore = new ArrayList<>();
+    private List<Long> hosImgsAfter = new ArrayList<>();
+    private List<MultipartFile> hosImgs = new ArrayList<>();
 }

@@ -67,7 +67,15 @@
                         </div>
                     </div>
                     <div class="row mb-20">
-                        <div class="col-sm-8"><a class="btn btn-lg btn-block btn-round btn-b" onclick="bookingRegs()">줄서기</a></div>
+                        <div class="col-sm-12"><a class="btn btn-lg btn-block btn-round btn-b" onclick="bookingRegs()">줄서기</a></div>
+                    </div>
+                    <div class="mb-20">
+                        <div class="col-sm-12">
+                            <div class="description">
+                                <a th:text="|병원 수정|" th:href="@{/hospital/edit/{hosId}(hosId=${hospital.hosId})}">-</a>
+                                <a th:text="|병원 삭제|" th:href="@{/hospital/delete/{hosId}(hosId=${hospital.hosId})}">-</a>
+                            </div>
+                        </div>
                     </div>
 
                 </div>

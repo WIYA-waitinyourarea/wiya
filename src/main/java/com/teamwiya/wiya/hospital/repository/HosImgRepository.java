@@ -18,8 +18,7 @@ public class HosImgRepository {
 
     public HosImg findById(Long id) {return em.find(HosImg.class, id);}
 
-    public void remove(Long id) {
-        HosImg hosImg = em.find(HosImg.class, id);
+    public void remove(HosImg hosImg) {
         em.remove(hosImg);
     }
 }

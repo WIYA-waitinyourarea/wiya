@@ -1,5 +1,6 @@
 package com.teamwiya.wiya.hospital.model;
 
+import com.teamwiya.wiya.hospital.dto.HospitalSaveForm;
 import com.teamwiya.wiya.hospital.dto.HospitalUpdateForm;
 import com.teamwiya.wiya.TimeStamped;
 import lombok.*;
@@ -38,19 +39,19 @@ public class Hospital extends TimeStamped {
     @JoinColumn(name = "hos_sigudong")
     private Sigudong hosSigudong;
 
-    @OneToMany(mappedBy = "hospital", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "hospital",orphanRemoval = true)
     private List<HosImg> hosImgs = new ArrayList<>();
 
     /*== 빌더패턴을 통한 생성 메소드 ==*/
-    public static Hospital createHospital(String hosName, String hosPhone, Address hosAddress, Sigudong dong, String hosOpenhour) {
+    public static Hospital createHospital(HospitalSaveForm form, Address hosAddress, Sigudong dong) {
         return Hospital.builder()
-                .hosName(hosName)
-                .hosPhone(hosPhone)
+                .hosName(form.getHosName())
+                .hosPhone(form.getHosPhone())
                 .hosStatus(HosStatus.OPEN)
                 .hosBooking(HosBooking.POSSIBLE)
                 .hosAddress(hosAddress)
                 .hosSigudong(dong)
-                .hosOpenhour(hosOpenhour)
+                .hosOpenhour(form.getHosOpenHour())
                 .build();
      }
 

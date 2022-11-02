@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="layouts/layout"
+        lang="ko">
+<th:block layout:fragment="content">
+    <section class="module">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-5 col-sm-offset-1 mb-sm-40">
+                    <h4 class="font-alt">병원 삭제</h4>
+                    <hr class="divider-w mb-10">
+                    <form class="form" th:action method="post">
+                        <div class="form-group">
+                            <input type="submit" class="btn btn-round btn-b" value="병원삭제">
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </section>
+</th:block>
+
+<!--Js-->
+<th:block layout:fragment="js">
+</th:block>
+</html>

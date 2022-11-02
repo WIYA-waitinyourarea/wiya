@@ -57,5 +57,7 @@ public class HospitalRepository {
         return null;
     }
 
-
+    public void remove(Hospital hospital) {
+        em.remove(hospital);
+    }
 }

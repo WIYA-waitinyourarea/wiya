@@ -83,19 +83,31 @@ public class HospitalController {
     public String edit(
             @Validated @ModelAttribute("hospitalUpdateForm") HospitalUpdateForm hospitalUpdateForm,
             BindingResult bindingResult,
-            @RequestParam List<MultipartFile> hosImgs,
             RedirectAttributes redirectAttributes
     ) {
         log.info("form={}", hospitalUpdateForm);
-        //바인딩 에러나면 다시 폼으로 돌리기
         if(bindingResult.hasErrors()) return "hospital/edit-form";
 
-        hospitalService.updateHospital(hospitalUpdateForm, hosImgs);
+        hospitalService.updateHospital(hospitalUpdateForm);
         redirectAttributes.addAttribute("hospitalId", hospitalUpdateForm.getHosId());
         redirectAttributes.addAttribute("status","update");
         return "redirect:/hospital/detail/{hospitalId}";
     }
 
+    @GetMapping("/delete/{hospitalId}")
+    public String deleteForm(
+            @PathVariable Long hospitalId
+    ) {
+        return "hospital/deleteForm";
+    }
+
+    @PostMapping("/delete/{hospitalId}")
+    public String delete(
+            @PathVariable Long hospitalId
+    ) {
+        hospitalService.deleteHospital(hospitalId);
+        return "redirect:/hospital/list";
+    }
 
     @GetMapping("/detail/{hospitalId}")
     public String detail(@PathVariable Long hospitalId,
