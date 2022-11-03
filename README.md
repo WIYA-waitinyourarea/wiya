@@ -64,7 +64,7 @@
   <tr>
     <td align="center">
       <a href="https://github.com/dooboocookie">
-        <img src="https://avatars.githubusercontent.com/u/79090478?v=4" width="75px;" alt="백경환">
+        <img src="https://avatars.githubusercontent.com/u/79090478?v=4" width="150px;" alt="백경환">
         <br>
         <b>백경환</b>
       </a>
@@ -72,7 +72,7 @@
     </td>
     <td align="center">
       <a href="https://github.com/chaeyeong222">
-        <img src="https://avatars.githubusercontent.com/u/91577661?v=4" width="75px;" alt="이채영">
+        <img src="https://avatars.githubusercontent.com/u/91577661?v=4" width="150px;" alt="이채영">
         <br>
         <b>이채영</b>
       </a>
@@ -80,7 +80,7 @@
     </td>
     <td align="center">
       <a href="https://github.com/Full-squat">
-        <img src="https://avatars.githubusercontent.com/u/101961563?v=4" width="75px;" alt="함세강">
+        <img src="https://avatars.githubusercontent.com/u/101961563?v=4" width="150px;" alt="함세강">
         <br>
         <b>함세강</b>
       </a>
