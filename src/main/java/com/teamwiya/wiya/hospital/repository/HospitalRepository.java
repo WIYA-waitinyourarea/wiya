@@ -39,12 +39,13 @@ public class HospitalRepository {
     public List<Hospital> findByHosNamePage(String keyword, int offset, int limit) {
         return em.createQuery("select h from Hospital h" +
                         " where h.hosName LIKE :keyword" +
-                        " order by h.hosAddress.x", Hospital.class)
+                        " and h.hosSigudong = t", Hospital.class)
                 .setParameter("keyword", "%"+keyword+"%")
                 .setFirstResult(offset)
                 .setMaxResults(limit)
                 .getResultList();
     }
+
     public Long countSearchHospital(String keyword) {
         return em.createQuery("select count(h) from Hospital h " +
                 " where h.hosName LIKE :keyword", Long.class)
