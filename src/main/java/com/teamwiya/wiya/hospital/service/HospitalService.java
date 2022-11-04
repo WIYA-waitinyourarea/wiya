@@ -1,7 +1,9 @@
 package com.teamwiya.wiya.hospital.service;
 
 import com.teamwiya.wiya.hospital.dto.HospitalSaveForm;
+import com.teamwiya.wiya.hospital.dto.HospitalSearchDTO;
 import com.teamwiya.wiya.hospital.dto.HospitalUpdateForm;
+import com.teamwiya.wiya.hospital.dto.PagingDTO;
 import com.teamwiya.wiya.hospital.model.Address;
 import com.teamwiya.wiya.hospital.model.HosImg;
 import com.teamwiya.wiya.hospital.model.Hospital;
@@ -54,8 +56,6 @@ public class HospitalService {
 
 
 
-
-
     public void updateHospital(HospitalUpdateForm hospitalUpdateForm) {
         Hospital hospital = hospitalRepository.findOne(hospitalUpdateForm.getHosId());
         Address address = hospital.getHosAddress();
@@ -96,12 +96,25 @@ public class HospitalService {
     }
 
     @Transactional(readOnly = true)
-    public List<Hospital> searchHospital(String keyword, int page) {
-        int limit = 4;
-        int offset = (page-1)*limit;
-        log.info("offset={}",offset);
-        return hospitalRepository.findByHosNamePage(keyword, offset, limit);
-        //return hospitalRepository.findByHosNameContaining(keyword);
+    public List<Hospital> searchHospital(
+            HospitalSearchDTO hospitalSearchDTO,
+            PagingDTO pagingDTO
+    ) {
+        log.info("1 = {}", hospitalSearchDTO.getSido());
+        log.info("2 = {}", hospitalSearchDTO.getSigungu());
+        log.info("3 = {}", hospitalSearchDTO.getKeyword());
+        pagingDTO.updateOffset();
+        if (hospitalSearchDTO.getSido() == 0L){ // 지역 없이 이름으로만 검색
+            log.info("이름으로 검색");
+            return hospitalRepository.findByHosName(hospitalSearchDTO, pagingDTO);
+        }
+        if (hospitalSearchDTO.getSigungu() == 0L) { // 시,도까지 포함한 검색
+            log.info("시도 검색");
+            return hospitalRepository.findByHosNameAndSi(hospitalSearchDTO, pagingDTO);
+        }
+        // 시, 군, 구를 포함한 검색
+        log.info("시군구 검색");
+        return  hospitalRepository.findByHosNameAndGu(hospitalSearchDTO, pagingDTO);
     }
 
 }

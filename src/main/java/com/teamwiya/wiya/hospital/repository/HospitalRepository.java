@@ -1,5 +1,7 @@
 package com.teamwiya.wiya.hospital.repository;
 
+import com.teamwiya.wiya.hospital.dto.HospitalSearchDTO;
+import com.teamwiya.wiya.hospital.dto.PagingDTO;
 import com.teamwiya.wiya.hospital.model.Hospital;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -36,13 +38,46 @@ public class HospitalRepository {
                 .getResultList();
     }
 
-    public List<Hospital> findByHosNamePage(String keyword, int offset, int limit) {
+    public List<Hospital> findByHosName(
+            HospitalSearchDTO hospitalSearchDTO,
+            PagingDTO pagingDTO
+    ) {
+        return em.createQuery("select h from Hospital h" +
+                        " where h.hosName LIKE :keyword", Hospital.class)
+                .setParameter("keyword", "%"+hospitalSearchDTO.getKeyword()+"%")
+                .setFirstResult(pagingDTO.getPage())
+                .setMaxResults(pagingDTO.getLimit())
+                .getResultList();
+    }
+
+    public List<Hospital> findByHosNameAndSi(
+            HospitalSearchDTO hospitalSearchDTO,
+            PagingDTO pagingDTO
+    ) {
+        return em.createQuery("select h " +
+                        " from Hospital h JOIN Sigudong s " +
+                        " ON h.hosSigudong.sigudongId = s.sigudongId" +
+                        " WHERE h.hosName LIKE :keyword " +
+                        " AND (s.parent.sigudongId = :sigudongId" +
+                        " OR s.sigudongId = :sigudongId) ", Hospital.class)
+                .setParameter("keyword", "%"+hospitalSearchDTO.getKeyword()+"%")
+                .setParameter("sigudongId", hospitalSearchDTO.getSigungu())
+                .setFirstResult(pagingDTO.getPage())
+                .setMaxResults(pagingDTO.getLimit())
+                .getResultList();
+    }
+
+    public List<Hospital> findByHosNameAndGu(
+            HospitalSearchDTO hospitalSearchDTO,
+            PagingDTO pagingDTO
+    ) {
         return em.createQuery("select h from Hospital h" +
                         " where h.hosName LIKE :keyword" +
-                        " and h.hosSigudong = t", Hospital.class)
-                .setParameter("keyword", "%"+keyword+"%")
-                .setFirstResult(offset)
-                .setMaxResults(limit)
+                        " and h.hosSigudong.sigudongId = :sigudongId", Hospital.class)
+                .setParameter("keyword", "%"+hospitalSearchDTO.getKeyword()+"%")
+                .setParameter("sigudongId", hospitalSearchDTO.getSigungu())
+                .setFirstResult(pagingDTO.getPage())
+                .setMaxResults(pagingDTO.getLimit())
                 .getResultList();
     }
 

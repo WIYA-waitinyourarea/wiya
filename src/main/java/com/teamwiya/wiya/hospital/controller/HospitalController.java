@@ -1,7 +1,9 @@
 package com.teamwiya.wiya.hospital.controller;
 
 import com.teamwiya.wiya.hospital.dto.HospitalSaveForm;
+import com.teamwiya.wiya.hospital.dto.HospitalSearchDTO;
 import com.teamwiya.wiya.hospital.dto.HospitalUpdateForm;
+import com.teamwiya.wiya.hospital.dto.PagingDTO;
 import com.teamwiya.wiya.hospital.model.Hospital;
 import com.teamwiya.wiya.hospital.model.Sigudong;
 import com.teamwiya.wiya.hospital.repository.HospitalRepository;
@@ -121,22 +123,42 @@ public class HospitalController {
 
     @GetMapping("/list")
     public String search(
-            @RequestParam(name = "keyword", defaultValue = "") String keyword,
-            @RequestParam(defaultValue = "1") int page,
+            HospitalSearchDTO hospitalSearchDTO,
+            PagingDTO pagingDTO,
             Model model){
         // 모델에 리스트(검색결과)를 추가하는 작업
-        List<Hospital> searchResult = hospitalService.searchHospital(keyword, page);
-        long totalCount = hospitalRepository.countSearchHospital(keyword);
-        int totalPages = (int) (totalCount % 4 == 0? totalCount / 4 : totalCount / 4 + 1);
-        ArrayList<Integer> pages = new ArrayList<>();
-        for (int i = 1; i <= totalPages ; i++) {
-            pages.add(i);
-        }
+        Long totalCount = hospitalRepository.countSearchHospital(hospitalSearchDTO.getKeyword());
         List<Sigudong> si = sigudongRepository.findSi(); //sidos
+        List<Hospital> searchResult = hospitalService.searchHospital(hospitalSearchDTO, pagingDTO);
         model.addAttribute("sidos", si);
-        model.addAttribute("pages", pages);
+        model.addAttribute("pages", makePages(hospitalSearchDTO, pagingDTO, totalCount));
         model.addAttribute("searchResult",searchResult);
         return "hospital/list";
+    }
+
+    private List<Integer> makePages(
+            HospitalSearchDTO hospitalSearchDTO,
+            PagingDTO pagingDTO,
+            Long totalCount
+    ) {
+        //총 페이지 구하는 식
+        int totalPages = (int) (totalCount / pagingDTO.getLimit());
+        if (totalCount % pagingDTO.getLimit() != 0) {
+            totalPages = totalPages + 1;
+        }
+        //첫페이지
+        int startPage = ((pagingDTO.getPage() - 1) / 10) * 10 + 1;
+        //끝페이지(10페이지단위)
+        int endPage = ((pagingDTO.getPage() - 1) / 10 + 1) * 10;
+        if (endPage > totalPages) {
+            endPage = totalPages;
+        }
+        // 페이지 리스트에 담기
+        ArrayList<Integer> pages = new ArrayList<>();
+        for (int page = 1; page <= totalPages ; page++) {
+            pages.add(page);
+        }
+        return pages;
     }
 
 }
