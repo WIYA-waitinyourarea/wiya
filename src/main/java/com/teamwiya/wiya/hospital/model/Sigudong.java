@@ -26,7 +26,7 @@ public class Sigudong {
     @ManyToOne(fetch = LAZY) @JoinColumn(name = "parent_id")
     private Sigudong parent; //서울특별시 객체
 
-    @OneToMany(mappedBy = "parent")
+    @OneToMany(mappedBy = "parent", fetch = LAZY)
     private List<Sigudong> child = new ArrayList<>(); //empty
     /*해당 엔티티는 생성할 일이 없음*/
     //

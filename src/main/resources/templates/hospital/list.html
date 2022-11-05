@@ -9,21 +9,18 @@
 
         <!--검색 영역-->
         <div style="padding: 20px 0px">
-            <form th:action method="get" class="col-sm-4 mb-sm-20">
-                <div class="search-box">
+            <form th:action method="get" class="mb-sm-20">
+                <div class="col-sm-4 search-box">
                     <input class="form-control" type="text" name="keyword" th:value="${param.keyword}" placeholder="Search...">
-                    <button class="search-btn" type="submit"><i class="fa fa-search"></i></button>
                 </div>
-            </form>
-            <form th:action method="get" class="row" >
                 <div class="col-sm-2 mb-sm-20">
-                    <select class="form-control" id ="sido">
-                        <option selected="selected">시/도</option>
+                    <select class="form-control" name="sido" id ="sido">
+                        <option selected="selected" value = '0'>시/도</option>
                     </select>
                 </div>
                 <div class="col-sm-2 mb-sm-20">
-                    <select class="form-control" id="sigungu">
-                        <option selected="selected">시/군/구</option>
+                    <select class="form-control" name="sigungu" id="sigungu">
+                        <option selected="selected" value = '0'>시/군/구</option>
                     </select>
                 </div>
                 <div class="col-sm-3">
@@ -33,7 +30,7 @@
         </div>
 
         <!--searchResult-->
-        <div class="widget" style="width: 25%; display:inline-block; float: left" >
+        <div class="widget" style="padding: 50px; width: 25%; display:inline-block; float: left" >
             <h5 class="widget-title font-alt">검색 결과</h5>
             <ul class="widget-posts">
                 <li class="clearfix" th:each="hospital : ${searchResult}">
@@ -52,7 +49,7 @@
             </ul>
         </div>
         <!--map-->
-        <div style="padding: 50px; width:70%; display: inline-block">
+        <div style="padding: 50px; width:65%; display: inline-block">
             <div id="map" style="width:700px; height:700px;"></div>
         </div>
 
@@ -102,11 +99,11 @@
         //첫번째 셀렉트 태그 뿌리는 반복문
         var sido = document.getElementById("sido");
         var sigungu = document.getElementById("sigungu");
-        var selectSido = `<option selected="selected">시/도</option>`;
+        var selectSido = `<option selected="selected" value = '0'>시/도</option>`;
         var sigunguArray = [];
         [# th:each="sido, sidoStat: ${sidos}"]
             selectSido += "<option value="+[[${sido.sigudongId}]]+">" +[[${sido.sigudongName}]] + "</option>";
-            var sigungu[[${sidoStat.index}]]  = `<option selected="selected">시/군/구</option>`;
+            var sigungu[[${sidoStat.index}]]  = `<option selected="selected" value = '0'>시/군/구</option>`;
             [# th:each="sigungu : ${sido.child}"]
                 sigungu[[${sidoStat.index}]]  += "<option value="+[[${sigungu.sigudongId}]]+">" +[[${sigungu.sigudongName}]] + "</option>";
             [/]
