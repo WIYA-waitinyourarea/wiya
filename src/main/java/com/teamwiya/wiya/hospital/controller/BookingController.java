@@ -27,7 +27,7 @@ public class BookingController {
         //Member member = (Member) session.getAttribute("member");
         //Long memId = member.getId();
         Long bookingId = bookingService.registerBooking(bookingDTO.getMemId(), bookingDTO.getHosId());
-        return "현재 대기 인원을 리턴하는게 제일 아름다울 거 같은데.."; 
+        return "현재 대기 인원을 리턴하는게 제일 아름다울 거 같은데..";
     }
 
     @GetMapping("/count")

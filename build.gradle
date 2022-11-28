@@ -32,6 +32,9 @@ dependencies {
 	//implementation 'org.springframework.boot:spring-boot-starter-security'
 	//implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5'
 	implementation 'org.springdoc:springdoc-openapi-ui:1.6.6'
+	implementation 'org.seleniumhq.selenium:selenium-java:3.141.59'
+
+	implementation 'org.jsoup:jsoup:1.13.1'
 
 
 	compileOnly 'org.projectlombok:lombok'

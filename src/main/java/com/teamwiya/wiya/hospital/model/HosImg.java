@@ -2,6 +2,7 @@ package com.teamwiya.wiya.hospital.model;
 
 
 import com.teamwiya.wiya.TimeStamped;
+import com.teamwiya.wiya.hospital.dto.HospitalSaveForm;
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.multipart.MultipartFile;
@@ -27,8 +28,10 @@ public class HosImg extends TimeStamped {
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "hosId") //hosImg 테이블의 컬럼명
     private Hospital hospital; //hospital PK
+    @Column(length = 1000)
     private String himPath;
     private boolean himMain;
+    @Column(length = 1000)
     private String himOrigin;
 
 
@@ -57,6 +60,14 @@ public class HosImg extends TimeStamped {
                 .himPath("/images/upload/" + savedFile)
                 .hospital(hospital)
                 .himOrigin(path)
+                .build();
+    }
+
+    public static HosImg createHosImgForCrawling(Hospital hospital, String himPath) {
+        return HosImg.builder()
+                .himPath(himPath)
+                .hospital(hospital)
+                .himOrigin(himPath)
                 .build();
     }
 
