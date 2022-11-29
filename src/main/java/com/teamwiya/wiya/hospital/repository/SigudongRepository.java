@@ -19,16 +19,16 @@ public class SigudongRepository {
 
     public Sigudong findById(Long bCode) {
         return em.find(Sigudong.class, bCode);
-        /*return em.createQuery("select s from Sigudong s where s.sigudongId = :bCode ", Sigudong.class)
-                .setParameter("bCode", bCode)
-                .getSingleResult();*/
     }
 
     public List<Sigudong> findAll() {
         return em.createQuery("select s from Sigudong s",Sigudong.class).getResultList();
     }
     public List<Sigudong> findSi() {
-        return em.createQuery("select s from Sigudong s where s.parent is null ", Sigudong.class)
+        return em.createQuery("select s " +
+                        "from Sigudong s " +
+                        "where s.parent is null "
+                        , Sigudong.class)
                 .getResultList();
     }
 

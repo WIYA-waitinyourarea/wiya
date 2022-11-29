@@ -1,6 +1,6 @@
 package com.teamwiya.wiya.hospital.repository;
 
-import com.teamwiya.wiya.hospital.dto.HospitalSearchDTO;
+import com.teamwiya.wiya.hospital.dto.HospitalSearchRequestDTO;
 import com.teamwiya.wiya.hospital.dto.PagingDTO;
 import com.teamwiya.wiya.hospital.model.Hospital;
 import lombok.RequiredArgsConstructor;
@@ -39,44 +39,44 @@ public class HospitalRepository {
     }
 
     public List<Hospital> findByHosName(
-            HospitalSearchDTO hospitalSearchDTO,
+            HospitalSearchRequestDTO hospitalSearchRequestDTO,
             PagingDTO pagingDTO
     ) {
         return em.createQuery("select h from Hospital h" +
                         " where h.hosName LIKE :keyword", Hospital.class)
-                .setParameter("keyword", "%"+hospitalSearchDTO.getKeyword()+"%")
-                .setFirstResult(pagingDTO.getPage())
+                .setParameter("keyword", "%"+ hospitalSearchRequestDTO.getKeyword()+"%")
+                .setFirstResult(pagingDTO.getOffset())
                 .setMaxResults(pagingDTO.getLimit())
                 .getResultList();
     }
 
     public List<Hospital> findByHosNameAndSi(
-            HospitalSearchDTO hospitalSearchDTO,
+            HospitalSearchRequestDTO hospitalSearchRequestDTO,
             PagingDTO pagingDTO
     ) {
         return em.createQuery("select h " +
-                        " from Hospital h JOIN Sigudong s " +
+                        " from Hospital h LEFT JOIN Sigudong s " +
                         " ON h.hosSigudong.sigudongId = s.sigudongId" +
                         " WHERE h.hosName LIKE :keyword " +
                         " AND (s.parent.sigudongId = :sigudongId" +
                         " OR s.sigudongId = :sigudongId) ", Hospital.class)
-                .setParameter("keyword", "%"+hospitalSearchDTO.getKeyword()+"%")
-                .setParameter("sigudongId", hospitalSearchDTO.getSigungu())
-                .setFirstResult(pagingDTO.getPage())
+                .setParameter("keyword", "%"+ hospitalSearchRequestDTO.getKeyword()+"%")
+                .setParameter("sigudongId", hospitalSearchRequestDTO.getSido())
+                .setFirstResult(pagingDTO.getOffset())
                 .setMaxResults(pagingDTO.getLimit())
                 .getResultList();
     }
 
     public List<Hospital> findByHosNameAndGu(
-            HospitalSearchDTO hospitalSearchDTO,
+            HospitalSearchRequestDTO hospitalSearchRequestDTO,
             PagingDTO pagingDTO
     ) {
         return em.createQuery("select h from Hospital h" +
                         " where h.hosName LIKE :keyword" +
                         " and h.hosSigudong.sigudongId = :sigudongId", Hospital.class)
-                .setParameter("keyword", "%"+hospitalSearchDTO.getKeyword()+"%")
-                .setParameter("sigudongId", hospitalSearchDTO.getSigungu())
-                .setFirstResult(pagingDTO.getPage())
+                .setParameter("keyword", "%"+ hospitalSearchRequestDTO.getKeyword()+"%")
+                .setParameter("sigudongId", hospitalSearchRequestDTO.getSigungu())
+                .setFirstResult(pagingDTO.getOffset())
                 .setMaxResults(pagingDTO.getLimit())
                 .getResultList();
     }
@@ -95,5 +95,16 @@ public class HospitalRepository {
 
     public void remove(Hospital hospital) {
         em.remove(hospital);
+    }
+
+    public List<Hospital> search(HospitalSearchRequestDTO hospitalSearchRequestDTO, PagingDTO pagingDTO) {
+        if (hospitalSearchRequestDTO.getSido() == 0L){ // 지역 없이 이름으로만 검색
+            return findByHosName(hospitalSearchRequestDTO, pagingDTO);
+        }
+        if (hospitalSearchRequestDTO.getSigungu() == 0L) { // 시,도까지 포함한 검색
+            return findByHosNameAndSi(hospitalSearchRequestDTO, pagingDTO);
+        }
+        // 시, 군, 구를 포함한 검색
+        return findByHosNameAndGu(hospitalSearchRequestDTO, pagingDTO);
     }
 }

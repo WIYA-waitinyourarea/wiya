@@ -9,18 +9,18 @@
 
         <!--검색 영역-->
         <div style="padding: 20px 0px">
-            <form th:action method="get" class="mb-sm-20">
+            <form th:action th:object="${hospitalSearchRequestDTO}" method="get" class="mb-sm-20">
                 <div class="col-sm-4 search-box">
-                    <input class="form-control" type="text" name="keyword" th:value="${param.keyword}" placeholder="Search...">
+                    <input class="form-control" type="text" th:field="*{keyword}" placeholder="Search...">
                 </div>
                 <div class="col-sm-2 mb-sm-20">
-                    <select class="form-control" name="sido" id ="sido">
-                        <option selected="selected" value = '0'>시/도</option>
+                    <select class="form-control" th:field="*{sido}">
+                        <option value = '0'>시/도</option>
                     </select>
                 </div>
                 <div class="col-sm-2 mb-sm-20">
-                    <select class="form-control" name="sigungu" id="sigungu">
-                        <option selected="selected" value = '0'>시/군/구</option>
+                    <select class="form-control" th:field="*{sigungu}">
+                        <option value = '0'>시/군/구</option>
                     </select>
                 </div>
                 <div class="col-sm-3">
@@ -33,7 +33,7 @@
         <div class="widget" style="padding: 50px; width: 25%; display:inline-block; float: left" >
             <h5 class="widget-title font-alt">검색 결과</h5>
             <ul class="widget-posts">
-                <li class="clearfix" th:each="hospital : ${searchResult}">
+                <li class="clearfix" th:each="hospital : ${result.searchResult}">
                     <a th:href="@{/hospital/detail/{hosId}(hosId=${hospital.hosId})}">
                     <div class="widget-posts-image" th:with="hosimgs=${hospital.hosImgs}">
                         <img th:src="${!#lists.isEmpty(hosimgs)} ? ${hosimgs[0].himPath} : '/default_image.webp'"
@@ -41,8 +41,8 @@
                         <!--<span th:text="${hosimgs[0].himPath} ? ${hosimgs[0].himPath} : '데이터가 없습니다.'"></span>-->
                     </div>
                     <div class="widget-posts-body">
-                        <div class="widget-posts-title" th:text="${hospital.hosName}"></div>
-                        <div class="widget-posts-meta">여기엔 뭘 넣지</div>
+                        <div class="widget-posts-title" th:text="${hospital.hosName}">병원 이름</div>
+                        <div class="widget-posts-meta" th:text="${hospital.hosPhone}">여기엔 뭘 넣지</div>
                     </div>
                     </a>
                 </li>
@@ -56,7 +56,9 @@
         <!--paging-->
         <div class="pagination font-alt">
             <a href="#"><i class="fa fa-angle-left"></i></a>
-            <a th:each="page : ${pages}" th:href="@{${#request.requestURI}(page=${page})}" th:text="${page}">1</a>
+            <a th:each="page : ${pages}"
+               th:href="@{${#request.requestURI}(keyword=${param.keyword}, sido=${param.sido},sigungu=${param.sigungu},page=${page})}"
+               th:text="${page}">no</a>
             <a href="#"><i class="fa fa-angle-right"></i></a>
         </div>
 
@@ -73,7 +75,6 @@
             level: 14
         };
 
-
         var map = new kakao.maps.Map(container, options);
 
         var icon = new kakao.maps.MarkerImage(
@@ -87,7 +88,7 @@
             }
         );
 
-        [# th:each="hospital, hospitalStat : ${searchResult}"]
+        [# th:each="hospital, hospitalStat : ${result.searchResult}"]
         new kakao.maps.Marker({
             position: new kakao.maps.LatLng([[${hospital.hosAddress.y}]], [[${hospital.hosAddress.x}]]),
             image: icon
@@ -99,13 +100,13 @@
         //첫번째 셀렉트 태그 뿌리는 반복문
         var sido = document.getElementById("sido");
         var sigungu = document.getElementById("sigungu");
-        var selectSido = `<option selected="selected" value = '0'>시/도</option>`;
+        var selectSido = `<option value = '0'>시/도</option>`;
         var sigunguArray = [];
         [# th:each="sido, sidoStat: ${sidos}"]
             selectSido += "<option value="+[[${sido.sigudongId}]]+">" +[[${sido.sigudongName}]] + "</option>";
-            var sigungu[[${sidoStat.index}]]  = `<option selected="selected" value = '0'>시/군/구</option>`;
+            var sigungu[[${sidoStat.index}]]  = `<option value = '0'>시/군/구</option>`;
             [# th:each="sigungu : ${sido.child}"]
-                sigungu[[${sidoStat.index}]]  += "<option value="+[[${sigungu.sigudongId}]]+">" +[[${sigungu.sigudongName}]] + "</option>";
+                sigungu[[${sidoStat.index}]]  += "<option  value="+[[${sigungu.sigudongId}]]+">" +[[${sigungu.sigudongName}]] + "</option>";
             [/]
             sigunguArray.push(sigungu[[${sidoStat.index}]]);
         [/]
@@ -118,6 +119,14 @@
                 sigungu.innerHTML = "<option selected=\"selected\">시/군/구</option>";
             }
         }
+        //상태 유지
+        [# th:if="${param.sido}!=0"]
+            $("#sido option[value="+[[${param.sido}]]+"]").attr("selected", true);
+            sigungu.innerHTML = sigunguArray[sido.selectedIndex-1];
+            [# th:if="${param.sigungu}!=0"]
+                $("#sigungu option[value="+[[${param.sigungu}]]+"]").attr("selected", true);
+            [/]
+        [/]
     </script>
 
 </th:block>

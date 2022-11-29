@@ -32,7 +32,6 @@ public class Hospital extends TimeStamped {
     private HosBooking hosBooking; // 예약 가능 상태를 나타내는 값
 
     @Embedded
-    @Nullable
     private Address hosAddress;
 
     private String hosOpenhour;

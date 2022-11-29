@@ -1,11 +1,7 @@
 package com.teamwiya.wiya.hospital.controller;
 
-import com.teamwiya.wiya.hospital.dto.HospitalSaveForm;
-import com.teamwiya.wiya.hospital.dto.HospitalSearchDTO;
-import com.teamwiya.wiya.hospital.dto.HospitalUpdateForm;
-import com.teamwiya.wiya.hospital.dto.PagingDTO;
+import com.teamwiya.wiya.hospital.dto.*;
 import com.teamwiya.wiya.hospital.model.Hospital;
-import com.teamwiya.wiya.hospital.model.Sigudong;
 import com.teamwiya.wiya.hospital.repository.HospitalRepository;
 import com.teamwiya.wiya.hospital.repository.SigudongRepository;
 import com.teamwiya.wiya.hospital.service.HospitalService;
@@ -123,23 +119,22 @@ public class HospitalController {
 
     @GetMapping("/list")
     public String search(
-            HospitalSearchDTO hospitalSearchDTO,
-            PagingDTO pagingDTO,
+            @ModelAttribute HospitalSearchRequestDTO hospitalSearchRequestDTO,
+            @ModelAttribute PagingDTO pagingDTO,
             Model model){
-        // 모델에 리스트(검색결과)를 추가하는 작업
-        Long totalCount = hospitalRepository.countSearchHospital(hospitalSearchDTO.getKeyword());
-        List<Sigudong> si = sigudongRepository.findSi(); //sidos
-        List<Hospital> searchResult = hospitalService.searchHospital(hospitalSearchDTO, pagingDTO);
-        model.addAttribute("sidos", si);
-        model.addAttribute("pages", makePages(hospitalSearchDTO, pagingDTO, totalCount));
-        model.addAttribute("searchResult",searchResult);
+        log.info("검색 요청 = {}", hospitalSearchRequestDTO);
+        HospitalSearchResponseDTO result
+                = hospitalService.searchHospital(hospitalSearchRequestDTO, pagingDTO);
+
+        model.addAttribute("result", result);
+        model.addAttribute("pages", makePages(pagingDTO, result.getTotalResultCount()));
+        model.addAttribute("sidos", hospitalService.allSidos());
         return "hospital/list";
     }
 
     private List<Integer> makePages(
-            HospitalSearchDTO hospitalSearchDTO,
             PagingDTO pagingDTO,
-            Long totalCount
+            long totalCount
     ) {
         //총 페이지 구하는 식
         int totalPages = (int) (totalCount / pagingDTO.getLimit());
@@ -147,15 +142,15 @@ public class HospitalController {
             totalPages = totalPages + 1;
         }
         //첫페이지
-        int startPage = ((pagingDTO.getPage() - 1) / 10) * 10 + 1;
-        //끝페이지(10페이지단위)
-        int endPage = ((pagingDTO.getPage() - 1) / 10 + 1) * 10;
+        int startPage = ((pagingDTO.getPage() - 1) / pagingDTO.getPages()) * pagingDTO.getPages() + 1;
+        //끝페이지
+        int endPage = ((pagingDTO.getPage() - 1) / pagingDTO.getPages() + 1) * pagingDTO.getPages();
         if (endPage > totalPages) {
             endPage = totalPages;
         }
         // 페이지 리스트에 담기
         ArrayList<Integer> pages = new ArrayList<>();
-        for (int page = 1; page <= totalPages ; page++) {
+        for (int page = startPage; page <= endPage ; page++) {
             pages.add(page);
         }
         return pages;

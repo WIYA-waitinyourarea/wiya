@@ -3,7 +3,7 @@ package com.teamwiya.wiya.hospital.dto;
 import lombok.*;
 
 @Data
-public class HospitalSearchDTO {
+public class HospitalSearchRequestDTO {
 
     private String keyword = "";
     private int page = 1;

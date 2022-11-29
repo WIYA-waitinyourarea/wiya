@@ -1,9 +1,6 @@
 package com.teamwiya.wiya.hospital.service;
 
-import com.teamwiya.wiya.hospital.dto.HospitalSaveForm;
-import com.teamwiya.wiya.hospital.dto.HospitalSearchDTO;
-import com.teamwiya.wiya.hospital.dto.HospitalUpdateForm;
-import com.teamwiya.wiya.hospital.dto.PagingDTO;
+import com.teamwiya.wiya.hospital.dto.*;
 import com.teamwiya.wiya.hospital.model.Address;
 import com.teamwiya.wiya.hospital.model.HosImg;
 import com.teamwiya.wiya.hospital.model.Hospital;
@@ -96,25 +93,25 @@ public class HospitalService {
     }
 
     @Transactional(readOnly = true)
-    public List<Hospital> searchHospital(
-            HospitalSearchDTO hospitalSearchDTO,
+    public HospitalSearchResponseDTO searchHospital(
+            HospitalSearchRequestDTO hospitalSearchRequestDTO,
             PagingDTO pagingDTO
     ) {
-        log.info("1 = {}", hospitalSearchDTO.getSido());
-        log.info("2 = {}", hospitalSearchDTO.getSigungu());
-        log.info("3 = {}", hospitalSearchDTO.getKeyword());
+        HospitalSearchResponseDTO result = new HospitalSearchResponseDTO();
+
+        Long totalCount = hospitalRepository.countSearchHospital(hospitalSearchRequestDTO.getKeyword());
+        result.setTotalResultCount(totalCount);
+
         pagingDTO.updateOffset();
-        if (hospitalSearchDTO.getSido() == 0L){ // 지역 없이 이름으로만 검색
-            log.info("이름으로 검색");
-            return hospitalRepository.findByHosName(hospitalSearchDTO, pagingDTO);
-        }
-        if (hospitalSearchDTO.getSigungu() == 0L) { // 시,도까지 포함한 검색
-            log.info("시도 검색");
-            return hospitalRepository.findByHosNameAndSi(hospitalSearchDTO, pagingDTO);
-        }
-        // 시, 군, 구를 포함한 검색
-        log.info("시군구 검색");
-        return  hospitalRepository.findByHosNameAndGu(hospitalSearchDTO, pagingDTO);
+        List<Hospital> hospitals = hospitalRepository.search(hospitalSearchRequestDTO, pagingDTO);
+        result.hospitalEntityToDto(hospitals);
+
+        return result;
     }
 
+    @Transactional(readOnly = true)
+    public List<Sigudong> allSidos() {
+        //TODO: 매번 시도 정보를 가져오는 방식 수정
+        return sigudongRepository.findSi();
+    }
 }
