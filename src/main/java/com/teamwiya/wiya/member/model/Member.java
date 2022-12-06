@@ -8,7 +8,7 @@ import lombok.*;
 import javax.persistence.*;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-
+import java.security.SecureRandom;
 
 
 @Entity
@@ -65,7 +65,10 @@ public class Member extends TimeStamped {
      * @return 솔트
      */
     private static String createSalt() {
-        return null;
+        SecureRandom random = new SecureRandom();
+        byte[] saltByte = new byte[16];
+        random.nextBytes(saltByte);
+        return bytesToString(saltByte);
     }
 
     /**

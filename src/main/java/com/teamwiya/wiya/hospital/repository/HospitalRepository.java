@@ -35,7 +35,7 @@ public class HospitalRepository {
             HospitalSearchRequestDTO hospitalSearchRequestDTO,
             PagingDTO pagingDTO
     ) {
-        return em.createQuery("select distinct h " +
+        return em.createQuery("select h " +
                         "from Hospital h "+
                         "where h.hosName LIKE :keyword", Hospital.class)
                 .setParameter("keyword", "%"+ hospitalSearchRequestDTO.getKeyword()+"%")
@@ -48,7 +48,7 @@ public class HospitalRepository {
             HospitalSearchRequestDTO hospitalSearchRequestDTO,
             PagingDTO pagingDTO
     ) {
-        return em.createQuery("select distinct h " +
+        return em.createQuery("select h " +
                         "from Hospital h "+
                         "left join Sigudong s " +
                         "ON h.hosSigudong.sigudongId = s.sigudongId " +
