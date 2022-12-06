@@ -57,7 +57,7 @@
         <div class="pagination font-alt">
             <a href="#"><i class="fa fa-angle-left"></i></a>
             <a th:each="page : ${pages}"
-               th:href="@{${#request.requestURI}(keyword=${param.keyword}, sido=${param.sido},sigungu=${param.sigungu},page=${page})}"
+               th:href="@{${#request.requestURI}(keyword=${param.keyword}, sido=${param.sido}?:0,sigungu=${param.sigungu}?:0,page=${page})}"
                th:text="${page}">no</a>
             <a href="#"><i class="fa fa-angle-right"></i></a>
         </div>
@@ -116,14 +116,14 @@
         sido.onchange = function () {
             sigungu.innerHTML = sigunguArray[this.selectedIndex-1];
             if (this.selectedIndex - 1 == -1) {
-                sigungu.innerHTML = "<option selected=\"selected\">시/군/구</option>";
+                sigungu.innerHTML = "<option selected=\"selected\" value='0'>시/군/구</option>";
             }
         }
         //상태 유지
-        [# th:if="${param.sido}!=0"]
+        [# th:if="${param.sido}!=0 and ${param.sido}!=null"]
             $("#sido option[value="+[[${param.sido}]]+"]").attr("selected", true);
             sigungu.innerHTML = sigunguArray[sido.selectedIndex-1];
-            [# th:if="${param.sigungu}!=0"]
+            [# th:if="${param.sigungu}!=0 and ${param.sigungu}!=null"]
                 $("#sigungu option[value="+[[${param.sigungu}]]+"]").attr("selected", true);
             [/]
         [/]

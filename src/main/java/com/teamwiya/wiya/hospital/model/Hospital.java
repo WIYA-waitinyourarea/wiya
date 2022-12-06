@@ -4,6 +4,7 @@ import com.teamwiya.wiya.hospital.dto.HospitalSaveForm;
 import com.teamwiya.wiya.hospital.dto.HospitalUpdateForm;
 import com.teamwiya.wiya.TimeStamped;
 import lombok.*;
+import org.hibernate.annotations.BatchSize;
 import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
@@ -40,6 +41,7 @@ public class Hospital extends TimeStamped {
     @JoinColumn(name = "hos_sigudong")
     private Sigudong hosSigudong;
 
+    @BatchSize(size = 50)
     @OneToMany(mappedBy = "hospital",orphanRemoval = true)
     private List<HosImg> hosImgs = new ArrayList<>();
 
@@ -54,7 +56,7 @@ public class Hospital extends TimeStamped {
                 .hosSigudong(dong)
                 .hosOpenhour(form.getHosOpenHour())
                 .build();
-     }
+    }
 
      /*상태 유지를 이용한 업데이트*/
     public void update(HospitalUpdateForm hospitalUpdateForm, Address address, Sigudong sigudong) {

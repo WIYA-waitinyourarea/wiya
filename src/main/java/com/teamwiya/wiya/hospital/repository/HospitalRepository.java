@@ -30,20 +30,14 @@ public class HospitalRepository {
         return em.createQuery("select h from Hospital h ", Hospital.class)
                 .getResultList();
     }
-    /*병원명 검색*/
-    public List<Hospital> findByHosNameContaining(String keyword) {
-        em.createQuery("");
-        return em.createQuery("select h from Hospital h where h.hosName LIKE :keyword", Hospital.class)
-                .setParameter("keyword", "%"+keyword+"%")
-                .getResultList();
-    }
 
     public List<Hospital> findByHosName(
             HospitalSearchRequestDTO hospitalSearchRequestDTO,
             PagingDTO pagingDTO
     ) {
-        return em.createQuery("select h from Hospital h" +
-                        " where h.hosName LIKE :keyword", Hospital.class)
+        return em.createQuery("select distinct h " +
+                        "from Hospital h "+
+                        "where h.hosName LIKE :keyword", Hospital.class)
                 .setParameter("keyword", "%"+ hospitalSearchRequestDTO.getKeyword()+"%")
                 .setFirstResult(pagingDTO.getOffset())
                 .setMaxResults(pagingDTO.getLimit())
@@ -54,13 +48,14 @@ public class HospitalRepository {
             HospitalSearchRequestDTO hospitalSearchRequestDTO,
             PagingDTO pagingDTO
     ) {
-        return em.createQuery("select h " +
-                        " from Hospital h LEFT JOIN Sigudong s " +
-                        " ON h.hosSigudong.sigudongId = s.sigudongId" +
-                        " WHERE h.hosName LIKE :keyword " +
-                        " AND (s.parent.sigudongId = :sigudongId" +
-                        " OR s.sigudongId = :sigudongId) ", Hospital.class)
-                .setParameter("keyword", "%"+ hospitalSearchRequestDTO.getKeyword()+"%")
+        return em.createQuery("select distinct h " +
+                        "from Hospital h "+
+                        "left join Sigudong s " +
+                        "ON h.hosSigudong.sigudongId = s.sigudongId " +
+                        "WHERE h.hosName LIKE :keyword " +
+                        "AND (s.parent.sigudongId = :sigudongId " +
+                        "OR s.sigudongId = :sigudongId) ", Hospital.class)
+                .setParameter("keyword", "%" + hospitalSearchRequestDTO.getKeyword()+"%")
                 .setParameter("sigudongId", hospitalSearchRequestDTO.getSido())
                 .setFirstResult(pagingDTO.getOffset())
                 .setMaxResults(pagingDTO.getLimit())
@@ -71,9 +66,10 @@ public class HospitalRepository {
             HospitalSearchRequestDTO hospitalSearchRequestDTO,
             PagingDTO pagingDTO
     ) {
-        return em.createQuery("select h from Hospital h" +
-                        " where h.hosName LIKE :keyword" +
-                        " and h.hosSigudong.sigudongId = :sigudongId", Hospital.class)
+        return em.createQuery("select h " +
+                        "from Hospital h " +
+                        "where h.hosName LIKE :keyword " +
+                        "and h.hosSigudong.sigudongId = :sigudongId", Hospital.class)
                 .setParameter("keyword", "%"+ hospitalSearchRequestDTO.getKeyword()+"%")
                 .setParameter("sigudongId", hospitalSearchRequestDTO.getSigungu())
                 .setFirstResult(pagingDTO.getOffset())

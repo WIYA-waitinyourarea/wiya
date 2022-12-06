@@ -104,6 +104,11 @@ public class HospitalService {
 
         pagingDTO.updateOffset();
         List<Hospital> hospitals = hospitalRepository.search(hospitalSearchRequestDTO, pagingDTO);
+
+        for (Hospital hospital : hospitals) {
+            System.out.println(hospital);
+        }
+
         result.hospitalEntityToDto(hospitals);
 
         return result;

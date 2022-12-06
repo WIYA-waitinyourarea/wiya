@@ -7,7 +7,6 @@ import org.json.simple.JSONObject;
 
 import javax.persistence.Embeddable;
 
-@Slf4j
 @Embeddable
 @Getter
 @Setter

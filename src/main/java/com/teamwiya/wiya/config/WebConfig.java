@@ -30,7 +30,10 @@ public class WebConfig implements WebMvcConfigurer {
                         "/images/**",
                         "/member/sendmail",
                         "/member/findpwd",
-                        "/member/changepwd"
+                        "/member/changepwd",
+                        "/default_image.webp",
+                        "/hospital/list",
+                        "/hospital/detail"
                 );
 
         /*비밀찾기 후 변경하는 인터셉터*/
